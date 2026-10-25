@@ -42,14 +42,29 @@ const CONFIG = {
     window.addEventListener("scroll", onScroll, { passive: true });
   }
 
-  // Hero video: show it only once it can play, so the emblem stays if it fails.
+  const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Hero video: show it only once it can play, so the emblem stays if it fails. Reduced motion keeps the still poster.
   document.querySelectorAll(".arch video").forEach(v => {
     const show = () => v.closest(".arch").classList.add("has-video");
+    if (reduce) { v.removeAttribute("autoplay"); v.pause(); }
     if (v.readyState >= 2) show(); else v.addEventListener("loadeddata", show, { once: true });
   });
 
+  // The wider film only loads and plays while it is on screen.
+  const films = document.querySelectorAll(".film video");
+  if (!reduce && "IntersectionObserver" in window) {
+    const filmIO = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        const v = e.target;
+        if (e.isIntersecting) { v.preload = "auto"; const p = v.play(); if (p && p.catch) p.catch(() => {}); }
+        else v.pause();
+      });
+    }, { threshold: 0.25 });
+    films.forEach(v => filmIO.observe(v));
+  }
+
   // Scroll reveals. Only content that starts below the fold is hidden, so the first screen never waits on script.
-  const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (reduce || !("IntersectionObserver" in window)) return;
   const fold = window.innerHeight * 0.92;
   const below = el => el.getBoundingClientRect().top > fold;
@@ -73,7 +88,7 @@ const CONFIG = {
   }, { rootMargin: "0px 0px -8% 0px", threshold: 0.12 });
 
   const staggered = [".principle", ".service", ".journey li", ".join-card"];
-  document.querySelectorAll(".section-head, .approach-copy, .care-note, .welcome .display, .footer-top, " + staggered.join(", ")).forEach(el => {
+  document.querySelectorAll(".section-head, .approach-copy, .care-note, .welcome .display, .film, .footer-top, " + staggered.join(", ")).forEach(el => {
     if (!below(el)) return;
     if (staggered.some(sel => el.matches(sel))) {
       const i = Array.prototype.indexOf.call(el.parentElement.children, el);
