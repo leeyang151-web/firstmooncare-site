@@ -3,269 +3,212 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="First Moon 初月: East Asian-style postnatal care for new families in the UK. Take our anonymous survey or join the waitlist.">
+<title>First Moon 初月</title>
+<meta name="description" content="First Moon 初月: calm, practical postnatal support at home for new families in the UK. Take our anonymous survey or join the waitlist.">
+<meta name="claude:viewport-fit-sides" content="cover">
 <link rel="icon" type="image/png" href="logo/favicon.png">
 <link rel="apple-touch-icon" href="logo/apple-touch-icon.png">
-<title>First Moon 初月</title>
-<meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Hanken+Grotesk:wght@400;500;600&family=Noto+Serif+TC:wght@500;700&family=Noto+Sans+TC:wght@400;500&display=swap">
-<style>
-/* Layout: a single quiet column on ivory; the mother-and-moon emblem leads, taupe ink with ginger-gold accents. */
-:root {
-  --paper: #F6F2E7;
-  --paper-2: #EDE6D6;
-  --ink: #4A3F35;
-  --ink-soft: #776656;
-  --red-date: #7A6453;
-  --ginger: #A9864F;
-  --celadon: #B9C7B5;
-  --celadon-ink: #5B6E58;
-  --rule: #DFD5C2;
-  --on-red: #FBF8F1;
-  --display: "Cormorant Garamond", "Noto Serif TC", Georgia, serif;
-  --zh-display: "Noto Serif TC", "Songti TC", "PMingLiU", serif;
-  --body: "Hanken Grotesk", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif;
-  --logo-light: block;
-  --logo-dark: none;
-  --step-0: 1.0625rem;
-  --step-1: 1.3rem;
-  --step-2: 1.9rem;
-  --step-3: clamp(2.6rem, 7vw, 4.4rem);
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --paper: #1C1A17; --paper-2: #26231F; --ink: #EDE3D3; --ink-soft: #B9AD9C;
-    --red-date: #D6B680; --ginger: #D6B680; --celadon: #6F8C7A; --celadon-ink: #A9C7B3;
-    --rule: #3A352E; --on-red: #1C1A17; color-scheme: dark;
-    --logo-light: none; --logo-dark: block;
-  }
-}
-:root[data-theme="dark"] {
-  --paper: #1C1A17; --paper-2: #26231F; --ink: #EDE3D3; --ink-soft: #B9AD9C;
-  --red-date: #D6B680; --ginger: #D6B680; --celadon: #6F8C7A; --celadon-ink: #A9C7B3;
-  --rule: #3A352E; --on-red: #1C1A17; color-scheme: dark;
-  --logo-light: none; --logo-dark: block;
-}
-* { box-sizing: border-box; }
-body { background: var(--paper); color: var(--ink); font-family: var(--body); font-size: var(--step-0); line-height: 1.65; margin: 0; }
-.wrap { max-width: 46rem; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
-.site[data-lang="en"] .zh, .site[data-lang="zh"] .en { display: none !important; }
-.site[data-lang="zh"] { line-height: 1.85; }
-.zh h1, .zh h2, h2 .zh, h1 .zh { font-family: var(--zh-display); font-weight: 700; }
-a { color: var(--red-date); text-underline-offset: 3px; }
-a:focus-visible, button:focus-visible { outline: 2px solid var(--ginger); outline-offset: 3px; border-radius: 3px; }
-
-/* header */
-.top { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 20px; }
-.mark { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); }
-.mark img { width: 40px; height: auto; flex: none; }
-.mark b { font-family: var(--display); font-weight: 500; font-size: 1.55rem; letter-spacing: .01em; }
-.lt { display: var(--logo-light); } .dk { display: var(--logo-dark); }
-.mark span { font-family: var(--zh-display); font-size: .95rem; color: var(--ink-soft); }
-.lang { display: flex; border: 1px solid var(--rule); border-radius: 999px; padding: 3px; }
-.lang button { font: inherit; font-size: .85rem; border: 0; background: none; color: var(--ink-soft); padding: 4px 12px; border-radius: 999px; cursor: pointer; }
-.lang button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
-
-/* hero */
-.hero { padding-block: 40px 56px; display: grid; gap: 22px; }
-.lockup { width: min(300px, 70vw); max-width: 100%; height: auto; margin-bottom: 8px; }
-h1 { font-family: var(--display); font-weight: 500; font-size: var(--step-3); line-height: 1.04; margin: 0; text-wrap: balance; letter-spacing: -.01em; }
-h1 em { color: var(--ginger); }
-.lede { font-size: var(--step-1); color: var(--ink-soft); max-width: 34rem; margin: 0; text-wrap: pretty; }
-.ctas { display: flex; flex-wrap: wrap; gap: 12px; padding-top: 8px; }
-.btn { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; font-weight: 600; font-size: 1rem; padding: 12px 20px; border-radius: 999px; border: 1.5px solid var(--red-date); }
-.btn.primary { background: var(--red-date); color: var(--on-red); }
-.btn.ghost { color: var(--red-date); }
-.status { display: inline-flex; gap: 8px; align-items: center; font-size: .9rem; color: var(--celadon-ink); }
-.status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--celadon); }
-
-/* sections */
-section { border-top: 1px solid var(--rule); padding-block: 48px; }
-.eyebrow { font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ginger); font-weight: 600; margin: 0 0 10px; }
-.site[data-lang="zh"] .eyebrow { letter-spacing: .3em; }
-h2 { font-family: var(--display); font-weight: 500; font-size: var(--step-2); line-height: 1.15; margin: 0 0 16px; text-wrap: balance; }
-p { margin: 0 0 14px; max-width: 65ch; }
-.pillars { list-style: none; padding: 0; margin: 24px 0 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); gap: 28px 32px; }
-.pillars li { display: grid; gap: 4px; align-content: start; }
-.pillars .glyph { font-family: var(--zh-display); font-size: 1.6rem; color: var(--ginger); line-height: 1; }
-.pillars strong { font-weight: 600; }
-.pillars p { color: var(--ink-soft); margin: 0; font-size: .98rem; }
-
-.plan { display: grid; gap: 0; margin-top: 20px; }
-.plan div { display: grid; grid-template-columns: 9.5rem 1fr; gap: 16px; padding-block: 14px; border-bottom: 1px dashed var(--rule); }
-.plan div:last-child { border-bottom: 0; }
-.plan dt { font-weight: 600; }
-.plan dd { margin: 0; color: var(--ink-soft); }
-@media (max-width: 520px) { .plan div { grid-template-columns: 1fr; gap: 2px; } }
-.note { font-size: .92rem; color: var(--ink-soft); background: var(--paper-2); padding: 14px 16px; border-radius: 8px; margin-top: 20px; max-width: none; }
-
-.join { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); gap: 20px; margin-top: 24px; }
-.card { border: 1px solid var(--rule); border-radius: 10px; padding: 22px; display: grid; gap: 10px; align-content: start; background: var(--paper); }
-.card h3 { margin: 0; font-size: 1.15rem; font-weight: 600; }
-.card p { margin: 0; color: var(--ink-soft); font-size: .98rem; }
-.card .meta { font-size: .85rem; color: var(--celadon-ink); }
-.card .btn { justify-self: start; margin-top: 6px; }
-.btn[aria-disabled="true"] { opacity: .55; pointer-events: none; }
-
-.privacy h3 { font-size: 1rem; font-weight: 600; margin: 22px 0 4px; }
-.privacy div p, .privacy li { font-size: .96rem; color: var(--ink-soft); }
-.privacy ul { margin: 0 0 14px; padding-left: 1.2rem; max-width: 65ch; }
-
-footer { border-top: 1px solid var(--rule); padding-block: 28px 40px; font-size: .88rem; color: var(--ink-soft); display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
-.email { font-family: var(--body); user-select: all; }
-</style>
-
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Hanken+Grotesk:wght@400;500;600&family=Noto+Serif+TC:wght@500&family=Noto+Sans+TC:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
 <div class="site" id="site" data-lang="en">
-  <div class="wrap">
-    <header class="top">
-      <a class="mark" href="#top" aria-label="First Moon 初月">
-        <img class="lt" src="logo/emblem.png" alt="" width="400" height="429"><img class="dk" src="logo/emblem-dark.png" alt="" width="400" height="429">
-        <b>first moon</b><span>初月</span>
+
+  <header class="nav">
+    <div class="wrap nav-in">
+      <a class="brand" href="#top" aria-label="First Moon home">
+        <img src="logo/emblem.png" alt="" width="400" height="429">
+        <b>first moon</b>
       </a>
-      <div class="lang" role="group" aria-label="Language / 語言">
-        <button type="button" id="lang-en" data-set="en" aria-pressed="true">EN</button>
-        <button type="button" id="lang-zh" data-set="zh" aria-pressed="false">繁中</button>
-      </div>
-    </header>
-
-    <main id="top">
-      <div class="hero">
-        <img class="lockup lt" src="logo/logo.png" alt="First Moon, post natal service" width="780" height="672"><img class="lockup dk" src="logo/logo-dark.png" alt="First Moon, post natal service" width="780" height="672">
-        <h1 class="en">Calmer <em>early weeks</em> for new families in the UK.</h1>
-        <h1 class="zh" lang="zh-Hant">給英國的新手家庭，<em>安穩的產後時光</em>。</h1>
-        <p class="lede en">In many East Asian families, the weeks after birth are a time to rest, eat warming food and let others help with the baby. We want to make that kind of care easy to arrange in the UK, for as long as your family needs it.</p>
-        <p class="lede zh" lang="zh-Hant">在許多東亞家庭裡，產後是好好休息、吃溫補料理、讓別人幫忙照顧寶寶的時候。我們希望在英國也能輕鬆安排這樣的照顧，並依您家庭的需要安排時間長短。</p>
-        <div class="ctas">
-          <a class="btn primary js-survey" href="#join"><span class="en">Take the 5-minute survey</span><span class="zh">填寫 5 分鐘問卷</span></a>
-          <a class="btn ghost js-waitlist" href="#join"><span class="en">Join the waitlist</span><span class="zh">加入候補名單</span></a>
+      <nav class="nav-links" aria-label="Sections">
+        <a href="#approach"><span class="en">Our approach</span><span class="zh">我們的理念</span></a>
+        <a href="#services"><span class="en">Services</span><span class="zh">服務規劃</span></a>
+        <a href="#journey"><span class="en">Where we are</span><span class="zh">目前進度</span></a>
+        <a href="#take-part"><span class="en">Take part</span><span class="zh">一起參與</span></a>
+      </nav>
+      <div class="nav-right">
+        <div class="lang" role="group" aria-label="Language / 語言">
+          <button type="button" id="lang-en" data-set="en" aria-pressed="true">EN</button>
+          <button type="button" id="lang-zh" data-set="zh" aria-pressed="false">中文</button>
         </div>
-        <span class="status"><span class="en">Listening to families until December 2026. Nothing is for sale yet.</span><span class="zh">2026 年 12 月前持續聆聽家庭的需要，目前尚未銷售任何服務。</span></span>
+        <a class="btn primary" href="#take-part"><span class="en">Join the waitlist</span><span class="zh">加入候補名單</span></a>
       </div>
+    </div>
+  </header>
 
-      <section id="idea">
-        <p class="eyebrow"><span class="en">The tradition</span><span class="zh">傳統</span></p>
-        <h2><span class="en">Where the idea comes from</span><span class="zh">靈感來自坐月子</span></h2>
-        <p class="en">Our inspiration is 坐月子 (zuò yuèzi) in Mandarin, or 坐月 (co5 jyut6) in Cantonese: the tradition of looking after a mother in the month after birth. It rests on a few simple ideas, and they are just as useful in the weeks and months that follow.</p>
-        <p class="zh" lang="zh-Hant">我們的靈感來自坐月子的傳統。它圍繞著幾個簡單的觀念，而這些觀念在產後的數週甚至數月同樣受用。</p>
-        <ul class="pillars">
-          <li><span class="glyph">息</span><strong class="en">Rest</strong><strong class="zh">休息</strong><p class="en">Time to recover, with fewer chores and fewer visitors.</p><p class="zh">減少家務與訪客，專心恢復體力。</p></li>
-          <li><span class="glyph">膳</span><strong class="en">Nourishing food</strong><strong class="zh">溫補飲食</strong><p class="en">Warm soups and meals cooked for you, day after day.</p><p class="zh">每天為您準備溫熱的湯品與餐點。</p></li>
-          <li><span class="glyph">助</span><strong class="en">An extra pair of hands</strong><strong class="zh">有人幫忙</strong><p class="en">Someone experienced with newborns, so you can sleep.</p><p class="zh">有經驗的人幫忙照顧新生兒，讓您可以好好睡覺。</p></li>
-        </ul>
-      </section>
+  <main id="top">
+    <div class="wrap hero">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="en">Postnatal care at home</span><span class="zh">到府產後照顧</span></p>
+        <h1><span class="en">Because every new mother deserves <em>rest.</em></span><span class="zh">每一位新手媽媽，都值得<em>好好休息</em>。</span></h1>
+        <p class="lede"><span class="en">First Moon brings calm, practical support to your home in the weeks after birth: someone to help with the baby, nourishing meals, and time for you to recover.</span><span class="zh">在產後的日子裡，初月為您的家帶來安心而實際的支援：有人幫忙照顧寶寶、有營養的餐點，讓您有時間好好恢復。</span></p>
+        <div class="hero-ctas">
+          <a class="btn primary js-survey" href="#take-part"><span class="en">Take the 5-minute survey</span><span class="zh">填寫 5 分鐘問卷</span>
+            <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+          <a class="btn quiet js-waitlist" href="#take-part"><span class="en">Join the waitlist</span><span class="zh">加入候補名單</span></a>
+        </div>
+        <p class="listening"><span class="en">Listening to families until December 2026. Nothing is for sale yet.</span><span class="zh">2026 年 12 月前持續聆聽家庭的需要，目前尚未銷售任何服務。</span></p>
+      </div>
+      <div class="arch">
+        <img src="logo/emblem.png" alt="First Moon emblem: a mother holding her baby inside a crescent moon" width="400" height="429">
+        <div class="arch-note">
+          <b><span class="en">Survey now open</span><span class="zh">問卷開放中</span></b>
+          <span><span class="en">5 minutes · anonymous</span><span class="zh">約 5 分鐘 · 匿名</span></span>
+        </div>
+      </div>
+    </div>
 
-      <section id="plan">
-        <p class="eyebrow"><span class="en">What we're exploring</span><span class="zh">我們正在規劃</span></p>
-        <h2><span class="en">How First Moon could help</span><span class="zh">初月可以怎麼幫忙</span></h2>
-        <p class="en">These are ideas we are testing, not services you can book yet. Your answers decide which ones we build first.</p>
-        <p class="zh" lang="zh-Hant">以下是我們正在評估的構想，目前還不能預訂。您的意見將決定我們先做哪一項。</p>
-        <dl class="plan">
-          <div><dt><span class="en">Postnatal carer at home</span><span class="zh">到府產後照顧</span></dt><dd><span class="en">An experienced carer who comes to your home to help with the baby, the household and your meals, for a few weeks or longer.</span><span class="zh">有經驗的照顧者到府協助照顧寶寶、家務與飲食，可安排數週或更長時間。</span></dd></div>
-          <div><dt><span class="en">Meal delivery</span><span class="zh">產後餐外送</span></dt><dd><span class="en">Traditional postnatal meals and soups, delivered to your door.</span><span class="zh">傳統產後餐點與湯品，直接送到府上。</span></dd></div>
-          <div><dt><span class="en">Newborn workshop</span><span class="zh">新生兒照顧課程</span></dt><dd><span class="en">A practical class for couples before the birth: feeding, bathing, sleep and planning your support after the birth.</span><span class="zh">為準爸媽設計的實用課程：餵奶、洗澡、睡眠，以及產後支援規劃。</span></dd></div>
-          <div><dt><span class="en">Later: a place to stay</span><span class="zh">未來：產後住宿</span></dt><dd><span class="en">Rooms where mother and baby are looked after during a stay, if there is enough demand.</span><span class="zh">若需求足夠，我們希望提供讓媽媽與寶寶安心入住、受到照顧的空間。</span></dd></div>
-        </dl>
-        <p class="note"><span class="en">First Moon offers rest, food and practical help. It is not a medical service. Your NHS maternity team and GP remain responsible for your health and your baby's health.</span><span class="zh">初月提供的是休息、飲食與生活上的協助，並非醫療服務。您與寶寶的健康仍由 NHS 產科團隊及家庭醫師（GP）負責。</span></p>
-      </section>
+    <section class="welcome" aria-label="Welcome">
+      <div class="wrap">
+        <div class="phases" aria-hidden="true">
+          <svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="7.5" fill="none" stroke="#C2A27A" stroke-width="1.2"/></svg>
+          <svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="7.5" fill="none" stroke="#C2A27A" stroke-width="1.2"/><path d="M10 2.5a7.5 7.5 0 0 1 0 15a4 7.5 0 0 0 0-15z" fill="#C2A27A"/></svg>
+          <svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="7.5" fill="none" stroke="#C2A27A" stroke-width="1.2"/><path d="M10 2.5a7.5 7.5 0 0 1 0 15z" fill="#C2A27A"/></svg>
+          <svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="7.5" fill="#C2A27A"/></svg>
+        </div>
+        <p class="display"><span class="en">Welcome to First Moon. We believe the weeks after birth should be for rest and recovery, with the right help close at hand.</span><span class="zh">歡迎來到初月。我們相信，產後的日子應該用來休息與恢復，而您需要的幫助，就在身邊。</span></p>
+      </div>
+    </section>
 
-      <section id="join">
-        <p class="eyebrow"><span class="en">Help us shape it</span><span class="zh">一起參與</span></p>
-        <h2><span class="en">Two ways to take part</span><span class="zh">兩種參與方式</span></h2>
+    <section class="section" id="approach">
+      <div class="wrap approach">
+        <div class="approach-copy">
+          <p class="eyebrow"><span class="en">Our approach</span><span class="zh">我們的理念</span></p>
+          <h2><span class="en">Inspired by a <em>tradition</em> of rest</span><span class="zh">靈感來自<em>傳統</em>的產後休養</span></h2>
+          <p class="muted"><span class="en">In many East Asian families, a new mother is looked after in the weeks after birth. She rests, eats warming food, and others help with the baby. In Mandarin this is called zuò yuèzi.</span><span class="zh">在許多東亞家庭裡，產後的媽媽會被細心照顧：好好休息、吃溫補的餐點，並由家人幫忙照顧寶寶，這就是坐月子。</span></p>
+          <p class="muted"><span class="en">We take the heart of that idea and shape it for modern families in the UK, whatever their background, for as long as they need it.</span><span class="zh">我們延續這份用心，為在英國的現代家庭量身打造。不論背景，都能依您的需要安排。</span></p>
+        </div>
+        <div class="principles">
+          <div class="principle">
+            <span class="icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M21 5.5a11 11 0 1 0 6 16.5A12 12 0 0 1 21 5.5z"/></svg></span>
+            <div><h3><span class="en">Rest</span><span class="zh">休息</span></h3><p><span class="en">Fewer chores and fewer visitors, so your body can recover.</span><span class="zh">減少家務與訪客，讓身體好好恢復。</span></p></div>
+          </div>
+          <div class="principle">
+            <span class="icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M5 16h22a11 10 0 0 1-22 0z"/><path d="M12 6c-1.4 1.8 1.4 2.8 0 4.6M16 5c-1.4 1.8 1.4 2.8 0 4.6M20 6c-1.4 1.8 1.4 2.8 0 4.6"/></svg></span>
+            <div><h3><span class="en">Nourishment</span><span class="zh">營養</span></h3><p><span class="en">Warm, balanced meals and soups, cooked for you.</span><span class="zh">溫暖均衡的餐點與湯品，為您用心烹調。</span></p></div>
+          </div>
+          <div class="principle">
+            <span class="icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M16 26s-10-6-10-13a5 5 0 0 1 10-2 5 5 0 0 1 10 2c0 7-10 13-10 13z"/></svg></span>
+            <div><h3><span class="en">Support</span><span class="zh">支援</span></h3><p><span class="en">An experienced pair of hands with the baby, so you can sleep.</span><span class="zh">有經驗的人幫忙照顧寶寶，讓您可以安心入睡。</span></p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="services" style="padding-top: 0">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow"><span class="en">What we're exploring</span><span class="zh">我們正在規劃</span></p>
+          <h2><span class="en">Support we're <em>shaping</em> with you</span><span class="zh">與您一起<em>規劃</em>的照顧</span></h2>
+          <p class="muted"><span class="en">These are ideas we are testing, not services you can book yet. Your answers decide which ones we offer first.</span><span class="zh">以下是我們正在評估的構想，目前還不能預訂。您的意見將決定我們先推出哪一項。</span></p>
+        </div>
+        <div class="services">
+          <article class="service">
+            <span class="icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M5 15 16 6l11 9"/><path d="M8 13v13h16V13"/><path d="M13.5 26v-6h5v6"/></svg></span>
+            <h3><span class="en">Postnatal carer at home</span><span class="zh">到府產後照顧</span></h3>
+            <p><span class="en">An experienced carer who comes to your home to help with the baby, the household and your meals, for a few weeks or longer.</span><span class="zh">有經驗的照顧者到府協助照顧寶寶、家務與飲食，可安排數週或更長時間。</span></p>
+            <span class="tag"><span class="en">Exploring</span><span class="zh">規劃中</span></span>
+          </article>
+          <article class="service">
+            <span class="icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M5 16h22a11 10 0 0 1-22 0z"/><path d="M12 6c-1.4 1.8 1.4 2.8 0 4.6M16 5c-1.4 1.8 1.4 2.8 0 4.6M20 6c-1.4 1.8 1.4 2.8 0 4.6"/></svg></span>
+            <h3><span class="en">Nourishing meal delivery</span><span class="zh">產後餐點外送</span></h3>
+            <p><span class="en">Traditional postnatal meals and soups, prepared fresh and delivered to your door.</span><span class="zh">傳統產後餐點與湯品，新鮮製作，直接送到府上。</span></p>
+            <span class="tag"><span class="en">Exploring</span><span class="zh">規劃中</span></span>
+          </article>
+          <article class="service">
+            <span class="icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M6 8h7a3 3 0 0 1 3 3v15a2.5 2.5 0 0 0-2.5-2.5H6z"/><path d="M26 8h-7a3 3 0 0 0-3 3v15a2.5 2.5 0 0 1 2.5-2.5H26z"/></svg></span>
+            <h3><span class="en">Newborn care workshop</span><span class="zh">新生兒照顧課程</span></h3>
+            <p><span class="en">A practical class for parents-to-be: feeding, bathing, sleep and planning your support after the birth.</span><span class="zh">為準爸媽設計的實用課程：餵奶、洗澡、睡眠，以及產後支援規劃。</span></p>
+            <span class="tag"><span class="en">Exploring</span><span class="zh">規劃中</span></span>
+          </article>
+          <article class="service later">
+            <span class="icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M4 25V9"/><path d="M4 19h24v6"/><path d="M28 19v-2a4 4 0 0 0-4-4H14v6"/><circle cx="9" cy="15" r="2.2"/></svg></span>
+            <h3><span class="en">A place to stay</span><span class="zh">產後住宿</span></h3>
+            <p><span class="en">Rooms where mother and baby are looked after during a restful stay, if there is enough demand.</span><span class="zh">若需求足夠，我們希望提供讓媽媽與寶寶安心入住、受到照顧的空間。</span></p>
+            <span class="tag"><span class="en">Later</span><span class="zh">未來</span></span>
+          </article>
+        </div>
+        <p class="care-note">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>
+          <span><span class="en">First Moon offers rest, food and practical help. It is not a medical service. Your NHS maternity team and GP remain responsible for your health and your baby's health.</span><span class="zh">初月提供的是休息、飲食與生活上的協助，並非醫療服務。您與寶寶的健康仍由 NHS 產科團隊及家庭醫師（GP）負責。</span></span>
+        </p>
+      </div>
+    </section>
+
+    <section class="section journey-band" id="journey">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow"><span class="en">Where we are</span><span class="zh">目前進度</span></p>
+          <h2><span class="en">One phase at a <em>time</em></span><span class="zh">一步一步，<em>循序漸進</em></span></h2>
+        </div>
+        <ol class="journey">
+          <li class="now">
+            <span class="moon" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="13" fill="#FBF8F3" stroke="#7F8C77" stroke-width="1.3"/></svg></span>
+            <span class="when"><span class="en">Now to December 2026</span><span class="zh">現在至 2026 年 12 月</span></span>
+            <h3><span class="en">Listening</span><span class="zh">聆聽需求</span></h3>
+            <p><span class="en">We're speaking with families and running an anonymous survey to learn what support matters most.</span><span class="zh">我們正在與家庭交流，並透過匿名問卷了解大家最需要的支援。</span></p>
+          </li>
+          <li>
+            <span class="moon" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="13" fill="#FBF8F3" stroke="#7F8C77" stroke-width="1.3"/><path d="M20 7a13 13 0 0 1 0 26z" fill="#C2A27A"/></svg></span>
+            <span class="when"><span class="en">Early 2027</span><span class="zh">2027 年初</span></span>
+            <h3><span class="en">First services at home</span><span class="zh">首批到府服務</span></h3>
+            <p><span class="en">If families want them, we start with carers and meals at home.</span><span class="zh">若家庭有需要，我們將從到府照顧與餐點開始。</span></p>
+          </li>
+          <li>
+            <span class="moon" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="13" fill="#C2A27A" stroke="#C2A27A" stroke-width="1.3"/></svg></span>
+            <span class="when"><span class="en">Later</span><span class="zh">未來</span></span>
+            <h3><span class="en">A place to stay</span><span class="zh">產後住宿</span></h3>
+            <p><span class="en">With enough demand, rooms where mother and baby can rest and be looked after.</span><span class="zh">若需求足夠，提供讓媽媽與寶寶安心休養的空間。</span></p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section" id="take-part">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow"><span class="en">Take part</span><span class="zh">一起參與</span></p>
+          <h2><span class="en">Help us shape <em>First Moon</em></span><span class="zh">一起打造<em>初月</em></span></h2>
+        </div>
         <div class="join">
-          <div class="card">
-            <h3><span class="en">Anonymous survey</span><span class="zh">匿名問卷</span></h3>
-            <p class="en">Tell us what support you had, or plan to have, after the birth and what you would pay for. We don't ask for your name or email.</p>
-            <p class="zh" lang="zh-Hant">告訴我們您過去或打算在產後安排哪些支援，以及願意付費的項目。問卷不會詢問姓名或電子郵件。</p>
+          <div class="join-card survey">
+            <h3><span class="en">Share your experience</span><span class="zh">分享您的經驗</span></h3>
+            <p><span class="en">Tell us what support you had, or plan to have, after the birth and what you would value. We don't ask for your name or email.</span><span class="zh">告訴我們您過去或打算在產後安排哪些支援，以及您重視的項目。問卷不會詢問姓名或電子郵件。</span></p>
             <span class="meta"><span class="en">About 5 minutes · English or 中文</span><span class="zh">約 5 分鐘 · 中文或英文</span></span>
-            <a class="btn primary js-survey" href="#join" target="_blank" rel="noopener"><span class="en">Open the survey</span><span class="zh">開始填寫</span></a>
+            <a class="btn primary js-survey" href="#take-part"><span class="en">Take the survey</span><span class="zh">開始填寫</span></a>
           </div>
-          <div class="card">
-            <h3><span class="en">Waitlist</span><span class="zh">候補名單</span></h3>
-            <p class="en">Leave your name, email and due month. We will only email you about First Moon opening, and you can leave at any time.</p>
-            <p class="zh" lang="zh-Hant">留下姓名、電子郵件與預產月份。我們只會在初月開放時通知您，您隨時可以退出。</p>
+          <div class="join-card waitlist">
+            <h3><span class="en">Join the waitlist</span><span class="zh">加入候補名單</span></h3>
+            <p class="muted"><span class="en">Leave your name, email and due month. We'll only email you about First Moon opening, and you can leave at any time.</span><span class="zh">留下姓名、電子郵件與預產月份。我們只會在初月開放時通知您，您隨時可以退出。</span></p>
             <span class="meta"><span class="en">A separate form, kept apart from the survey</span><span class="zh">與問卷分開的獨立表單</span></span>
-            <a class="btn ghost js-waitlist" href="#join" target="_blank" rel="noopener"><span class="en">Join the waitlist</span><span class="zh">加入候補名單</span></a>
+            <a class="btn primary js-waitlist" href="#take-part"><span class="en">Join the waitlist</span><span class="zh">加入候補名單</span></a>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
+  </main>
 
-      <section id="privacy" class="privacy">
-        <p class="eyebrow"><span class="en">Privacy notice</span><span class="zh">隱私權聲明</span></p>
-        <h2><span class="en">How we use your information</span><span class="zh">我們如何使用您的資料</span></h2>
-        <div class="en">
-          <p>First Moon is a new project run by its founders in the UK. We are not yet a registered company; we will update this notice when FirstMoon Care Ltd is set up. Last updated 25 October 2026.</p>
-          <h3>What we collect</h3>
-          <ul>
-            <li><b>Survey:</b> your answers only. We do not ask for your name, email or contact details, so please don't add them in free-text answers.</li>
-            <li><b>Waitlist:</b> your name, email address, due month (optional) and preferred language.</li>
-          </ul>
-          <h3>Why we use it</h3>
-          <p>Survey answers help us decide whether and how to start First Moon. Waitlist details are used only to tell you when we open. Our legal basis is your consent. A due month is health information, so we ask for your explicit consent on the waitlist form.</p>
-          <h3>Where it is kept and for how long</h3>
-          <p>Both forms run on Google Forms, and the answers are stored in our Google account. Google may process data outside the UK under its standard safeguards. We keep survey answers until our research ends and then keep only totals. We delete waitlist details when you ask, or 12 months after you sign up if we have not launched.</p>
-          <h3>Your rights</h3>
-          <p>You can ask to see, correct or delete your waitlist details, or withdraw consent, at any time by emailing us. We never sell or share your details. If you are unhappy with how we handle your data, you can complain to the Information Commissioner's Office at ico.org.uk.</p>
-        </div>
-        <div class="zh" lang="zh-Hant">
-          <p>初月是由英國創辦人經營的新計畫，目前尚未註冊公司；FirstMoon Care Ltd 成立後我們會更新本聲明。最後更新：2026 年 10 月 25 日。</p>
-          <h3>我們收集的資料</h3>
-          <ul>
-            <li><b>問卷：</b>僅收集您的回答。問卷不會詢問姓名、電子郵件或聯絡方式，也請勿在文字欄位中填寫這些資料。</li>
-            <li><b>候補名單：</b>姓名、電子郵件、預產月份（選填）及偏好語言。</li>
-          </ul>
-          <h3>使用目的</h3>
-          <p>問卷回答用於評估是否及如何成立初月；候補名單資料只用於通知您開放的消息。我們以您的同意作為法律依據。由於預產月份屬於健康資訊，候補名單表單會請您明確同意。</p>
-          <h3>儲存地點與保存期限</h3>
-          <p>兩份表單皆使用 Google 表單，資料存放在我們的 Google 帳戶中，Google 可能依其標準保障措施在英國境外處理資料。研究結束後，我們只保留問卷的統計結果。候補名單資料會在您要求時刪除；若登記後 12 個月內仍未開放，我們也會刪除。</p>
-          <h3>您的權利</h3>
-          <p>您可以隨時寫信給我們，要求查看、更正或刪除您的候補名單資料，或撤回同意。我們絕不出售或分享您的資料。若對資料處理方式有疑慮，可向英國資訊專員辦公室（ico.org.uk）投訴。</p>
-        </div>
-      </section>
-    </main>
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-top">
+        <img src="logo/logo.png" alt="First Moon, post natal service" width="780" height="672">
+        <nav class="footer-links" aria-label="Footer">
+          <a href="#approach"><span class="en">Our approach</span><span class="zh">我們的理念</span></a>
+          <a href="#services"><span class="en">Services</span><span class="zh">服務規劃</span></a>
+          <a href="#take-part"><span class="en">Take part</span><span class="zh">一起參與</span></a>
+          <a href="privacy.html"><span class="en">Privacy notice</span><span class="zh">隱私權聲明</span></a>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <p><span class="en">© 2026 First Moon · United Kingdom. First Moon is not a medical service.</span><span class="zh">© 2026 初月 · 英國。初月並非醫療服務。</span></p>
+        <p><span class="en">Contact:</span><span class="zh">聯絡我們：</span> <span class="email js-email"><span class="en">email address coming soon</span><span class="zh">電子郵件即將公布</span></span></p>
+      </div>
+    </div>
+  </footer>
 
-    <footer>
-      <span>First Moon · 初月 · United Kingdom</span>
-      <span><span class="en">Contact:</span><span class="zh">聯絡我們：</span> <span class="email js-email"><span class="en">email address coming soon</span><span class="zh">電子郵件即將公布</span></span></span>
-    </footer>
-  </div>
 </div>
-
-<script>
-// Fill these in once the Google Forms and Gmail address exist.
-const CONFIG = {
-  surveyUrl: "",
-  waitlistUrl: "",
-  email: ""
-};
-
-(function () {
-  const site = document.getElementById("site");
-  function setLang(lang) {
-    site.dataset.lang = lang;
-    document.documentElement.lang = lang === "zh" ? "zh-Hant" : "en-GB";
-    document.querySelectorAll(".lang button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.set === lang)));
-    try { localStorage.setItem("fm-lang", lang); } catch (e) {}
-  }
-  document.querySelectorAll(".lang button").forEach(b => b.addEventListener("click", () => setLang(b.dataset.set)));
-  let saved = null;
-  try { saved = localStorage.getItem("fm-lang"); } catch (e) {}
-  setLang(saved || (/^zh/i.test(navigator.language || "") ? "zh" : "en"));
-
-  function wire(selector, url) {
-    document.querySelectorAll(selector).forEach(a => {
-      if (url) { a.href = url; a.target = "_blank"; a.rel = "noopener"; }
-      else if (a.closest(".card")) { a.setAttribute("aria-disabled", "true"); a.removeAttribute("target"); a.insertAdjacentHTML("afterend", '<span class="meta"><span class="en">Link coming soon</span><span class="zh">即將開放</span></span>'); }
-    });
-  }
-  wire(".js-survey", CONFIG.surveyUrl);
-  wire(".js-waitlist", CONFIG.waitlistUrl);
-  if (CONFIG.email) document.querySelectorAll(".js-email").forEach(e => e.textContent = CONFIG.email);
-})();
-</script>
-
+<script src="assets/site.js"></script>
 </body>
 </html>
