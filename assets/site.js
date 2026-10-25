@@ -88,7 +88,7 @@ const CONFIG = {
   }, { rootMargin: "0px 0px -8% 0px", threshold: 0.12 });
 
   const staggered = [".principle", ".service", ".journey li", ".join-card"];
-  document.querySelectorAll(".section-head, .approach-copy, .care-note, .welcome .display, .film, .footer-top, " + staggered.join(", ")).forEach(el => {
+  document.querySelectorAll(".section-head, .approach-copy, .care-note, .footer-top, " + staggered.join(", ")).forEach(el => {
     if (!below(el)) return;
     if (staggered.some(sel => el.matches(sel))) {
       const i = Array.prototype.indexOf.call(el.parentElement.children, el);
@@ -98,5 +98,85 @@ const CONFIG = {
     io.observe(el);
   });
   document.querySelectorAll(".phases").forEach(el => { if (below(el)) { el.classList.add("will-wax"); io.observe(el); } });
-  document.querySelectorAll(".journey").forEach(el => { if (below(el)) { el.classList.add("will-draw"); io.observe(el); } });
+
+  // Scroll-linked motion. Each frame reads every position first, then writes CSS variables (see the end of site.css).
+  const clamp01 = x => Math.min(1, Math.max(0, x));
+
+  // Split the welcome sentence into words (characters for Chinese) so it can light up as you scroll.
+  // Screen readers get the sentence whole from a hidden copy.
+  document.querySelectorAll(".welcome .display > span").forEach(span => {
+    const text = span.textContent;
+    const parts = span.classList.contains("zh") ? Array.from(text) : text.split(/(\s+)/);
+    const hidden = document.createElement("span");
+    hidden.className = "sr-only";
+    hidden.textContent = text;
+    const words = document.createElement("span");
+    words.className = "words";
+    words.setAttribute("aria-hidden", "true");
+    let n = 0;
+    parts.forEach(part => {
+      if (!part) return;
+      if (/^\s+$/.test(part)) { words.appendChild(document.createTextNode(part)); return; }
+      const w = document.createElement("span");
+      w.className = "w";
+      w.style.setProperty("--i", n++);
+      w.textContent = part;
+      words.appendChild(w);
+    });
+    words.style.setProperty("--n", n);
+    span.replaceChildren(hidden, words);
+  });
+
+  // The words band repeats so it never runs out while it slides.
+  document.querySelectorAll(".drift-track").forEach(track => {
+    const set = Array.from(track.children);
+    for (let k = 0; k < 2; k++) set.forEach(node => track.appendChild(node.cloneNode(true)));
+  });
+
+  const band = document.querySelector(".hero-band");
+  const display = document.querySelector(".welcome .display");
+  const film = document.querySelector(".film");
+  const drift = document.querySelector(".drift");
+  const services = document.querySelector(".services");
+  const journey = document.querySelector(".journey");
+  const steps = journey ? Array.from(journey.children) : [];
+  if (journey) journey.classList.add("will-scrub");
+
+  let queued = false;
+  function frame() {
+    queued = false;
+    const h = window.innerHeight;
+    const max = document.documentElement.scrollHeight - h;
+    const y = window.scrollY;
+    const bandRect = band && band.getBoundingClientRect();
+    const displayTop = display && display.getBoundingClientRect().top;
+    const filmTop = film && film.getBoundingClientRect().top;
+    const driftTop = drift && drift.getBoundingClientRect().top;
+    const sv = services && services.getBoundingClientRect();
+    const jr = journey && journey.getBoundingClientRect();
+    // Layout offsets, so the reveal and moon transforms don't skew the positions.
+    const pos = steps.map(li => [li.offsetLeft, li.offsetTop]);
+
+    if (nav) nav.style.setProperty("--read", clamp01(max > 0 ? y / max : 0).toFixed(4));
+    if (band && bandRect.bottom > 0) band.style.setProperty("--hs", Math.max(0, -bandRect.top).toFixed(1));
+    if (display) display.style.setProperty("--p", clamp01((h * 0.9 - displayTop) / (h * 0.5)).toFixed(3));
+    if (film) film.style.setProperty("--fp", clamp01((h - filmTop) / (h * 0.7)).toFixed(3));
+    if (drift) drift.style.setProperty("--dx", Math.max(0, h - driftTop).toFixed(1));
+    if (services) services.style.setProperty("--sp", (Math.max(-1, Math.min(1, ((h - sv.top) / (h + sv.height)) * 2 - 1))).toFixed(3));
+    if (journey && pos.length > 1) {
+      // Across on wide screens, down the left on phones.
+      const across = Math.abs(pos[1][1] - pos[0][1]) < 4;
+      const span = across ? journey.offsetWidth - 56 : journey.offsetHeight - 56;
+      const jp = across ? clamp01((h * 0.85 - jr.top) / (h * 0.4)) : clamp01((h * 0.62 - jr.top - 28) / span);
+      journey.style.setProperty("--jp", jp.toFixed(3));
+      steps.forEach((li, i) => {
+        const at = (across ? pos[i][0] : pos[i][1]) / span;
+        li.classList.toggle("lit", jp >= at - 0.02);
+      });
+    }
+  }
+  const queue = () => { if (!queued) { queued = true; requestAnimationFrame(frame); } };
+  window.addEventListener("scroll", queue, { passive: true });
+  window.addEventListener("resize", queue);
+  frame();
 })();

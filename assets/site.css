@@ -131,6 +131,14 @@ h3 { font-size: 1.12rem; font-weight: 600; margin: 0; line-height: 1.35; }
 @media (max-width: 640px) { .film { aspect-ratio: 4 / 3; } }
 .phases { display: flex; gap: 14px; align-items: center; }
 .phases svg { width: 18px; height: 18px; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* a slow band of words between the welcome and the approach; site.js slides it as you scroll */
+.drift { overflow: hidden; padding-top: clamp(44px, 6vw, 80px); }
+.drift-track { display: flex; align-items: center; gap: .42em; width: max-content; margin: 0; padding-left: 6vw; white-space: nowrap; font-family: var(--display); font-style: italic; font-weight: 400; font-size: clamp(3rem, 8vw, 7rem); line-height: 1.1; color: #CDBDA6; translate: calc(var(--dx, 0) * -.3px) 0; will-change: translate; }
+.drift-track svg { flex: none; width: .3em; height: .3em; }
+.site[data-lang="zh"] .drift-track { font-family: var(--zh-display); font-style: normal; font-size: clamp(2.4rem, 6vw, 5rem); letter-spacing: .12em; gap: .6em; }
+.drift + .section { padding-top: clamp(44px, 6vw, 80px); }
 
 /* sections */
 .section { padding-block: clamp(64px, 9vw, 120px); }
@@ -267,10 +275,35 @@ h3 { font-size: 1.12rem; font-weight: 600; margin: 0; line-height: 1.35; }
   .phases.revealed svg:nth-child(3) { transition-delay: .5s; }
   .phases.revealed svg:nth-child(4) { transition-delay: .75s; }
 
-  /* the journey line draws across, then each moon appears */
-  .journey.will-draw::before { transform: scaleX(0); transform-origin: left; transition: transform 1.6s cubic-bezier(.4, 0, .2, 1); }
-  .journey.will-draw.revealed::before { transform: none; }
-  @media (max-width: 760px) { .journey.will-draw::before { transform: scaleY(0); transform-origin: top; } }
+  /* ---- scroll-linked motion: site.js sets the variables; the defaults are the resting state ---- */
+  /* reading progress: a gold hairline under the nav */
+  .nav::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: linear-gradient(90deg, var(--sand), var(--gold)); transform-origin: left; transform: scaleX(var(--read, 0)); pointer-events: none; }
+
+  /* hero depth: the rings turn, the text lifts away a little faster than the arch */
+  .orbit-left { rotate: calc(var(--hs, 0) * .05deg); }
+  .orbit-right { rotate: calc(var(--hs, 0) * -.04deg); }
+  @media (min-width: 861px) {
+    .arch { translate: 0 calc(var(--hs, 0) * .1px); }
+    .hero-copy { translate: 0 calc(var(--hs, 0) * -.05px); opacity: max(.3, calc(1 - var(--hs, 0) / 1300)); }
+  }
+
+  /* the welcome sentence lights up word by word */
+  .words .w { opacity: clamp(.16, calc((var(--p, 1) * (var(--n, 1) + 4) - var(--i, 0)) / 4), 1); transition: opacity .3s linear; }
+
+  /* the film opens out of a smaller frame and eases back from a slight zoom */
+  .film { clip-path: inset(calc((1 - var(--fp, 1)) * 7%) calc((1 - var(--fp, 1)) * 10%) round var(--radius)); }
+  .film video { scale: calc(1 + (1 - var(--fp, 1)) * .16); }
+
+  /* service cards drift at two speeds */
+  @media (min-width: 681px) { .service:nth-child(even) { translate: 0 calc(var(--sp, 0) * 30px); } }
+
+  /* the journey line fills as you scroll, and each moon brightens as the line reaches it */
+  .journey li { z-index: 1; }
+  .journey::after { content: ""; position: absolute; top: 26.5px; left: 28px; right: 28px; height: 2px; background: var(--gold); transform-origin: left; transform: scaleX(var(--jp, 1)); }
+  @media (max-width: 760px) { .journey::after { top: 28px; bottom: 28px; left: 26.5px; right: auto; width: 2px; height: auto; transform-origin: top; transform: scaleY(var(--jp, 1)); } }
+  .journey.will-scrub .moon { transition: opacity .7s ease, transform .7s cubic-bezier(.2, .7, .2, 1), box-shadow .7s ease; }
+  .journey.will-scrub li:not(.lit) .moon { opacity: .45; transform: scale(.82); }
+  .journey.will-scrub li.lit .moon { box-shadow: 0 0 0 7px rgba(194, 162, 122, .18); }
 
   @keyframes rise { from { transform: translateY(14px); opacity: .4; } to { transform: none; opacity: 1; } }
   @keyframes settle { from { transform: translateY(8px); opacity: 0; filter: blur(4px); } to { transform: none; opacity: 1; filter: none; } }
