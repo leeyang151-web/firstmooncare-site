@@ -16,11 +16,19 @@
 <body>
 <div class="site" id="site" data-lang="en">
 
+  <a class="announce js-survey" href="#take-part">
+    <span class="wrap announce-in">
+      <span class="live-dot" aria-hidden="true"></span>
+      <span class="announce-text"><b><span class="en">Survey now open.</span><span class="zh">問卷開放中。</span></b> <span class="en">Help shape First Moon: about 10 minutes, anonymous.</span><span class="zh">協助我們打造初月：約 10 分鐘，匿名填寫。</span></span>
+      <span class="announce-cta"><span class="en">Take the survey</span><span class="zh">填寫問卷</span> <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+    </span>
+  </a>
+
   <header class="nav">
     <div class="wrap nav-in">
       <a class="brand" href="#top" aria-label="First Moon home">
         <img src="logo/emblem.png" alt="" width="400" height="429">
-        <b>first moon</b>
+        <b>First Moon</b>
       </a>
       <nav class="nav-links" aria-label="Sections">
         <a href="#approach"><span class="en">Our approach</span><span class="zh">我們的理念</span></a>
@@ -39,13 +47,25 @@
   </header>
 
   <main id="top">
+    <div class="hero-band">
+    <svg class="orbit orbit-left" viewBox="0 0 640 640" aria-hidden="true">
+      <circle cx="320" cy="320" r="300" fill="none" stroke="#DCCFBC" stroke-width="1"/>
+      <circle cx="320" cy="320" r="232" fill="none" stroke="#DCCFBC" stroke-width="1" stroke-dasharray="2 7"/>
+      <circle cx="320" cy="320" r="164" fill="none" stroke="#E6DCCB" stroke-width="1"/>
+      <g class="orbit-moon"><circle cx="320" cy="20" r="9" fill="#C2A27A"/></g>
+    </svg>
+    <svg class="orbit orbit-right" viewBox="0 0 640 640" aria-hidden="true">
+      <circle cx="320" cy="320" r="300" fill="none" stroke="#DCCFBC" stroke-width="1"/>
+      <circle cx="320" cy="320" r="220" fill="none" stroke="#DCCFBC" stroke-width="1" stroke-dasharray="2 7"/>
+      <g class="orbit-moon slow"><circle cx="320" cy="100" r="7" fill="#C2A27A"/><circle cx="324" cy="98" r="6" fill="#F5F0E8"/></g>
+    </svg>
     <div class="wrap hero">
       <div class="hero-copy">
         <p class="eyebrow"><span class="en">Postnatal care at home</span><span class="zh">到府產後照顧</span></p>
         <h1><span class="en">Because every new mother deserves <em>rest.</em></span><span class="zh">每一位新手媽媽，都值得<em>好好休息</em>。</span></h1>
         <p class="lede"><span class="en">First Moon brings calm, practical support to your home in the weeks after birth: someone to help with the baby, nourishing meals, and time for you to recover.</span><span class="zh">在產後的日子裡，初月為您的家帶來安心而實際的支援：有人幫忙照顧寶寶、有營養的餐點，讓您有時間好好恢復。</span></p>
         <div class="hero-ctas">
-          <a class="btn primary js-survey" href="#take-part"><span class="en">Take the 5-minute survey</span><span class="zh">填寫 5 分鐘問卷</span>
+          <a class="btn primary js-survey" href="#take-part"><span class="en">Take the survey</span><span class="zh">填寫問卷</span>
             <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
           <a class="btn quiet js-waitlist" href="#take-part"><span class="en">Join the waitlist</span><span class="zh">加入候補名單</span></a>
         </div>
@@ -55,11 +75,15 @@
         <span class="arch-glow" aria-hidden="true"></span>
         <img src="logo/emblem.png" alt="First Moon emblem: a mother holding her baby inside a crescent moon" width="400" height="429">
         <video autoplay muted loop playsinline preload="auto" poster="media/hero-poster.jpg" aria-hidden="true"><source src="media/hero.webm" type="video/webm"><source src="media/hero.mp4" type="video/mp4"></video>
-        <div class="arch-note">
-          <b><span class="en">Survey now open</span><span class="zh">問卷開放中</span></b>
-          <span><span class="en">5 minutes · anonymous</span><span class="zh">約 5 分鐘 · 匿名</span></span>
-        </div>
+        <a class="arch-note js-survey" href="#take-part">
+          <span class="note-top"><span class="live-dot" aria-hidden="true"></span><span class="en">Survey now open</span><span class="zh">問卷開放中</span></span>
+          <b class="note-title"><span class="en">Help shape First Moon</span><span class="zh">一起打造初月</span></b>
+          <span class="note-meta"><span class="en">About 10 minutes · anonymous</span><span class="zh">約 10 分鐘 · 匿名</span></span>
+          <span class="note-cta"><span class="en">Take the survey</span><span class="zh">填寫問卷</span> <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+        </a>
       </div>
+    </div>
+
     </div>
 
     <section class="welcome" aria-label="Welcome">
@@ -181,7 +205,7 @@
           <div class="join-card survey">
             <h3><span class="en">Share your experience</span><span class="zh">分享您的經驗</span></h3>
             <p><span class="en">Tell us what support you had, or plan to have, after the birth and what you would value. We don't ask for your name or email.</span><span class="zh">告訴我們您過去或打算在產後安排哪些支援，以及您重視的項目。問卷不會詢問姓名或電子郵件。</span></p>
-            <span class="meta"><span class="en">About 5 minutes · English or 中文</span><span class="zh">約 5 分鐘 · 中文或英文</span></span>
+            <span class="meta"><span class="en">About 10 minutes · English or 中文</span><span class="zh">約 10 分鐘 · 中文或英文</span></span>
             <a class="btn primary js-survey" href="#take-part"><span class="en">Take the survey</span><span class="zh">開始填寫</span></a>
           </div>
           <div class="join-card waitlist">
@@ -198,7 +222,10 @@
   <footer class="footer">
     <div class="wrap">
       <div class="footer-top">
-        <img src="logo/logo.png" alt="First Moon, post natal service" width="780" height="672">
+        <a class="footer-brand" href="#top" aria-label="First Moon, back to top">
+          <img src="logo/emblem.png" alt="" width="400" height="429">
+          <span><b>First Moon</b><small><span class="en">Postnatal service</span><span class="zh">產後照顧服務</span></small></span>
+        </a>
         <nav class="footer-links" aria-label="Footer">
           <a href="#approach"><span class="en">Our approach</span><span class="zh">我們的理念</span></a>
           <a href="#services"><span class="en">Services</span><span class="zh">服務規劃</span></a>
