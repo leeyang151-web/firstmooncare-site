@@ -1,8 +1,14 @@
-// Fill these in once the Google Forms and contact address exist.
+// One Google Form per language; the buttons follow the language toggle.
 const CONFIG = {
-  surveyUrl: "",
-  waitlistUrl: "",
-  email: ""
+  survey: {
+    en: "https://docs.google.com/forms/d/e/1FAIpQLSebHyiSein1M6c8Nw-OqlcOgJPDrfQF0cwJC82VB6CZVDdNtA/viewform",
+    zh: "https://docs.google.com/forms/d/e/1FAIpQLSeMoYHun4Z0wsQH4iKJm3s7JTuGPifa39R5bHjhSS2sLkiDEQ/viewform"
+  },
+  waitlist: {
+    en: "https://docs.google.com/forms/d/e/1FAIpQLSfko8-cayn34BSmdtyWd-m0Nh2swDVQfmcF9p_frAT86wyQXQ/viewform",
+    zh: "https://docs.google.com/forms/d/e/1FAIpQLSdpN8Y3aiHqR-wBZDUxaKz8y3Z16-ZzpbI88G-dKBzSH0KelA/viewform"
+  },
+  email: "info@firstmooncare.com"
 };
 
 (function () {
@@ -13,26 +19,39 @@ const CONFIG = {
     document.documentElement.lang = lang === "zh" ? "zh-Hant" : "en-GB";
     document.querySelectorAll(".lang button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.set === lang)));
     try { localStorage.setItem("fm-lang", lang); } catch (e) {}
+    wireForms(lang);
   }
   document.querySelectorAll(".lang button").forEach(b => b.addEventListener("click", () => setLang(b.dataset.set)));
   let saved = null;
   try { saved = localStorage.getItem("fm-lang"); } catch (e) {}
   setLang(saved || (/^zh/i.test(navigator.language || "") ? "zh" : "en"));
 
-  // Point the buttons at the forms; until a link exists, buttons inside the cards show "Link coming soon".
+  // Point the buttons at the form in the page's language, and the small "other language" links at the other form;
+  // until a link exists, buttons inside the cards show "Link coming soon".
   function wire(selector, url) {
     document.querySelectorAll(selector).forEach(a => {
       if (url) {
         a.href = url; a.target = "_blank"; a.rel = "noopener";
-      } else if (a.closest(".join-card")) {
+      } else if (a.classList.contains("alt-form")) {
+        a.hidden = true;
+      } else if (a.closest(".join-card") && !a.hasAttribute("aria-disabled")) {
         a.setAttribute("aria-disabled", "true");
         a.insertAdjacentHTML("afterend", '<span class="soon"><span class="en">Link coming soon</span><span class="zh">即將開放</span></span>');
       }
     });
   }
-  wire(".js-survey", CONFIG.surveyUrl);
-  wire(".js-waitlist", CONFIG.waitlistUrl);
-  if (CONFIG.email) document.querySelectorAll(".js-email").forEach(e => { e.textContent = CONFIG.email; });
+  function wireForms(lang) {
+    const other = lang === "zh" ? "en" : "zh";
+    wire(".js-survey", CONFIG.survey[lang]);
+    wire(".js-waitlist", CONFIG.waitlist[lang]);
+    wire(".js-survey-alt", CONFIG.survey[other]);
+    wire(".js-waitlist-alt", CONFIG.waitlist[other]);
+  }
+  if (CONFIG.email) document.querySelectorAll(".js-email").forEach(e => {
+    const a = document.createElement("a");
+    a.href = "mailto:" + CONFIG.email; a.textContent = CONFIG.email;
+    e.replaceChildren(a);
+  });
 
   // Nav gains a hairline once the page scrolls.
   const nav = document.querySelector(".nav");
