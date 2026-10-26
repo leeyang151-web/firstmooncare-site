@@ -140,42 +140,42 @@ h3 { font-size: 1.12rem; font-weight: 600; margin: 0; line-height: 1.35; }
 .site[data-lang="zh"] .drift-track { font-family: var(--zh-display); font-style: normal; font-size: clamp(2.4rem, 6vw, 5rem); letter-spacing: .12em; gap: .6em; }
 .drift + .section { padding-top: clamp(44px, 6vw, 80px); }
 
-/* motifs: hanging vines, small birds, dotted arcs and dot clusters in pale tan (sprite at the top of index.html) */
+/* motifs in pale tan: hanging moons and stars, twinkling sparkles, dotted arcs round a crescent, a small constellation */
 .sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
 .motif { position: absolute; pointer-events: none; overflow: visible; color: #E4D6C2; translate: 0 calc(var(--py, 0) * 1px); }
-.vine { aspect-ratio: 420 / 380; top: 0; }
-.birds { width: clamp(64px, 6vw, 92px); aspect-ratio: 90 / 50; color: #C9B396; }
+.mobile { aspect-ratio: 420 / 380; top: 0; }
+.sparkles { width: clamp(56px, 5vw, 80px); aspect-ratio: 90 / 50; color: #CDB89B; }
 .hero-band > .wrap, .welcome > .wrap, .journey-band > .wrap, .footer > .wrap { position: relative; z-index: 1; }
-.hero-vine { width: clamp(220px, 24vw, 360px); left: max(-48px, calc((100% - 80rem) / 2 - 140px)); }
-.hero-birds { left: 50%; top: 16%; }
+.hero-mobile { width: clamp(200px, 20vw, 320px); left: max(-80px, calc((100% - 80rem) / 2 - 300px)); }
+.hero-sparkles { left: 50%; top: 16%; }
 .welcome { position: relative; overflow: hidden; }
-.welcome-vine { width: clamp(180px, 28vw, 420px); color: #DACBB4; }
-.welcome-vine.left { left: max(-60px, calc((100% - 80rem) / 2 - 60px)); }
-.welcome-vine.right { right: max(-60px, calc((100% - 80rem) / 2 - 60px)); scale: -1 1; }
+.welcome-mobile { width: clamp(180px, 24vw, 360px); color: #DACBB4; }
+.welcome-mobile.left { left: max(-60px, calc((100% - 80rem) / 2 - 100px)); }
+.welcome-mobile.right { right: max(-60px, calc((100% - 80rem) / 2 - 100px)); scale: -1 1; }
 .welcome .wrap { position: relative; }
-.welcome-birds { right: 18%; top: clamp(40px, 6vw, 72px); }
+.welcome-sparkles { right: 18%; top: clamp(40px, 6vw, 72px); }
 #services .wrap, #take-part .wrap { position: relative; }
 .services-arcs { width: clamp(220px, 24vw, 330px); aspect-ratio: 320 / 170; right: 24px; top: 6px; }
-.services-birds { right: clamp(250px, 27vw, 380px); top: 0; }
+.services-sparkles { right: clamp(250px, 27vw, 380px); top: 0; }
 .journey-band { position: relative; overflow: hidden; }
-.journey-vine { width: clamp(180px, 22vw, 340px); right: max(-50px, calc((100% - 80rem) / 2 - 80px)); scale: -1 1; color: #CBD2BF; }
+.journey-mobile { width: clamp(180px, 22vw, 340px); right: max(-50px, calc((100% - 80rem) / 2 - 80px)); scale: -1 1; color: #CBD2BF; }
 .join-card { position: relative; }
-.card-sprig { width: 150px; aspect-ratio: 160 / 60; top: 22px; right: 22px; color: #D9C9B1; }
-.take-dots { width: 44px; aspect-ratio: 40 / 36; right: 21%; top: 46px; color: #DCCDB7; }
-.take-birds { right: 12%; top: 4px; }
+.card-moon { width: 110px; aspect-ratio: 120 / 70; top: 24px; right: 24px; color: #D9C9B1; }
+.take-stars { width: 120px; aspect-ratio: 120 / 70; right: 24%; top: 20px; color: #D6C5AC; }
+.take-sparkles { right: 12%; top: 4px; }
 .footer { position: relative; overflow: hidden; }
-.footer-vine { width: clamp(160px, 18vw, 280px); right: 24%; scale: -1 1; color: #DACBB4; }
+.footer-mobile { width: clamp(160px, 18vw, 280px); right: 24%; scale: -1 1; color: #DACBB4; }
 @media (max-width: 900px) {
-  .services-arcs, .services-birds, .take-dots { display: none; }
+  .services-arcs, .services-sparkles, .take-stars { display: none; }
 }
-@media (max-width: 860px) { .hero-vine { width: 200px; left: -50px; opacity: .8; } .hero-birds { display: none; } }
+@media (max-width: 860px) { .hero-mobile { width: 200px; left: -50px; opacity: .8; } .hero-sparkles { display: none; } }
 @media (max-width: 640px) {
-  .welcome-vine { width: 150px; opacity: .8; }
-  .welcome-birds { right: 8%; top: 14px; width: 52px; }
-  .journey-vine { width: 150px; opacity: .8; }
-  .card-sprig { width: 100px; top: auto; bottom: 22px; right: 18px; }
-  .take-birds { right: 4%; top: -6px; width: 56px; }
-  .footer-vine { width: 140px; right: -30px; }
+  .welcome-mobile { width: 150px; opacity: .8; }
+  .welcome-sparkles { right: 8%; top: 14px; width: 46px; }
+  .journey-mobile { width: 150px; opacity: .8; }
+  .card-moon { width: 84px; top: auto; bottom: 22px; right: 18px; }
+  .take-sparkles { right: 4%; top: -6px; width: 46px; }
+  .footer-mobile { width: 140px; right: -30px; }
 }
 
 /* sections */
@@ -313,19 +313,15 @@ h3 { font-size: 1.12rem; font-weight: 600; margin: 0; line-height: 1.35; }
   .phases.revealed svg:nth-child(3) { transition-delay: .5s; }
   .phases.revealed svg:nth-child(4) { transition-delay: .75s; }
 
-  /* motifs: vines sway from where they hang and unfurl downward when they come into view; birds glide */
-  .vine { transform-origin: 50% 0; animation: sway 11s ease-in-out infinite; }
-  .welcome-vine.right, .journey-vine { animation-delay: -4s; }
-  .hero-vine { animation: unfurl 2.6s .3s cubic-bezier(.4, 0, .2, 1) both, sway 11s 3s ease-in-out infinite; }
-  .vine.will-grow { clip-path: inset(-6% -6% 100% -6%); transition: clip-path 2.6s cubic-bezier(.4, 0, .2, 1); }
-  .vine.will-grow.revealed { clip-path: inset(-6% -6% -6% -6%); }
-  .birds use { animation: glide 7s ease-in-out infinite; }
-  .birds use:nth-child(2) { animation-delay: -2.3s; animation-duration: 8s; }
-  .birds use:nth-child(3) { animation-delay: -4.6s; animation-duration: 6.5s; }
-  .card-sprig { transform-origin: 100% 50%; animation: sway 9s ease-in-out infinite; }
-  @keyframes sway { 0%, 100% { rotate: -1.4deg; } 50% { rotate: 1.4deg; } }
+  /* motifs: each moon and star swings on its own string, the mobiles lower into view, sparkles twinkle */
+  .dangle { transform-box: view-box; animation: dangle var(--t, 8s) var(--o, 0s) ease-in-out infinite; }
+  .hero-mobile { animation: unfurl 2.6s .3s cubic-bezier(.4, 0, .2, 1) both; }
+  .mobile.will-grow { clip-path: inset(-6% -6% 100% -6%); transition: clip-path 2.6s cubic-bezier(.4, 0, .2, 1); }
+  .mobile.will-grow.revealed { clip-path: inset(-6% -6% -6% -6%); }
+  .tw { transform-box: fill-box; transform-origin: center; animation: twinkle 4.8s var(--o, 0s) ease-in-out infinite; }
+  @keyframes dangle { 0%, 100% { rotate: -2.2deg; } 50% { rotate: 2.2deg; } }
   @keyframes unfurl { from { clip-path: inset(-6% -6% 100% -6%); } to { clip-path: inset(-6% -6% -6% -6%); } }
-  @keyframes glide { 0%, 100% { translate: 0 0; } 50% { translate: 3px -4px; } }
+  @keyframes twinkle { 0%, 100% { opacity: 1; scale: 1; } 50% { opacity: .4; scale: .72; } }
 
   /* ---- scroll-linked motion: site.js sets the variables; the defaults are the resting state ---- */
   /* reading progress: a gold hairline under the nav */
