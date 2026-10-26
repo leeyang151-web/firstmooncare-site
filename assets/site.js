@@ -98,6 +98,13 @@ const CONFIG = {
     io.observe(el);
   });
   document.querySelectorAll(".phases").forEach(el => { if (below(el)) { el.classList.add("will-wax"); io.observe(el); } });
+  // Vines unfurl once their section comes into view. Their own clip hides them from the observer, so watch the section.
+  const growIO = new IntersectionObserver(entries => entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.querySelectorAll(":scope > .vine.will-grow").forEach(v => v.classList.add("revealed"));
+    growIO.unobserve(e.target);
+  }), { rootMargin: "0px 0px -15% 0px" });
+  document.querySelectorAll(".vine:not(.hero-vine)").forEach(el => { if (below(el)) { el.classList.add("will-grow"); growIO.observe(el.parentElement); } });
 
   // Scroll-linked motion. Each frame reads every position first, then writes CSS variables (see the end of site.css).
   const clamp01 = x => Math.min(1, Math.max(0, x));
@@ -140,6 +147,9 @@ const CONFIG = {
   const services = document.querySelector(".services");
   const journey = document.querySelector(".journey");
   const steps = journey ? Array.from(journey.children) : [];
+  // Motifs drift at their own speed: negative lags behind the page, positive runs ahead of it.
+  const drifters = Array.from(document.querySelectorAll("[data-speed]"));
+  const shift = drifters.map(() => 0);
   if (journey) journey.classList.add("will-scrub");
 
   let queued = false;
@@ -156,7 +166,21 @@ const CONFIG = {
     const jr = journey && journey.getBoundingClientRect();
     // Layout offsets, so the reveal and moon transforms don't skew the positions.
     const pos = steps.map(li => [li.offsetLeft, li.offsetTop]);
+    const homes = drifters.map(el => el.getBoundingClientRect());
+    const narrow = window.innerWidth <= 640;
 
+    drifters.forEach((el, i) => {
+      const r = homes[i];
+      const top = r.top - shift[i];
+      if (top + r.height < -300 || top > h + 300) return;
+      let v = (top + r.height / 2 - h / 2) * parseFloat(el.dataset.speed);
+      // Vines hang from the section edge, so they may rise into place but never drop away from it.
+      if (el.classList.contains("vine")) v = Math.min(0, v);
+      // On phones the birds stay put so they never cross the text.
+      if (narrow && el.classList.contains("birds")) v = 0;
+      shift[i] = v;
+      el.style.setProperty("--py", v.toFixed(1));
+    });
     if (nav) nav.style.setProperty("--read", clamp01(max > 0 ? y / max : 0).toFixed(4));
     if (band && bandRect.bottom > 0) band.style.setProperty("--hs", Math.max(0, -bandRect.top).toFixed(1));
     if (display) display.style.setProperty("--p", clamp01((h * 0.9 - displayTop) / (h * 0.5)).toFixed(3));
