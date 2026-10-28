@@ -130,6 +130,17 @@
   }
   window.addEventListener('scroll', onScroll, { passive: true });
 
+  // the Services menu in the top bar: opens on hover, on click or tap, and from the keyboard
+  var menu = document.querySelector('.menu'), menuBtn = menu && menu.querySelector('.menu-btn');
+  function setMenu(open) { menu.classList.toggle('open', open); menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false'); }
+  if (menu) {
+    menuBtn.addEventListener('click', function () { setMenu(!menu.classList.contains('open')); });
+    menu.addEventListener('click', function (e) { if (e.target.closest('.menu-list a')) setMenu(false); });
+    document.addEventListener('click', function (e) { if (!menu.contains(e.target)) setMenu(false); });
+    menu.addEventListener('focusout', function (e) { if (!menu.contains(e.relatedTarget)) setMenu(false); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && menu.classList.contains('open')) { setMenu(false); menuBtn.focus(); } });
+  }
+
   // copy the address
   var copyBtn = document.getElementById('copy-btn');
   if (copyBtn) copyBtn.addEventListener('click', function () {

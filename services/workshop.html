@@ -19,7 +19,18 @@
   <a class="logo" href="../" aria-label="First Moon, home"><img class="logo-day" src="../assets/lockup-day.png" alt="First Moon — postnatal service" width="1019" height="338"><img class="logo-night" src="../assets/lockup-night.png" alt="" width="1019" height="338" aria-hidden="true"></a>
   <nav class="nav" aria-label="Site">
     <a class="link" href="../#approach" data-i="nav_approach"></a>
-    <a class="link" href="../#services" data-i="nav_services" aria-current="page"></a>
+    <div class="menu">
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="svc-menu" aria-current="page"><span data-i="nav_services"></span><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <div class="menu-list" id="svc-menu">
+        <a class="all" href="../#services" data-i="cta_back"></a>
+        <a href="carer.html" data-i="sv_carer"></a>
+        <a href="meals.html" data-i="sv_meals"></a>
+        <a href="lactation.html" data-i="sv_lactation"></a>
+        <a href="workshop.html" aria-current="page" data-i="sv_workshop"></a>
+        <a href="wellness.html" data-i="sv_wellness"></a>
+        <a href="stay.html" data-i="sv_stay"></a>
+      </div>
+    </div>
     <a class="link" href="../#where" data-i="nav_where"></a>
     <a class="link" href="../#takepart" data-i="nav_takepart"></a>
     <button class="pill lang" type="button" id="lang-btn" aria-label="Switch language">EN / 中文</button>

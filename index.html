@@ -87,6 +87,21 @@ a { color: var(--clay-deep); text-underline-offset: 3px; }
 .bar nav { display: flex; align-items: center; gap: var(--space-6); }
 .bar nav a.link { color: var(--stone-soft); text-decoration: none; padding: var(--space-2) 0; transition: color .3s var(--ease); }
 .bar nav a.link:hover { color: var(--clay); }
+/* the Services menu in the top bar */
+.menu { position: relative; }
+.menu-btn { all: unset; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; color: var(--stone-soft); padding: var(--space-2) 0; white-space: nowrap; transition: color .3s var(--ease); }
+.menu-btn:hover, .menu.open .menu-btn, .menu-btn[aria-current="page"] { color: var(--clay); }
+.menu-btn:focus-visible { outline: 2px solid var(--clay); outline-offset: 4px; border-radius: 4px; }
+.menu-btn svg { width: 12px; height: 12px; display: block; transition: transform .3s var(--ease); }
+.menu.open .menu-btn svg { transform: rotate(180deg); }
+.menu-list { position: absolute; top: calc(100% + 8px); left: 50%; z-index: 60; min-width: 250px; display: grid; padding: 6px; background: var(--warm-white); border: 1px solid var(--sand); border-radius: var(--radius-md); box-shadow: 0 20px 40px -20px rgba(61, 53, 45, .35); opacity: 0; visibility: hidden; transform: translate(-50%, -4px); transition: opacity .2s var(--ease), transform .2s var(--ease), visibility 0s .2s; }
+.menu-list::before { content: ""; position: absolute; left: 0; right: 0; top: -12px; height: 12px; }
+.menu.open .menu-list { opacity: 1; visibility: visible; transform: translate(-50%, 0); transition: opacity .2s var(--ease), transform .2s var(--ease); }
+@media (hover: hover) { .menu:hover .menu-list { opacity: 1; visibility: visible; transform: translate(-50%, 0); transition: opacity .2s var(--ease), transform .2s var(--ease); } }
+.menu-list a { display: block; padding: 9px 14px; border-radius: var(--radius-sm); color: var(--stone); text-decoration: none; font-size: 14px; white-space: nowrap; transition: background-color .2s var(--ease), color .2s var(--ease); }
+.menu-list a:hover, .menu-list a:focus-visible { background: var(--oat); color: var(--clay); outline: none; }
+.menu-list a[aria-current="page"] { color: var(--clay); }
+.menu-list a.all { color: var(--stone-soft); margin-bottom: 4px; border-radius: var(--radius-sm) var(--radius-sm) 0 0; border-bottom: 1px solid var(--sand); }
 .pill { all: unset; cursor: pointer; white-space: nowrap; display: inline-flex; align-items: center; gap: 6px; padding: 7px 12px; border-radius: var(--radius-full); border: 1px solid var(--sand); color: var(--stone-soft); font-size: 13px; line-height: 16px; font-weight: 600; letter-spacing: .04em; transition: border-color .3s var(--ease), color .3s var(--ease); }
 .pill:hover { border-color: var(--line-strong); color: var(--stone); }
 .pill svg { width: 14px; height: 14px; display: block; }
@@ -298,7 +313,7 @@ details p { font-size: 14px; line-height: 1.6; color: var(--stone-soft); margin:
 @media (max-width: 899px) {
   .bar img { height: 34px; }
   .bar nav { gap: var(--space-3); }
-  .bar nav a.link { display: none; }
+  .bar nav a.link, .bar nav .menu { display: none; }
   .bar nav .theme { display: none; }
   .principles { grid-template-columns: 1fr; }
   .cards { grid-template-columns: 1fr; }
@@ -329,7 +344,18 @@ details p { font-size: 14px; line-height: 1.6; color: var(--stone-soft); margin:
   </a>
   <nav class="nav" aria-label="Site">
     <a class="link" href="#approach" data-go="2" data-i="nav_approach">Our approach</a>
-    <a class="link" href="#services" data-go="3" data-i="nav_services">Services</a>
+    <div class="menu">
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="svc-menu"><span data-i="nav_services">Services</span><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <div class="menu-list" id="svc-menu">
+        <a class="all" href="#services" data-go="3" data-i="menu_all">All services</a>
+        <a href="services/carer.html" data-i="sv1">Postnatal carer at home</a>
+        <a href="services/meals.html" data-i="sv2">Nourishing meal delivery</a>
+        <a href="services/lactation.html" data-i="sv5">Lactation consultants</a>
+        <a href="services/workshop.html" data-i="sv3">Newborn care workshop</a>
+        <a href="services/wellness.html" data-i="sv6">Rest and wellness</a>
+        <a href="services/stay.html" data-i="sv4">A place to stay</a>
+      </div>
+    </div>
     <a class="link" href="#where" data-go="4" data-i="nav_where">Where we are</a>
     <a class="link" href="#takepart" data-scroll="takepart" data-i="nav_takepart">Take part</a>
     <button class="pill lang" type="button" id="lang-btn" aria-label="Switch language">EN / 中文</button>
@@ -515,7 +541,7 @@ details p { font-size: 14px; line-height: 1.6; color: var(--stone-soft); margin:
       band: ['Rest', 'Nourishment', 'Support', 'Calm'],
       lang_btn: 'EN / 中文', theme_night: 'Night', theme_day: 'Day',
       announce: 'Survey now open. Help shape First Moon: about 10 minutes, anonymous.', announce_cta: 'Take the survey',
-      nav_approach: 'Our approach', nav_services: 'Services', nav_where: 'Where we are', nav_takepart: 'Take part', nav_waitlist: 'Join the waitlist',
+      nav_approach: 'Our approach', nav_services: 'Services', menu_all: 'All services', nav_where: 'Where we are', nav_takepart: 'Take part', nav_waitlist: 'Join the waitlist',
       nav_approach2: 'Our approach', nav_services2: 'Services', nav_where2: 'Where we are', nav_takepart2: 'Take part',
       hero_eyebrow: 'Postnatal care at home', hero_title: 'Because every new mother deserves <em>rest.</em>',
       hero_lede: 'First Moon 初月 is a new postnatal care service for families in the UK, inspired by the East Asian tradition of resting after birth. Calm, practical help at home in the weeks after birth.',
@@ -552,7 +578,7 @@ details p { font-size: 14px; line-height: 1.6; color: var(--stone-soft); margin:
       band: ['休息', '滋養', '支持', '平靜'],
       lang_btn: '中文 / EN', theme_night: '夜間', theme_day: '日間',
       announce: '問卷已開放。幫助我們形塑初月：約 10 分鐘，匿名填寫。', announce_cta: '填寫問卷',
-      nav_approach: '我們的理念', nav_services: '服務', nav_where: '目前進度', nav_takepart: '參與', nav_waitlist: '加入候補名單',
+      nav_approach: '我們的理念', nav_services: '服務', menu_all: '所有服務', nav_where: '目前進度', nav_takepart: '參與', nav_waitlist: '加入候補名單',
       nav_approach2: '我們的理念', nav_services2: '服務', nav_where2: '目前進度', nav_takepart2: '參與',
       hero_eyebrow: '到府產後照護', hero_title: '每一位新手媽媽，都值得好好<em>休息</em>。',
       hero_lede: '初月 First Moon 是一項全新的英國產後照護服務，靈感來自東亞「坐月子」的休養傳統。在產後的幾週裡，於家中提供安心、實際的協助。',
@@ -779,10 +805,11 @@ details p { font-size: 14px; line-height: 1.6; color: var(--stone-soft); margin:
     root.classList.toggle('stack', st);
     if (st) { secs.forEach(function (s) { s.style.opacity = ''; s.style.transform = ''; s.style.visibility = ''; }); onScroll(); return; }
     var top = 112, bottom = 72;
-    var cx = Math.round(vw * (vw < 1200 ? 0.72 : 0.68));
     var cy = Math.round(top + (H - top - bottom) / 2);
     var r = Math.floor(Math.min(0.34 * H, 0.19 * vw, cy - top - 124, H - bottom - cy - 124));
     var rd = r + 44, ro = rd + 60;
+    // the dial sits as far right as it can while the stop name passing three o'clock stays on screen
+    var cx = Math.max(Math.round(vw * (vw < 1200 ? 0.72 : 0.68)), Math.round(vw - ro - 76));
     var pl = Math.max(80, Math.round(0.065 * vw));
     var useArch = (cx - ro - 72 - pl) >= 320;
     var pr = useArch ? cx - ro - 72 : cx - ro + 44;
@@ -883,6 +910,17 @@ details p { font-size: 14px; line-height: 1.6; color: var(--stone-soft); margin:
     if (el.hasAttribute('data-go')) scrollToStop(parseInt(el.getAttribute('data-go'), 10));
     else scrollToId(el.getAttribute('data-scroll'));
   });
+
+  // the Services menu in the top bar: opens on hover, on click or tap, and from the keyboard
+  var menu = document.querySelector('.menu'), menuBtn = menu && menu.querySelector('.menu-btn');
+  function setMenu(open) { menu.classList.toggle('open', open); menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false'); }
+  if (menu) {
+    menuBtn.addEventListener('click', function () { setMenu(!menu.classList.contains('open')); });
+    menu.addEventListener('click', function (e) { if (e.target.closest('.menu-list a')) setMenu(false); });
+    document.addEventListener('click', function (e) { if (!menu.contains(e.target)) setMenu(false); });
+    menu.addEventListener('focusout', function (e) { if (!menu.contains(e.relatedTarget)) setMenu(false); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && menu.classList.contains('open')) { setMenu(false); menuBtn.focus(); } });
+  }
 
   var copyBtn = document.getElementById('copy-btn');
   copyBtn.addEventListener('click', function () {
