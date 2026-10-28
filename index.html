@@ -1,265 +1,912 @@
 <!doctype html>
-<html lang="en-GB">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="First Moon 初月: postnatal care at home for families in the UK, inspired by the East Asian tradition of resting after birth. Survey now open.">
 <title>First Moon 初月</title>
-<meta name="description" content="First Moon 初月: calm, practical postnatal support at home for new families in the UK. Take our anonymous survey or join the waitlist.">
-<meta name="claude:viewport-fit-sides" content="cover">
-<link rel="icon" type="image/png" href="logo/favicon.png">
-<link rel="apple-touch-icon" href="logo/apple-touch-icon.png">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Hanken+Grotesk:wght@400;500;600&family=Noto+Serif+TC:wght@500&family=Noto+Sans+TC:wght@400;500&display=swap">
-<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Hanken+Grotesk:wght@400;500;600&family=Noto+Serif+TC:wght@400;600&family=Noto+Sans+TC:wght@400;500&display=swap">
+<style>img{max-width:100%}[hidden]{display:none!important}</style>
 </head>
 <body>
-<div class="site" id="site" data-lang="en">
-  <!-- motifs: dotted arcs round a crescent, drawn once and reused; the moons and stars are inline below so each can move on its own -->
-  <svg class="sprite" aria-hidden="true" focusable="false" width="0" height="0"><symbol id="m-arcs" viewBox="0 0 320 170"><g fill="none" stroke="currentColor" stroke-linecap="round"><path d="M10 166A150 150 0 0 1 310 166" stroke-width="1.3"/><path d="M29 166A131 131 0 0 1 291 166" stroke-width="2.2" stroke-dasharray="0 7"/><path d="M48 166A112 112 0 0 1 272 166" stroke-width="1.3"/><path d="M67 166A93 93 0 0 1 253 166" stroke-width="2.2" stroke-dasharray="0 7"/><path d="M86 166A74 74 0 0 1 234 166" stroke-width="1.3"/></g><path fill="currentColor" d="M160 112a26 26 0 1 0 22 40a21 21 0 1 1 -22 -40z"/><circle cx="10" cy="166" r="3.2" fill="currentColor"/><circle cx="310" cy="166" r="3.2" fill="currentColor"/><circle cx="48" cy="70" r="2.4" fill="currentColor"/><circle cx="284" cy="52" r="2.4" fill="currentColor"/><circle cx="300" cy="96" r="1.8" fill="currentColor"/><circle cx="22" cy="112" r="1.8" fill="currentColor"/></symbol></svg>
+<style>
+/* Layout: a normal scrolling page. The first part is the dial: a sticky screen with the moon in the middle of the right half, seen through an oat arch, inside a hairline dial; six section titles ride an orbit and turn clockwise as you scroll, the moon moves through its phases, and the active section's text settles to the left. Nothing locks: scroll freely, and a banner at the foot of the screen takes you straight down to Take part and Contact, which follow as ordinary sections. Phones (and reduced motion) get the brief's plain scrolling page. Palette, type and voice from the First Moon brief; Night is an optional toggle. */
+:root {
+  color-scheme: light;
+  --linen: #F5F0E8; --oat: #EBE3D6; --sand: #DCCFBC; --stone: #3D352D; --stone-soft: #675C51;
+  --clay: #9A5D44; --clay-deep: #7F4A35; --sage-tint: #E2E5DA; --sage: #7F8C77; --sage-ink: #5C6855;
+  --moon-gold: #C2A27A; --warm-white: #FBF8F3; --pale-tan: #E4D6C2;
+  --line-strong: #8F7C66; --on-clay: #FBF8F3; --survey-bg: #3D352D; --on-survey: #FBF8F3; --survey-muted: #C2A27A; --survey-btn: #C2A27A; --on-survey-btn: #3D352D;
+  --moon-shadow: #E4D6C2; --dial: rgba(194, 162, 122, .62); --dial-soft: rgba(194, 162, 122, .28); --glow: rgba(194, 162, 122, .38); --arch: #EBE3D6;
+  --focus: #7F4A35; --danger: #8F3E2B; --success: #5C6855;
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-6: 24px; --space-8: 32px; --space-12: 48px; --space-16: 64px; --space-24: 96px;
+  --radius-sm: 6px; --radius-md: 14px; --radius-lg: 28px; --radius-full: 9999px;
+  --shadow-soft: 0 1px 2px rgba(61, 53, 45, .06), 0 16px 40px -16px rgba(61, 53, 45, .18);
+  --font-serif: "Cormorant Garamond", "Noto Serif TC", Garamond, Georgia, serif;
+  --font-sans: "Hanken Grotesk", "Noto Sans TC", "Helvetica Neue", Arial, sans-serif;
+  --ease: cubic-bezier(.22, .61, .36, 1);
+  --announce-h: 40px; --menu-h: 72px; --bar-h: 112px;
+  --cx: 68vw; --cy: 52vh; --ro: 360px; --pl: 96px; --pw: 520px;
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --linen: #1C1612; --oat: #27201A; --sand: #3F342C; --stone: #F6F2E7; --stone-soft: #C6B8A6;
+  --clay: #D39A7E; --clay-deep: #E0AD94; --sage-tint: #242B22; --sage: #8F9C87; --sage-ink: #C3CDB9;
+  --moon-gold: #C2A27A; --warm-white: #2D2520; --pale-tan: #3A3028;
+  --line-strong: #80705E; --on-clay: #1C1612; --survey-bg: #F6F2E7; --on-survey: #1C1612; --survey-muted: #7F4A35; --survey-btn: #9A5D44; --on-survey-btn: #FBF8F3;
+  --moon-shadow: #2E261F; --dial: rgba(194, 162, 122, .42); --dial-soft: rgba(194, 162, 122, .18); --glow: rgba(194, 162, 122, .22); --arch: #241D18;
+  --focus: #C2A27A; --danger: #EC9B88; --success: #9AD3C2;
+  --shadow-soft: 0 1px 2px rgba(0, 0, 0, .4), 0 16px 40px -16px rgba(0, 0, 0, .6);
+}
+:root[lang="zh-Hant"] { --font-serif: "Noto Serif TC", "Cormorant Garamond", serif; --font-sans: "Noto Sans TC", "Hanken Grotesk", sans-serif; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--linen); color: var(--stone); font-family: var(--font-sans); font-size: 17px; line-height: 1.65; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 60; background: var(--linen); }
+a { color: var(--clay-deep); text-underline-offset: 3px; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; border-radius: var(--radius-sm); }
+.btn:focus-visible, .orb-txt:focus-visible, .pill:focus-visible { border-radius: var(--radius-full); }
 
-  <a class="announce js-survey" href="#take-part">
-    <span class="wrap announce-in">
-      <span class="live-dot" aria-hidden="true"></span>
-      <span class="announce-text"><b><span class="en">Survey now open.</span><span class="zh">問卷開放中。</span></b> <span class="en">Help shape First Moon: about 10 minutes, anonymous.</span><span class="zh">協助我們打造初月：約 10 分鐘，匿名填寫。</span></span>
-      <span class="announce-cta"><span class="en">Take the survey</span><span class="zh">填寫問卷</span> <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
-    </span>
-  </a>
+/* type */
+.display { font-family: var(--font-serif); font-size: clamp(44px, 5.2vw, 76px); line-height: 1.04; font-weight: 500; letter-spacing: -.01em; color: var(--stone); margin: 0; text-wrap: balance; }
+.display em, .title em { font-style: italic; font-weight: 500; color: var(--clay); }
+:root[lang="zh-Hant"] .display em, :root[lang="zh-Hant"] .title em { font-style: normal; font-weight: 600; }
+:root[lang="zh-Hant"] .display { letter-spacing: .02em; line-height: 1.25; font-size: clamp(38px, 4.4vw, 62px); }
+.title { font-family: var(--font-serif); font-size: clamp(34px, 3.3vw, 50px); line-height: 1.1; font-weight: 500; letter-spacing: -.005em; color: var(--stone); margin: 0; text-wrap: balance; }
+:root[lang="zh-Hant"] .title { line-height: 1.3; letter-spacing: .02em; }
+.heading { font-family: var(--font-serif); font-size: 24px; line-height: 1.25; font-weight: 600; color: var(--stone); margin: 0; }
+.lede { font-size: 19px; line-height: 1.55; margin: 0; color: var(--stone); }
+.body { font-size: 17px; line-height: 1.65; margin: 0; color: var(--stone); }
+.small { font-size: 15px; line-height: 1.55; margin: 0; color: var(--stone-soft); }
+.quote { font-family: var(--font-serif); font-size: clamp(26px, 2.4vw, 34px); line-height: 1.3; font-weight: 500; color: var(--stone); margin: 0; }
+.label { font-size: 12px; line-height: 16px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--stone-soft); }
+:root[lang="zh-Hant"] .label { letter-spacing: .12em; }
+.nav { font-size: 14px; line-height: 20px; font-weight: 500; letter-spacing: .02em; }
+.num { font-variant-numeric: tabular-nums; }
 
-  <header class="nav">
-    <div class="wrap nav-in">
-      <a class="brand" href="#top" aria-label="First Moon home">
-        <img src="logo/emblem.png" alt="" width="400" height="429">
-        <b>First Moon</b>
-      </a>
-      <nav class="nav-links" aria-label="Sections">
-        <a href="#approach"><span class="en">Our approach</span><span class="zh">我們的理念</span></a>
-        <a href="#services"><span class="en">Services</span><span class="zh">服務規劃</span></a>
-        <a href="#journey"><span class="en">Where we are</span><span class="zh">目前進度</span></a>
-        <a href="#take-part"><span class="en">Take part</span><span class="zh">一起參與</span></a>
-      </nav>
-      <div class="nav-right">
-        <div class="lang" role="group" aria-label="Language / 語言">
-          <button type="button" id="lang-en" data-set="en" aria-pressed="true">EN</button>
-          <button type="button" id="lang-zh" data-set="zh" aria-pressed="false">中文</button>
-        </div>
-        <a class="btn primary" href="#take-part"><span class="en">Join the waitlist</span><span class="zh">加入候補名單</span></a>
-      </div>
-    </div>
-  </header>
+/* bars */
+.announce { position: fixed; top: 0; left: 0; right: 0; z-index: 50; height: calc(var(--announce-h) + env(safe-area-inset-top, 0px)); padding-top: env(safe-area-inset-top, 0px); padding-left: max(24px, env(safe-area-inset-left, 0px)); padding-right: max(24px, env(safe-area-inset-right, 0px)); display: flex; align-items: center; justify-content: center; gap: var(--space-3); background: var(--stone); color: var(--linen); font-size: 14px; line-height: 20px; }
+:root[data-theme="dark"] .announce { background: var(--oat); color: var(--stone); }
+.announce a { color: var(--moon-gold); font-weight: 600; text-decoration: none; border-bottom: 1px solid currentColor; white-space: nowrap; }
+.announce a:hover { color: var(--linen); }
+:root[data-theme="dark"] .announce a:hover { color: var(--stone); }
+.live { display: inline-block; width: 8px; height: 8px; border-radius: var(--radius-full); background: var(--moon-gold); position: relative; flex: none; }
+.live::after { content: ""; position: absolute; inset: -4px; border-radius: inherit; border: 1px solid var(--moon-gold); opacity: .7; animation: pulse 2.4s ease-out infinite; }
+@keyframes pulse { 0% { transform: scale(.6); opacity: .8; } 100% { transform: scale(1.8); opacity: 0; } }
+.bar { position: fixed; top: calc(var(--announce-h) + env(safe-area-inset-top, 0px)); left: 0; right: 0; z-index: 45; height: var(--menu-h); padding-left: max(24px, env(safe-area-inset-left, 0px)); padding-right: max(24px, env(safe-area-inset-right, 0px)); display: flex; align-items: center; justify-content: space-between; gap: var(--space-6); background: linear-gradient(var(--linen) 55%, rgba(245, 240, 232, 0)); border-bottom: 1px solid transparent; transition: background .3s var(--ease), border-color .3s var(--ease); }
+:root[data-theme="dark"] .bar { background: linear-gradient(var(--linen) 55%, rgba(28, 22, 18, 0)); }
+.bar.solid { background: var(--linen); border-bottom-color: var(--sand); }
+.bar .logo { display: block; line-height: 0; }
+.bar img { display: block; height: 40px; width: auto; }
+.logo-night { display: none !important; }
+:root[data-theme="dark"] .logo-day { display: none !important; }
+:root[data-theme="dark"] .logo-night { display: block !important; }
+.bar nav { display: flex; align-items: center; gap: var(--space-6); }
+.bar nav a.link { color: var(--stone-soft); text-decoration: none; padding: var(--space-2) 0; transition: color .3s var(--ease); }
+.bar nav a.link:hover { color: var(--clay); }
+.pill { all: unset; cursor: pointer; white-space: nowrap; display: inline-flex; align-items: center; gap: 6px; padding: 7px 12px; border-radius: var(--radius-full); border: 1px solid var(--sand); color: var(--stone-soft); font-size: 13px; line-height: 16px; font-weight: 600; letter-spacing: .04em; transition: border-color .3s var(--ease), color .3s var(--ease); }
+.pill:hover { border-color: var(--line-strong); color: var(--stone); }
+.pill svg { width: 14px; height: 14px; display: block; }
+.rp { position: fixed; left: 0; top: calc(var(--bar-h) + env(safe-area-inset-top, 0px)); height: 2px; width: 0; background: var(--moon-gold); z-index: 46; }
 
-  <main id="top">
-    <div class="hero-band">
-    <svg class="orbit orbit-left" viewBox="0 0 640 640" aria-hidden="true">
-      <circle cx="320" cy="320" r="300" fill="none" stroke="#DCCFBC" stroke-width="1"/>
-      <circle cx="320" cy="320" r="232" fill="none" stroke="#DCCFBC" stroke-width="1" stroke-dasharray="2 7"/>
-      <circle cx="320" cy="320" r="164" fill="none" stroke="#E6DCCB" stroke-width="1"/>
-      <g class="orbit-moon"><circle cx="320" cy="20" r="9" fill="#C2A27A"/></g>
-    </svg>
-    <svg class="orbit orbit-right" viewBox="0 0 640 640" aria-hidden="true">
-      <circle cx="320" cy="320" r="300" fill="none" stroke="#DCCFBC" stroke-width="1"/>
-      <circle cx="320" cy="320" r="220" fill="none" stroke="#DCCFBC" stroke-width="1" stroke-dasharray="2 7"/>
-      <g class="orbit-moon slow"><circle cx="320" cy="100" r="7" fill="#C2A27A"/><circle cx="324" cy="98" r="6" fill="#F5F0E8"/></g>
-    </svg>
-    <svg class="motif mobile hero-mobile" viewBox="0 0 420 380" data-speed="-.06" aria-hidden="true"><g class="dangle" style="transform-origin:44px 0;--t:7s;--o:0s"><line x1="44" y1="-6" x2="44" y2="103" stroke="currentColor" stroke-width="1" opacity=".8"/><path d="M44 103C46.4 115.6 46.4 115.6 59 118C46.4 120.4 46.4 120.4 44 133C41.6 120.4 41.6 120.4 29 118C41.6 115.6 41.6 115.6 44 103Z" fill="currentColor"/></g><g class="dangle" style="transform-origin:100px 0;--t:8.7s;--o:4.7s"><line x1="100" y1="-6" x2="100" y2="206" stroke="currentColor" stroke-width="1" opacity=".8"/><path d="M117.2 211.4A30 30 0 1 0 117.2 260.6A24.6 24.6 0 1 1 117.2 211.4Z" fill="currentColor"/><circle cx="100" cy="99.1" r="2.6" fill="currentColor"/></g><g class="dangle" style="transform-origin:164px 0;--t:10.4s;--o:2.4s"><line x1="164" y1="-6" x2="164" y2="143" stroke="currentColor" stroke-width="1" opacity=".8"/><circle cx="164" cy="160" r="17" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="164" cy="160" r="12" fill="currentColor" opacity=".55"/></g><g class="dangle" style="transform-origin:226px 0;--t:7.1s;--o:0.1s"><line x1="226" y1="-6" x2="226" y2="279" stroke="currentColor" stroke-width="1" opacity=".8"/><path d="M226 279C229.4 296.6 229.4 296.6 247 300C229.4 303.4 229.4 303.4 226 321C222.6 303.4 222.6 303.4 205 300C222.6 296.6 222.6 296.6 226 279Z" fill="currentColor"/></g><g class="dangle" style="transform-origin:286px 0;--t:8.8s;--o:4.8s"><line x1="286" y1="-6" x2="286" y2="177" stroke="currentColor" stroke-width="1" opacity=".8"/><circle cx="286" cy="196" r="19" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M286 177a19 19 0 0 1 0 38z" fill="currentColor"/><circle cx="286" cy="82.3" r="2.6" fill="currentColor"/></g><g class="dangle" style="transform-origin:346px 0;--t:10.5s;--o:2.5s"><line x1="346" y1="-6" x2="346" y2="102" stroke="currentColor" stroke-width="1" opacity=".8"/><path d="M356.3 105.2A18 18 0 1 0 356.3 134.8A14.8 14.8 0 1 1 356.3 105.2Z" fill="currentColor"/></g><g class="dangle" style="transform-origin:392px 0;--t:7.2s;--o:0.2s"><line x1="392" y1="-6" x2="392" y2="203" stroke="currentColor" stroke-width="1" opacity=".8"/><path d="M392 203C393.8 212.2 393.8 212.2 403 214C393.8 215.8 393.8 215.8 392 225C390.2 215.8 390.2 215.8 381 214C390.2 212.2 390.2 212.2 392 203Z" fill="currentColor"/></g><path class="tw" style="--o:0s" d="M140 293C141.1 298.9 141.1 298.9 147 300C141.1 301.1 141.1 301.1 140 307C138.9 301.1 138.9 301.1 133 300C138.9 298.9 138.9 298.9 140 293Z" fill="currentColor"/><path class="tw" style="--o:-1.3s" d="M300 294C301 299 301 299 306 300C301 301 301 301 300 306C299 301 299 301 294 300C299 299 299 299 300 294Z" fill="currentColor"/><path class="tw" style="--o:-2.6s" d="M62 235C62.8 239.2 62.8 239.2 67 240C62.8 240.8 62.8 240.8 62 245C61.2 240.8 61.2 240.8 57 240C61.2 239.2 61.2 239.2 62 235Z" fill="currentColor"/><path class="tw" style="--o:-3.9s" d="M378 295C378.8 299.2 378.8 299.2 383 300C378.8 300.8 378.8 300.8 378 305C377.2 300.8 377.2 300.8 373 300C377.2 299.2 377.2 299.2 378 295Z" fill="currentColor"/><path class="tw" style="--o:-5.2s" d="M250 106C250.6 109.4 250.6 109.4 254 110C250.6 110.6 250.6 110.6 250 114C249.4 110.6 249.4 110.6 246 110C249.4 109.4 249.4 109.4 250 106Z" fill="currentColor"/><circle cx="196" cy="250" r="2.4" fill="currentColor"/><circle cx="330" cy="260" r="2" fill="currentColor"/><circle cx="24" cy="190" r="2" fill="currentColor"/><circle cx="120" cy="340" r="2.2" fill="currentColor"/><circle cx="270" cy="350" r="1.8" fill="currentColor"/></svg>
-    <div class="wrap hero">
-      <div class="hero-copy">
-        <p class="eyebrow"><span class="en">Postnatal care at home</span><span class="zh">到府產後照顧</span></p>
-        <h1><span class="en">Because every new mother deserves <em>rest.</em></span><span class="zh">每一位新手媽媽，都值得<em>好好休息</em>。</span></h1>
-        <p class="lede"><span class="en">First Moon brings calm, practical support to your home in the weeks after birth: someone to help with the baby, nourishing meals, and time for you to recover.</span><span class="zh">在產後的日子裡，初月為您的家帶來安心而實際的支援：有人幫忙照顧寶寶、有營養的餐點，讓您有時間好好恢復。</span></p>
-        <div class="hero-ctas">
-          <a class="btn primary js-survey" href="#take-part"><span class="en">Take the survey</span><span class="zh">填寫問卷</span>
-            <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
-          <a class="btn quiet js-waitlist" href="#take-part"><span class="en">Join the waitlist</span><span class="zh">加入候補名單</span></a>
-        </div>
-        <p class="listening"><span class="en">Listening to families until December 2026. Nothing is for sale yet.</span><span class="zh">2026 年 12 月前持續聆聽家庭的需要，目前尚未銷售任何服務。</span></p>
-      </div>
-      <svg class="motif sparkles hero-sparkles" viewBox="0 0 90 50" data-speed=".15" aria-hidden="true"><path class="tw" style="--o:0s" d="M22 14C24.2 25.8 24.2 25.8 36 28C24.2 30.2 24.2 30.2 22 42C19.8 30.2 19.8 30.2 8 28C19.8 25.8 19.8 25.8 22 14Z" fill="currentColor"/><path class="tw" style="--o:-1.4s" d="M54 4C55.3 10.7 55.3 10.7 62 12C55.3 13.3 55.3 13.3 54 20C52.7 13.3 52.7 13.3 46 12C52.7 10.7 52.7 10.7 54 4Z" fill="currentColor"/><path class="tw" style="--o:-2.6s" d="M72 30.5C72.9 35.1 72.9 35.1 77.5 36C72.9 36.9 72.9 36.9 72 41.5C71.1 36.9 71.1 36.9 66.5 36C71.1 35.1 71.1 35.1 72 30.5Z" fill="currentColor"/></svg>
-      <div class="arch">
-        <span class="arch-glow" aria-hidden="true"></span>
-        <img src="logo/emblem.png" alt="First Moon emblem: a mother holding her baby inside a crescent moon" width="400" height="429">
-        <video autoplay muted loop playsinline preload="auto" poster="media/hero-poster.jpg" aria-hidden="true"><source src="media/hero.webm" type="video/webm"><source src="media/hero.mp4" type="video/mp4"></video>
-        <a class="arch-note js-survey" href="#take-part">
-          <span class="note-top"><span class="live-dot" aria-hidden="true"></span><span class="en">Survey now open</span><span class="zh">問卷開放中</span></span>
-          <b class="note-title"><span class="en">Help shape First Moon</span><span class="zh">一起打造初月</span></b>
-          <span class="note-meta"><span class="en">About 10 minutes · anonymous</span><span class="zh">約 10 分鐘 · 匿名</span></span>
-          <span class="note-cta"><span class="en">Take the survey</span><span class="zh">填寫問卷</span> <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
-        </a>
-      </div>
-    </div>
+/* buttons */
+.btn { display: inline-flex; white-space: nowrap; align-items: center; justify-content: center; gap: var(--space-2); padding: 14px 26px; border-radius: var(--radius-full); border: 1px solid var(--clay); background: var(--clay); color: var(--on-clay); text-decoration: none; cursor: pointer; font: inherit; font-size: 15px; line-height: 20px; font-weight: 600; letter-spacing: .01em; transition: background .3s var(--ease), border-color .3s var(--ease), color .3s var(--ease), transform .3s var(--ease); }
+.btn:hover { background: var(--clay-deep); border-color: var(--clay-deep); transform: translateY(-1px); }
+.btn.ghost { background: transparent; border-color: var(--line-strong); color: var(--stone); }
+.btn.ghost:hover { border-color: var(--stone); background: rgba(61, 53, 45, .04); transform: none; }
+.btn.small { padding: 9px 16px; font-size: 14px; }
+.btn.gold { background: var(--survey-btn); border-color: var(--survey-btn); color: var(--on-survey-btn); }
+.btn.gold:hover { filter: brightness(1.06); }
+.btn svg { width: 14px; height: 14px; }
 
-    </div>
+/* the dial zone: a sticky screen that the page scrolls through */
+.zone { position: relative; height: calc(100vh + 5 * 80vh); }
+.screen { position: sticky; top: 0; height: 100vh; overflow: hidden; }
+.stop { position: absolute; left: 0; right: 0; height: 80vh; }
 
-    <section class="welcome" aria-label="Welcome">
-      <svg class="motif mobile welcome-mobile left" viewBox="0 0 420 380" data-speed="-.08" aria-hidden="true"><g class="dangle" style="transform-origin:44px 0;--t:7s;--o:0s"><line x1="44" y1="-6" x2="44" y2="103" stroke="currentColor" stroke-width="1" opacity=".8"/><path d="M44 103C46.4 115.6 46.4 115.6 59 118C46.4 120.4 46.4 120.4 44 133C41.6 120.4 41.6 120.4 29 118C41.6 115.6 41.6 115.6 44 103Z" fill="currentColor"/></g><g class="dangle" style="transform-origin:100px 0;--t:8.7s;--o:4.7s"><line x1="100" y1="-6" x2="100" y2="206" stroke="currentColor" stroke-width="1" opacity=".8"/><path d="M117.2 211.4A30 30 0 1 0 117.2 260.6A24.6 24.6 0 1 1 117.2 211.4Z" fill="currentColor"/><circle cx="100" cy="99.1" r="2.6" fill="currentColor"/></g><g class="dangle" style="transform-origin:164px 0;--t:10.4s;--o:2.4s"><line x1="164" y1="-6" x2="164" y2="143" stroke="currentColor" stroke-width="1" opacity=".8"/><circle cx="164" cy="160" r="17" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="164" cy="160" r="12" fill="currentColor" opacity=".55"/></g><g class="dangle" style="transform-origin:226px 0;--t:7.1s;--o:0.1s"><line x1="226" y1="-6" x2="226" y2="279" stroke="currentColor" stroke-width="1" opacity=".8"/><path d="M226 279C229.4 296.6 229.4 296.6 247 300C229.4 303.4 229.4 303.4 226 321C222.6 303.4 222.6 303.4 205 300C222.6 296.6 222.6 296.6 226 279Z" fill="currentColor"/></g><g class="dangle" style="transform-origin:286px 0;--t:8.8s;--o:4.8s"><line x1="286" y1="-6" x2="286" y2="177" stroke="currentColor" stroke-width="1" opacity=".8"/><circle cx="286" cy="196" r="19" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M286 177a19 19 0 0 1 0 38z" fill="currentColor"/><circle cx="286" cy="82.3" r="2.6" fill="currentColor"/></g><g class="dangle" style="transform-origin:346px 0;--t:10.5s;--o:2.5s"><line x1="346" y1="-6" x2="346" y2="102" stroke="currentColor" stroke-width="1" opacity=".8"/><path d="M356.3 105.2A18 18 0 1 0 356.3 134.8A14.8 14.8 0 1 1 356.3 105.2Z" fill="currentColor"/></g><g class="dangle" style="transform-origin:392px 0;--t:7.2s;--o:0.2s"><line x1="392" y1="-6" x2="392" y2="203" stroke="currentColor" stroke-width="1" opacity=".8"/><path d="M392 203C393.8 212.2 393.8 212.2 403 214C393.8 215.8 393.8 215.8 392 225C390.2 215.8 390.2 215.8 381 214C390.2 212.2 390.2 212.2 392 203Z" fill="currentColor"/></g><path class="tw" style="--o:0s" d="M140 293C141.1 298.9 141.1 298.9 147 300C141.1 301.1 141.1 301.1 140 307C138.9 301.1 138.9 301.1 133 300C138.9 298.9 138.9 298.9 140 293Z" fill="currentColor"/><path class="tw" style="--o:-1.3s" d="M300 294C301 299 301 299 306 300C301 301 301 301 300 306C299 301 299 301 294 300C299 299 299 299 300 294Z" fill="currentColor"/><path class="tw" style="--o:-2.6s" d="M62 235C62.8 239.2 62.8 239.2 67 240C62.8 240.8 62.8 240.8 62 245C61.2 240.8 61.2 240.8 57 240C61.2 239.2 61.2 239.2 62 235Z" fill="currentColor"/><path class="tw" style="--o:-3.9s" d="M378 295C378.8 299.2 378.8 299.2 383 300C378.8 300.8 378.8 300.8 378 305C377.2 300.8 377.2 300.8 373 300C377.2 299.2 377.2 299.2 378 295Z" fill="currentColor"/><path class="tw" style="--o:-5.2s" d="M250 106C250.6 109.4 250.6 109.4 254 110C250.6 110.6 250.6 110.6 250 114C249.4 110.6 249.4 110.6 246 110C249.4 109.4 249.4 109.4 250 106Z" fill="currentColor"/><circle cx="196" cy="250" r="2.4" fill="currentColor"/><circle cx="330" cy="260" r="2" fill="currentColor"/><circle cx="24" cy="190" r="2" fill="currentColor"/><circle cx="120" cy="340" r="2.2" fill="currentColor"/><circle cx="270" cy="350" r="1.8" fill="currentColor"/></svg>
-      <svg class="motif mobile welcome-mobile right" viewBox="0 0 420 380" data-speed="-.08" aria-hidden="true"><g class="dangle" style="transform-origin:44px 0;--t:7s;--o:0s"><line x1="44" y1="-6" x2="44" y2="103" stroke="currentColor" stroke-width="1" opacity=".8"/><path d="M44 103C46.4 115.6 46.4 115.6 59 118C46.4 120.4 46.4 120.4 44 133C41.6 120.4 41.6 120.4 29 118C41.6 115.6 41.6 115.6 44 103Z" fill="currentColor"/></g><g class="dangle" style="transform-origin:100px 0;--t:8.7s;--o:4.7s"><line x1="100" y1="-6" x2="100" y2="206" stroke="currentColor" stroke-width="1" opacity=".8"/><path d="M117.2 211.4A30 30 0 1 0 117.2 260.6A24.6 24.6 0 1 1 117.2 211.4Z" fill="currentColor"/><circle cx="100" cy="99.1" r="2.6" fill="currentColor"/></g><g class="dangle" style="transform-origin:164px 0;--t:10.4s;--o:2.4s"><line x1="164" y1="-6" x2="164" y2="143" stroke="currentColor" stroke-width="1" opacity=".8"/><circle cx="164" cy="160" r="17" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="164" cy="160" r="12" fill="currentColor" opacity=".55"/></g><g class="dangle" style="transform-origin:226px 0;--t:7.1s;--o:0.1s"><line x1="226" y1="-6" x2="226" y2="279" stroke="currentColor" stroke-width="1" opacity=".8"/><path d="M226 279C229.4 296.6 229.4 296.6 247 300C229.4 303.4 229.4 303.4 226 321C222.6 303.4 222.6 303.4 205 300C222.6 296.6 222.6 296.6 226 279Z" fill="currentColor"/></g><g class="dangle" style="transform-origin:286px 0;--t:8.8s;--o:4.8s"><line x1="286" y1="-6" x2="286" y2="177" stroke="currentColor" stroke-width="1" opacity=".8"/><circle cx="286" cy="196" r="19" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M286 177a19 19 0 0 1 0 38z" fill="currentColor"/><circle cx="286" cy="82.3" r="2.6" fill="currentColor"/></g><g class="dangle" style="transform-origin:346px 0;--t:10.5s;--o:2.5s"><line x1="346" y1="-6" x2="346" y2="102" stroke="currentColor" stroke-width="1" opacity=".8"/><path d="M356.3 105.2A18 18 0 1 0 356.3 134.8A14.8 14.8 0 1 1 356.3 105.2Z" fill="currentColor"/></g><g class="dangle" style="transform-origin:392px 0;--t:7.2s;--o:0.2s"><line x1="392" y1="-6" x2="392" y2="203" stroke="currentColor" stroke-width="1" opacity=".8"/><path d="M392 203C393.8 212.2 393.8 212.2 403 214C393.8 215.8 393.8 215.8 392 225C390.2 215.8 390.2 215.8 381 214C390.2 212.2 390.2 212.2 392 203Z" fill="currentColor"/></g><path class="tw" style="--o:0s" d="M140 293C141.1 298.9 141.1 298.9 147 300C141.1 301.1 141.1 301.1 140 307C138.9 301.1 138.9 301.1 133 300C138.9 298.9 138.9 298.9 140 293Z" fill="currentColor"/><path class="tw" style="--o:-1.3s" d="M300 294C301 299 301 299 306 300C301 301 301 301 300 306C299 301 299 301 294 300C299 299 299 299 300 294Z" fill="currentColor"/><path class="tw" style="--o:-2.6s" d="M62 235C62.8 239.2 62.8 239.2 67 240C62.8 240.8 62.8 240.8 62 245C61.2 240.8 61.2 240.8 57 240C61.2 239.2 61.2 239.2 62 235Z" fill="currentColor"/><path class="tw" style="--o:-3.9s" d="M378 295C378.8 299.2 378.8 299.2 383 300C378.8 300.8 378.8 300.8 378 305C377.2 300.8 377.2 300.8 373 300C377.2 299.2 377.2 299.2 378 295Z" fill="currentColor"/><path class="tw" style="--o:-5.2s" d="M250 106C250.6 109.4 250.6 109.4 254 110C250.6 110.6 250.6 110.6 250 114C249.4 110.6 249.4 110.6 246 110C249.4 109.4 249.4 109.4 250 106Z" fill="currentColor"/><circle cx="196" cy="250" r="2.4" fill="currentColor"/><circle cx="330" cy="260" r="2" fill="currentColor"/><circle cx="24" cy="190" r="2" fill="currentColor"/><circle cx="120" cy="340" r="2.2" fill="currentColor"/><circle cx="270" cy="350" r="1.8" fill="currentColor"/></svg>
-      <div class="wrap">
-        <svg class="motif sparkles welcome-sparkles" viewBox="0 0 90 50" data-speed=".15" aria-hidden="true"><path class="tw" style="--o:0s" d="M22 14C24.2 25.8 24.2 25.8 36 28C24.2 30.2 24.2 30.2 22 42C19.8 30.2 19.8 30.2 8 28C19.8 25.8 19.8 25.8 22 14Z" fill="currentColor"/><path class="tw" style="--o:-1.4s" d="M54 4C55.3 10.7 55.3 10.7 62 12C55.3 13.3 55.3 13.3 54 20C52.7 13.3 52.7 13.3 46 12C52.7 10.7 52.7 10.7 54 4Z" fill="currentColor"/><path class="tw" style="--o:-2.6s" d="M72 30.5C72.9 35.1 72.9 35.1 77.5 36C72.9 36.9 72.9 36.9 72 41.5C71.1 36.9 71.1 36.9 66.5 36C71.1 35.1 71.1 35.1 72 30.5Z" fill="currentColor"/></svg>
-        <div class="phases" aria-hidden="true">
-          <svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="7.5" fill="none" stroke="#C2A27A" stroke-width="1.2"/></svg>
-          <svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="7.5" fill="none" stroke="#C2A27A" stroke-width="1.2"/><path d="M10 2.5a7.5 7.5 0 0 1 0 15a4 7.5 0 0 0 0-15z" fill="#C2A27A"/></svg>
-          <svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="7.5" fill="none" stroke="#C2A27A" stroke-width="1.2"/><path d="M10 2.5a7.5 7.5 0 0 1 0 15z" fill="#C2A27A"/></svg>
-          <svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="7.5" fill="#C2A27A"/></svg>
-        </div>
-        <p class="display"><span class="en">Welcome to First Moon. We believe the weeks after birth should be for rest and recovery, with the right help close at hand.</span><span class="zh">歡迎來到初月。我們相信，產後的日子應該用來休息與恢復，而您需要的幫助，就在身邊。</span></p>
-        <figure class="film">
-          <video muted loop playsinline preload="none" poster="media/together-poster.jpg" aria-hidden="true"><source src="media/together.webm" type="video/webm"><source src="media/together.mp4" type="video/mp4"></video>
-        </figure>
-      </div>
-    </section>
+/* the moon, its arch and dial */
+.stage { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+.arch { position: absolute; background: var(--arch); border-radius: 999px 999px 0 0; }
+.moon { position: absolute; }
+.glow { position: absolute; inset: 0; border-radius: var(--radius-full); box-shadow: 0 0 40px var(--glow), 0 0 140px var(--glow); opacity: .5; animation: breathe 9s ease-in-out infinite; }
+@keyframes breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03); } }
+.moon svg, .moon-m svg, .mini svg, .ph { display: block; width: 100%; height: 100%; overflow: visible; }
+.moon svg { position: absolute; inset: 0; }
+.shade { fill: var(--moon-shadow); }
+.lit { fill: var(--moon-gold); }
+.rim { fill: none; stroke: var(--moon-gold); stroke-width: 1; opacity: .5; vector-effect: non-scaling-stroke; }
+.dial { position: absolute; overflow: visible; }
+.dial .ring { fill: none; stroke: var(--dial); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.dial .ring-dots { fill: none; stroke: var(--dial-soft); stroke-width: 1.5; stroke-dasharray: 1 7; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.dial .tick { stroke: var(--dial); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.dial .mark { fill: var(--moon-gold); }
+.dial .arc { fill: none; stroke: var(--moon-gold); stroke-width: 2; vector-effect: non-scaling-stroke; }
+.spark { position: absolute; fill: var(--moon-gold); transform: translate(-50%, -50%); }
+.star { position: absolute; width: 3px; height: 3px; border-radius: var(--radius-full); background: var(--moon-gold); transform: translate(-50%, -50%); animation: twinkle 4s ease-in-out infinite; }
+@keyframes twinkle { 0%, 100% { opacity: .25; } 50% { opacity: .85; } }
 
-    <div class="drift" aria-hidden="true">
-      <p class="drift-track en"><span>Rest</span><svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="7.5" fill="none" stroke="#C2A27A" stroke-width="1.2"/></svg><span>Nourishment</span><svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="7.5" fill="none" stroke="#C2A27A" stroke-width="1.2"/><path d="M10 2.5a7.5 7.5 0 0 1 0 15a4 7.5 0 0 0 0-15z" fill="#C2A27A"/></svg><span>Support</span><svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="7.5" fill="none" stroke="#C2A27A" stroke-width="1.2"/><path d="M10 2.5a7.5 7.5 0 0 1 0 15z" fill="#C2A27A"/></svg><span>Calm</span><svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="7.5" fill="#C2A27A"/></svg></p>
-      <p class="drift-track zh"><span>休息</span><svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="7.5" fill="none" stroke="#C2A27A" stroke-width="1.2"/></svg><span>營養</span><svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="7.5" fill="none" stroke="#C2A27A" stroke-width="1.2"/><path d="M10 2.5a7.5 7.5 0 0 1 0 15a4 7.5 0 0 0 0-15z" fill="#C2A27A"/></svg><span>支援</span><svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="7.5" fill="none" stroke="#C2A27A" stroke-width="1.2"/><path d="M10 2.5a7.5 7.5 0 0 1 0 15z" fill="#C2A27A"/></svg><span>安心</span><svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="7.5" fill="#C2A27A"/></svg></p>
-    </div>
+/* the orbit of titles */
+.orbit { position: absolute; inset: 0; z-index: 5; pointer-events: none; }
+.orb { position: absolute; left: var(--cx); top: var(--cy); width: 0; height: 0; }
+.orb-txt { all: unset; position: absolute; left: calc(-1 * var(--ro)); top: 0; transform: translate(-50%, -50%); display: grid; justify-items: center; gap: 5px; white-space: nowrap; cursor: pointer; pointer-events: auto; text-align: center; transition: color .3s var(--ease); color: var(--stone); }
+.orb-txt .num { font-size: 10px; letter-spacing: .2em; font-weight: 600; color: var(--stone-soft); }
+.orb-txt .name { font-family: var(--font-serif); font-size: 21px; line-height: 1.1; font-weight: 500; }
+.orb-txt:hover { color: var(--clay); }
 
-    <section class="section" id="approach">
-      <div class="wrap approach">
-        <div class="approach-copy">
-          <p class="eyebrow"><span class="en">Our approach</span><span class="zh">我們的理念</span></p>
-          <h2><span class="en">Inspired by a <em>tradition</em> of rest</span><span class="zh">靈感來自<em>傳統</em>的產後休養</span></h2>
-          <p class="muted"><span class="en">In many East Asian families, a new mother is looked after in the weeks after birth. She rests, eats warming food, and others help with the baby. In Mandarin this is called zuò yuèzi.</span><span class="zh">在許多東亞家庭裡，產後的媽媽會被細心照顧：好好休息、吃溫補的餐點，並由家人幫忙照顧寶寶，這就是坐月子。</span></p>
-          <p class="muted"><span class="en">We take the heart of that idea and shape it for modern families in the UK, whatever their background, for as long as they need it.</span><span class="zh">我們延續這份用心，為在英國的現代家庭量身打造。不論背景，都能依您的需要安排。</span></p>
-        </div>
-        <div class="principles">
-          <div class="principle">
-            <span class="icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M21 5.5a11 11 0 1 0 6 16.5A12 12 0 0 1 21 5.5z"/></svg></span>
-            <div><h3><span class="en">Rest</span><span class="zh">休息</span></h3><p><span class="en">Fewer chores and fewer visitors, so your body can recover.</span><span class="zh">減少家務與訪客，讓身體好好恢復。</span></p></div>
-          </div>
-          <div class="principle">
-            <span class="icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M5 16h22a11 10 0 0 1-22 0z"/><path d="M12 6c-1.4 1.8 1.4 2.8 0 4.6M16 5c-1.4 1.8 1.4 2.8 0 4.6M20 6c-1.4 1.8 1.4 2.8 0 4.6"/></svg></span>
-            <div><h3><span class="en">Nourishment</span><span class="zh">營養</span></h3><p><span class="en">Warm, balanced meals and soups, cooked for you.</span><span class="zh">溫暖均衡的餐點與湯品，為您用心烹調。</span></p></div>
-          </div>
-          <div class="principle">
-            <span class="icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M16 26s-10-6-10-13a5 5 0 0 1 10-2 5 5 0 0 1 10 2c0 7-10 13-10 13z"/></svg></span>
-            <div><h3><span class="en">Support</span><span class="zh">支援</span></h3><p><span class="en">An experienced pair of hands with the baby, so you can sleep.</span><span class="zh">有經驗的人幫忙照顧寶寶，讓您可以安心入睡。</span></p></div>
-          </div>
-        </div>
-      </div>
-    </section>
+/* the active section's text */
+.panel { position: absolute; top: 0; bottom: 0; left: var(--pl); width: var(--pw); z-index: 6; display: grid; align-items: center; padding-top: calc(var(--bar-h) + 8px); padding-bottom: 72px; }
+.sec { grid-area: 1 / 1; display: grid; gap: var(--space-6); opacity: 0; visibility: hidden; pointer-events: none; will-change: opacity, transform; }
+.sec.on { pointer-events: auto; }
+.eyebrow { display: flex; align-items: center; gap: var(--space-3); margin: 0; color: var(--clay); }
+.eyebrow::before { content: ""; width: 24px; height: 1px; background: var(--moon-gold); flex: none; }
+.eyebrow .ph { width: 16px; height: 16px; flex: none; }
+.actions { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; }
+.note { font-size: 14px; line-height: 20px; color: var(--stone-soft); margin: 0; }
+.callout { display: flex; align-items: center; gap: var(--space-3); padding: 12px 16px; border-radius: var(--radius-md); background: var(--clay); color: var(--on-clay); text-decoration: none; font-size: 14px; line-height: 20px; max-width: 460px; transition: background .3s var(--ease); }
+.callout:hover { background: var(--clay-deep); }
+.callout .live { background: var(--on-clay); }
+.callout .live::after { border-color: var(--on-clay); }
+.callout b { font-weight: 600; }
+.callout .go { margin-left: auto; flex: none; }
 
-    <section class="section" id="services" style="padding-top: 0">
-      <div class="wrap">
-        <svg class="motif arcs services-arcs" data-speed="-.1" aria-hidden="true"><use href="#m-arcs"/></svg>
-        <svg class="motif sparkles services-sparkles" viewBox="0 0 90 50" data-speed=".18" aria-hidden="true"><path class="tw" style="--o:0s" d="M22 14C24.2 25.8 24.2 25.8 36 28C24.2 30.2 24.2 30.2 22 42C19.8 30.2 19.8 30.2 8 28C19.8 25.8 19.8 25.8 22 14Z" fill="currentColor"/><path class="tw" style="--o:-1.4s" d="M54 4C55.3 10.7 55.3 10.7 62 12C55.3 13.3 55.3 13.3 54 20C52.7 13.3 52.7 13.3 46 12C52.7 10.7 52.7 10.7 54 4Z" fill="currentColor"/><path class="tw" style="--o:-2.6s" d="M72 30.5C72.9 35.1 72.9 35.1 77.5 36C72.9 36.9 72.9 36.9 72 41.5C71.1 36.9 71.1 36.9 66.5 36C71.1 35.1 71.1 35.1 72 30.5Z" fill="currentColor"/></svg>
-        <div class="section-head">
-          <p class="eyebrow"><span class="en">What we're exploring</span><span class="zh">我們正在規劃</span></p>
-          <h2><span class="en">Support we're <em>shaping</em> with you</span><span class="zh">與您一起<em>規劃</em>的照顧</span></h2>
-          <p class="muted"><span class="en">These are ideas we are testing, not services you can book yet. Your answers decide which ones we offer first.</span><span class="zh">以下是我們正在評估的構想，目前還不能預訂。您的意見將決定我們先推出哪一項。</span></p>
-        </div>
-        <div class="services">
-          <article class="service">
-            <span class="icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M5 15 16 6l11 9"/><path d="M8 13v13h16V13"/><path d="M13.5 26v-6h5v6"/></svg></span>
-            <h3><span class="en">Postnatal carer at home</span><span class="zh">到府產後照顧</span></h3>
-            <p><span class="en">An experienced carer who comes to your home to help with the baby, the household and your meals, for a few weeks or longer.</span><span class="zh">有經驗的照顧者到府協助照顧寶寶、家務與飲食，可安排數週或更長時間。</span></p>
-            <span class="tag"><span class="en">Exploring</span><span class="zh">規劃中</span></span>
-          </article>
-          <article class="service">
-            <span class="icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M5 16h22a11 10 0 0 1-22 0z"/><path d="M12 6c-1.4 1.8 1.4 2.8 0 4.6M16 5c-1.4 1.8 1.4 2.8 0 4.6M20 6c-1.4 1.8 1.4 2.8 0 4.6"/></svg></span>
-            <h3><span class="en">Nourishing meal delivery</span><span class="zh">產後餐點外送</span></h3>
-            <p><span class="en">Traditional postnatal meals and soups, prepared fresh and delivered to your door.</span><span class="zh">傳統產後餐點與湯品，新鮮製作，直接送到府上。</span></p>
-            <span class="tag"><span class="en">Exploring</span><span class="zh">規劃中</span></span>
-          </article>
-          <article class="service">
-            <span class="icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M6 8h7a3 3 0 0 1 3 3v15a2.5 2.5 0 0 0-2.5-2.5H6z"/><path d="M26 8h-7a3 3 0 0 0-3 3v15a2.5 2.5 0 0 1 2.5-2.5H26z"/></svg></span>
-            <h3><span class="en">Newborn care workshop</span><span class="zh">新生兒照顧課程</span></h3>
-            <p><span class="en">A practical class for parents-to-be: feeding, bathing, sleep and planning your support after the birth.</span><span class="zh">為準爸媽設計的實用課程：餵奶、洗澡、睡眠，以及產後支援規劃。</span></p>
-            <span class="tag"><span class="en">Exploring</span><span class="zh">規劃中</span></span>
-          </article>
-          <article class="service later">
-            <span class="icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M4 25V9"/><path d="M4 19h24v6"/><path d="M28 19v-2a4 4 0 0 0-4-4H14v6"/><circle cx="9" cy="15" r="2.2"/></svg></span>
-            <h3><span class="en">A place to stay</span><span class="zh">產後住宿</span></h3>
-            <p><span class="en">Rooms where mother and baby are looked after during a restful stay, if there is enough demand.</span><span class="zh">若需求足夠，我們希望提供讓媽媽與寶寶安心入住、受到照顧的空間。</span></p>
-            <span class="tag"><span class="en">Later</span><span class="zh">未來</span></span>
-          </article>
-        </div>
-        <p class="care-note">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>
-          <span><span class="en">First Moon offers rest, food and practical help. It is not a medical service. Your NHS maternity team and GP remain responsible for your health and your baby's health.</span><span class="zh">初月提供的是休息、飲食與生活上的協助，並非醫療服務。您與寶寶的健康仍由 NHS 產科團隊及家庭醫師（GP）負責。</span></span>
-        </p>
-      </div>
-    </section>
+/* photographs: one treatment everywhere */
+.photo { position: relative; overflow: hidden; background: var(--oat); border: 1px solid var(--sand); border-radius: var(--radius-lg); }
+.photo img, .photo video { display: block; width: 100%; height: 100%; object-fit: cover; }
+.photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(245, 240, 232, .06), rgba(61, 53, 45, .08)); pointer-events: none; }
+.photo .ph-label { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; padding: var(--space-6); color: var(--stone-soft); font-size: 13px; line-height: 1.5; }
+.photo.has-img .ph-label { display: none; }
+.photo.wide { aspect-ratio: 16 / 9; }
+.photo.film { aspect-ratio: 21 / 9; border-radius: 999px 999px var(--radius-lg) var(--radius-lg); border-radius: var(--radius-lg); }
+.filmband { padding-top: 0; }
+.filmband .inner { gap: var(--space-4); }
+.filmband .caption { display: flex; justify-content: space-between; gap: var(--space-4); flex-wrap: wrap; }
 
-    <section class="section journey-band" id="journey">
-      <svg class="motif mobile journey-mobile" viewBox="0 0 420 380" data-speed="-.08" aria-hidden="true"><g class="dangle" style="transform-origin:44px 0;--t:7s;--o:0s"><line x1="44" y1="-6" x2="44" y2="103" stroke="currentColor" stroke-width="1" opacity=".8"/><path d="M44 103C46.4 115.6 46.4 115.6 59 118C46.4 120.4 46.4 120.4 44 133C41.6 120.4 41.6 120.4 29 118C41.6 115.6 41.6 115.6 44 103Z" fill="currentColor"/></g><g class="dangle" style="transform-origin:100px 0;--t:8.7s;--o:4.7s"><line x1="100" y1="-6" x2="100" y2="206" stroke="currentColor" stroke-width="1" opacity=".8"/><path d="M117.2 211.4A30 30 0 1 0 117.2 260.6A24.6 24.6 0 1 1 117.2 211.4Z" fill="currentColor"/><circle cx="100" cy="99.1" r="2.6" fill="currentColor"/></g><g class="dangle" style="transform-origin:164px 0;--t:10.4s;--o:2.4s"><line x1="164" y1="-6" x2="164" y2="143" stroke="currentColor" stroke-width="1" opacity=".8"/><circle cx="164" cy="160" r="17" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="164" cy="160" r="12" fill="currentColor" opacity=".55"/></g><g class="dangle" style="transform-origin:226px 0;--t:7.1s;--o:0.1s"><line x1="226" y1="-6" x2="226" y2="279" stroke="currentColor" stroke-width="1" opacity=".8"/><path d="M226 279C229.4 296.6 229.4 296.6 247 300C229.4 303.4 229.4 303.4 226 321C222.6 303.4 222.6 303.4 205 300C222.6 296.6 222.6 296.6 226 279Z" fill="currentColor"/></g><g class="dangle" style="transform-origin:286px 0;--t:8.8s;--o:4.8s"><line x1="286" y1="-6" x2="286" y2="177" stroke="currentColor" stroke-width="1" opacity=".8"/><circle cx="286" cy="196" r="19" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M286 177a19 19 0 0 1 0 38z" fill="currentColor"/><circle cx="286" cy="82.3" r="2.6" fill="currentColor"/></g><g class="dangle" style="transform-origin:346px 0;--t:10.5s;--o:2.5s"><line x1="346" y1="-6" x2="346" y2="102" stroke="currentColor" stroke-width="1" opacity=".8"/><path d="M356.3 105.2A18 18 0 1 0 356.3 134.8A14.8 14.8 0 1 1 356.3 105.2Z" fill="currentColor"/></g><g class="dangle" style="transform-origin:392px 0;--t:7.2s;--o:0.2s"><line x1="392" y1="-6" x2="392" y2="203" stroke="currentColor" stroke-width="1" opacity=".8"/><path d="M392 203C393.8 212.2 393.8 212.2 403 214C393.8 215.8 393.8 215.8 392 225C390.2 215.8 390.2 215.8 381 214C390.2 212.2 390.2 212.2 392 203Z" fill="currentColor"/></g><path class="tw" style="--o:0s" d="M140 293C141.1 298.9 141.1 298.9 147 300C141.1 301.1 141.1 301.1 140 307C138.9 301.1 138.9 301.1 133 300C138.9 298.9 138.9 298.9 140 293Z" fill="currentColor"/><path class="tw" style="--o:-1.3s" d="M300 294C301 299 301 299 306 300C301 301 301 301 300 306C299 301 299 301 294 300C299 299 299 299 300 294Z" fill="currentColor"/><path class="tw" style="--o:-2.6s" d="M62 235C62.8 239.2 62.8 239.2 67 240C62.8 240.8 62.8 240.8 62 245C61.2 240.8 61.2 240.8 57 240C61.2 239.2 61.2 239.2 62 235Z" fill="currentColor"/><path class="tw" style="--o:-3.9s" d="M378 295C378.8 299.2 378.8 299.2 383 300C378.8 300.8 378.8 300.8 378 305C377.2 300.8 377.2 300.8 373 300C377.2 299.2 377.2 299.2 378 295Z" fill="currentColor"/><path class="tw" style="--o:-5.2s" d="M250 106C250.6 109.4 250.6 109.4 254 110C250.6 110.6 250.6 110.6 250 114C249.4 110.6 249.4 110.6 246 110C249.4 109.4 249.4 109.4 250 106Z" fill="currentColor"/><circle cx="196" cy="250" r="2.4" fill="currentColor"/><circle cx="330" cy="260" r="2" fill="currentColor"/><circle cx="24" cy="190" r="2" fill="currentColor"/><circle cx="120" cy="340" r="2.2" fill="currentColor"/><circle cx="270" cy="350" r="1.8" fill="currentColor"/></svg>
-      <div class="wrap">
-        <div class="section-head">
-          <p class="eyebrow"><span class="en">Where we are</span><span class="zh">目前進度</span></p>
-          <h2><span class="en">One phase at a <em>time</em></span><span class="zh">一步一步，<em>循序漸進</em></span></h2>
-        </div>
-        <ol class="journey">
-          <li class="now">
-            <span class="moon" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="13" fill="#FBF8F3" stroke="#7F8C77" stroke-width="1.3"/></svg></span>
-            <span class="when"><span class="en">Now to December 2026</span><span class="zh">現在至 2026 年 12 月</span></span>
-            <h3><span class="en">Listening</span><span class="zh">聆聽需求</span></h3>
-            <p><span class="en">We're speaking with families and running an anonymous survey to learn what support matters most.</span><span class="zh">我們正在與家庭交流，並透過匿名問卷了解大家最需要的支援。</span></p>
-          </li>
-          <li>
-            <span class="moon" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="13" fill="#FBF8F3" stroke="#7F8C77" stroke-width="1.3"/><path d="M20 7a13 13 0 0 1 0 26z" fill="#C2A27A"/></svg></span>
-            <span class="when"><span class="en">Early 2027</span><span class="zh">2027 年初</span></span>
-            <h3><span class="en">First services at home</span><span class="zh">首批到府服務</span></h3>
-            <p><span class="en">If families want them, we start with carers and meals at home.</span><span class="zh">若家庭有需要，我們將從到府照顧與餐點開始。</span></p>
-          </li>
-          <li>
-            <span class="moon" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="13" fill="#C2A27A" stroke="#C2A27A" stroke-width="1.3"/></svg></span>
-            <span class="when"><span class="en">Later</span><span class="zh">未來</span></span>
-            <h3><span class="en">A place to stay</span><span class="zh">產後住宿</span></h3>
-            <p><span class="en">With enough demand, rooms where mother and baby can rest and be looked after.</span><span class="zh">若需求足夠，提供讓媽媽與寶寶安心休養的空間。</span></p>
-          </li>
-        </ol>
-      </div>
-    </section>
+/* welcome */
+.words span { opacity: .28; transition: opacity .6s var(--ease); transition-delay: var(--d, 0s); }
+.words.lit span { opacity: 1; }
+.band { overflow: hidden; border-top: 1px solid var(--sand); border-bottom: 1px solid var(--sand); padding: 10px 0; mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); }
+.band-in { display: flex; gap: var(--space-8); width: max-content; animation: drift 38s linear infinite; }
+.band-in span { display: inline-flex; align-items: center; gap: var(--space-8); font-family: var(--font-serif); font-size: 22px; color: var(--stone-soft); white-space: nowrap; }
+.band-in svg { width: 14px; height: 14px; display: block; }
+@keyframes drift { to { transform: translateX(-50%); } }
 
-    <section class="section" id="take-part">
-      <div class="wrap">
-        <svg class="motif constellation take-stars" viewBox="0 0 120 70" aria-hidden="true"><path d="M8 52L34 38L58 46L84 20L110 30" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="0 5" stroke-linecap="round"/><circle cx="8" cy="52" r="2.4" fill="currentColor"/><circle cx="34" cy="38" r="2.4" fill="currentColor"/><circle cx="58" cy="46" r="2.4" fill="currentColor"/><circle cx="84" cy="20" r="3.2" fill="currentColor"/><circle cx="110" cy="30" r="2.4" fill="currentColor"/><path class="tw" d="M84 11C85.4 18.6 85.4 18.6 93 20C85.4 21.4 85.4 21.4 84 29C82.6 21.4 82.6 21.4 75 20C82.6 18.6 82.6 18.6 84 11Z" fill="currentColor"/></svg>
-        <svg class="motif sparkles take-sparkles" viewBox="0 0 90 50" data-speed=".15" aria-hidden="true"><path class="tw" style="--o:0s" d="M22 14C24.2 25.8 24.2 25.8 36 28C24.2 30.2 24.2 30.2 22 42C19.8 30.2 19.8 30.2 8 28C19.8 25.8 19.8 25.8 22 14Z" fill="currentColor"/><path class="tw" style="--o:-1.4s" d="M54 4C55.3 10.7 55.3 10.7 62 12C55.3 13.3 55.3 13.3 54 20C52.7 13.3 52.7 13.3 46 12C52.7 10.7 52.7 10.7 54 4Z" fill="currentColor"/><path class="tw" style="--o:-2.6s" d="M72 30.5C72.9 35.1 72.9 35.1 77.5 36C72.9 36.9 72.9 36.9 72 41.5C71.1 36.9 71.1 36.9 66.5 36C71.1 35.1 71.1 35.1 72 30.5Z" fill="currentColor"/></svg>
-        <div class="section-head">
-          <p class="eyebrow"><span class="en">Take part</span><span class="zh">一起參與</span></p>
-          <h2><span class="en">Help us shape <em>First Moon</em></span><span class="zh">一起打造<em>初月</em></span></h2>
-        </div>
-        <div class="join">
-          <div class="join-card survey">
-            <h3><span class="en">Share your experience</span><span class="zh">分享您的經驗</span></h3>
-            <p><span class="en">Tell us what support you had, or plan to have, after the birth and what you would value. We don't ask for your name or email.</span><span class="zh">告訴我們您過去或打算在產後安排哪些支援，以及您重視的項目。問卷不會詢問姓名或電子郵件。</span></p>
-            <span class="meta"><span class="en">About 10 minutes · English or 中文</span><span class="zh">約 10 分鐘 · 中文或英文</span></span>
-            <a class="btn primary js-survey" href="#take-part"><span class="en">Take the survey</span><span class="zh">開始填寫</span></a>
-          </div>
-          <div class="join-card waitlist">
-            <svg class="motif card-moon" viewBox="0 0 120 70" aria-hidden="true"><path d="M69.1 12.7A26 26 0 1 1 69.1 55.3A21.3 21.3 0 1 0 69.1 12.7Z" fill="currentColor"/><path class="tw" d="M30 13C31.4 20.6 31.4 20.6 39 22C31.4 23.4 31.4 23.4 30 31C28.6 23.4 28.6 23.4 21 22C28.6 20.6 28.6 20.6 30 13Z" fill="currentColor"/><path class="tw" style="--o:-1.8s" d="M46 44.5C46.9 49.1 46.9 49.1 51.5 50C46.9 50.9 46.9 50.9 46 55.5C45.1 50.9 45.1 50.9 40.5 50C45.1 49.1 45.1 49.1 46 44.5Z" fill="currentColor"/><circle cx="14" cy="48" r="2" fill="currentColor"/></svg>
-            <h3><span class="en">Join the waitlist</span><span class="zh">加入候補名單</span></h3>
-            <p class="muted"><span class="en">Leave your name, email and due month. We'll only email you about First Moon opening, and you can leave at any time.</span><span class="zh">留下姓名、電子郵件與預產月份。我們只會在初月開放時通知您，您隨時可以退出。</span></p>
-            <span class="meta"><span class="en">A separate form, kept apart from the survey</span><span class="zh">與問卷分開的獨立表單</span></span>
-            <a class="btn primary js-waitlist" href="#take-part"><span class="en">Join the waitlist</span><span class="zh">加入候補名單</span></a>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
+/* approach */
+.principles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-6); }
+.principles div { display: grid; gap: var(--space-2); align-content: start; }
+.principles svg { width: 22px; height: 22px; display: block; }
+.principles .heading { font-size: 22px; }
+.principles p { margin: 0; font-size: 15px; line-height: 1.5; color: var(--stone-soft); }
 
-  <footer class="footer">
-    <svg class="motif mobile footer-mobile" viewBox="0 0 420 380" data-speed="-.06" aria-hidden="true"><g class="dangle" style="transform-origin:44px 0;--t:7s;--o:0s"><line x1="44" y1="-6" x2="44" y2="103" stroke="currentColor" stroke-width="1" opacity=".8"/><path d="M44 103C46.4 115.6 46.4 115.6 59 118C46.4 120.4 46.4 120.4 44 133C41.6 120.4 41.6 120.4 29 118C41.6 115.6 41.6 115.6 44 103Z" fill="currentColor"/></g><g class="dangle" style="transform-origin:100px 0;--t:8.7s;--o:4.7s"><line x1="100" y1="-6" x2="100" y2="206" stroke="currentColor" stroke-width="1" opacity=".8"/><path d="M117.2 211.4A30 30 0 1 0 117.2 260.6A24.6 24.6 0 1 1 117.2 211.4Z" fill="currentColor"/><circle cx="100" cy="99.1" r="2.6" fill="currentColor"/></g><g class="dangle" style="transform-origin:164px 0;--t:10.4s;--o:2.4s"><line x1="164" y1="-6" x2="164" y2="143" stroke="currentColor" stroke-width="1" opacity=".8"/><circle cx="164" cy="160" r="17" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="164" cy="160" r="12" fill="currentColor" opacity=".55"/></g><g class="dangle" style="transform-origin:226px 0;--t:7.1s;--o:0.1s"><line x1="226" y1="-6" x2="226" y2="279" stroke="currentColor" stroke-width="1" opacity=".8"/><path d="M226 279C229.4 296.6 229.4 296.6 247 300C229.4 303.4 229.4 303.4 226 321C222.6 303.4 222.6 303.4 205 300C222.6 296.6 222.6 296.6 226 279Z" fill="currentColor"/></g><g class="dangle" style="transform-origin:286px 0;--t:8.8s;--o:4.8s"><line x1="286" y1="-6" x2="286" y2="177" stroke="currentColor" stroke-width="1" opacity=".8"/><circle cx="286" cy="196" r="19" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M286 177a19 19 0 0 1 0 38z" fill="currentColor"/><circle cx="286" cy="82.3" r="2.6" fill="currentColor"/></g><g class="dangle" style="transform-origin:346px 0;--t:10.5s;--o:2.5s"><line x1="346" y1="-6" x2="346" y2="102" stroke="currentColor" stroke-width="1" opacity=".8"/><path d="M356.3 105.2A18 18 0 1 0 356.3 134.8A14.8 14.8 0 1 1 356.3 105.2Z" fill="currentColor"/></g><g class="dangle" style="transform-origin:392px 0;--t:7.2s;--o:0.2s"><line x1="392" y1="-6" x2="392" y2="203" stroke="currentColor" stroke-width="1" opacity=".8"/><path d="M392 203C393.8 212.2 393.8 212.2 403 214C393.8 215.8 393.8 215.8 392 225C390.2 215.8 390.2 215.8 381 214C390.2 212.2 390.2 212.2 392 203Z" fill="currentColor"/></g><path class="tw" style="--o:0s" d="M140 293C141.1 298.9 141.1 298.9 147 300C141.1 301.1 141.1 301.1 140 307C138.9 301.1 138.9 301.1 133 300C138.9 298.9 138.9 298.9 140 293Z" fill="currentColor"/><path class="tw" style="--o:-1.3s" d="M300 294C301 299 301 299 306 300C301 301 301 301 300 306C299 301 299 301 294 300C299 299 299 299 300 294Z" fill="currentColor"/><path class="tw" style="--o:-2.6s" d="M62 235C62.8 239.2 62.8 239.2 67 240C62.8 240.8 62.8 240.8 62 245C61.2 240.8 61.2 240.8 57 240C61.2 239.2 61.2 239.2 62 235Z" fill="currentColor"/><path class="tw" style="--o:-3.9s" d="M378 295C378.8 299.2 378.8 299.2 383 300C378.8 300.8 378.8 300.8 378 305C377.2 300.8 377.2 300.8 373 300C377.2 299.2 377.2 299.2 378 295Z" fill="currentColor"/><path class="tw" style="--o:-5.2s" d="M250 106C250.6 109.4 250.6 109.4 254 110C250.6 110.6 250.6 110.6 250 114C249.4 110.6 249.4 110.6 246 110C249.4 109.4 249.4 109.4 250 106Z" fill="currentColor"/><circle cx="196" cy="250" r="2.4" fill="currentColor"/><circle cx="330" cy="260" r="2" fill="currentColor"/><circle cx="24" cy="190" r="2" fill="currentColor"/><circle cx="120" cy="340" r="2.2" fill="currentColor"/><circle cx="270" cy="350" r="1.8" fill="currentColor"/></svg>
-    <div class="wrap">
-      <div class="footer-top">
-        <a class="footer-brand" href="#top" aria-label="First Moon, back to top">
-          <img src="logo/emblem.png" alt="" width="400" height="429">
-          <span><b>First Moon</b><small><span class="en">Postnatal service</span><span class="zh">產後照顧服務</span></small></span>
-        </a>
-        <nav class="footer-links" aria-label="Footer">
-          <a href="#approach"><span class="en">Our approach</span><span class="zh">我們的理念</span></a>
-          <a href="#services"><span class="en">Services</span><span class="zh">服務規劃</span></a>
-          <a href="#take-part"><span class="en">Take part</span><span class="zh">一起參與</span></a>
-          <a href="privacy.html"><span class="en">Privacy notice</span><span class="zh">隱私權聲明</span></a>
-        </nav>
-      </div>
-      <div class="footer-bottom">
-        <p><span class="en">© 2026 First Moon · United Kingdom. First Moon is not a medical service.</span><span class="zh">© 2026 初月 · 英國。初月並非醫療服務。</span></p>
-        <p><span class="en">Contact:</span><span class="zh">聯絡我們：</span> <span class="email js-email"><span class="en">email address coming soon</span><span class="zh">電子郵件即將公布</span></span></p>
-      </div>
-    </div>
-  </footer>
+/* services */
+.cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3); }
+.card { display: grid; gap: 6px; align-content: start; padding: 16px 18px; border-radius: var(--radius-md); background: var(--warm-white); border: 1px solid var(--sand); min-width: 0; text-decoration: none; color: inherit; transition: border-color .3s var(--ease), transform .3s var(--ease); }
+a.card:hover { border-color: var(--line-strong); transform: translateY(-2px); }
+.card .more { color: var(--clay); font-size: 13px; font-weight: 600; margin-top: 2px; }
+.cards.compact .card { padding: 10px 14px; gap: 2px; }
+.cards.compact .card .heading { font-size: 18px; }
+.cards.compact { gap: 10px; }
+#services { gap: var(--space-4); }
+#services .care { font-size: 13px; padding: 12px 16px; }
+.card .heading { font-size: 21px; }
+.card p { margin: 0; font-size: 14px; line-height: 1.5; color: var(--stone-soft); }
+.tag { justify-self: start; font-size: 11px; line-height: 16px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; padding: 2px 10px; border-radius: var(--radius-full); background: var(--sage-tint); color: var(--sage-ink); }
+.tag.later { background: var(--oat); color: var(--stone-soft); }
+.care { display: flex; gap: var(--space-3); align-items: flex-start; padding: 14px 18px; border-radius: var(--radius-md); background: var(--sage-tint); color: var(--sage-ink); font-size: 14px; line-height: 1.5; }
+.care svg { flex: none; width: 18px; height: 18px; margin-top: 2px; }
 
+/* timeline */
+.tl { position: relative; display: grid; gap: var(--space-6); padding-left: 44px; }
+.tl::before { content: ""; position: absolute; left: 13px; top: 14px; bottom: 14px; width: 1px; background: var(--sand); }
+.tl-fill { position: absolute; left: 13px; top: 14px; width: 1px; height: 0; background: var(--moon-gold); transition: height 1.4s var(--ease) .3s; }
+.on .tl-fill, .in .tl-fill { height: calc(100% - 28px); }
+.tl .step { position: relative; display: grid; gap: 2px; }
+.tl .step svg { position: absolute; left: -44px; top: 1px; width: 28px; height: 28px; opacity: .35; transition: opacity .8s var(--ease); background: var(--linen); border-radius: var(--radius-full); }
+.on .tl .step svg, .in .tl .step svg { opacity: 1; }
+.on .tl .step:nth-of-type(2) svg, .in .tl .step:nth-of-type(2) svg { transition-delay: .5s; }
+.on .tl .step:nth-of-type(3) svg, .in .tl .step:nth-of-type(3) svg { transition-delay: 1s; }
+.tl .when { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; font-weight: 600; color: var(--clay); }
+.tl p { margin: 0; font-size: 15px; color: var(--stone-soft); line-height: 1.5; }
+
+/* the sections below the dial */
+.below { position: relative; z-index: 2; background: var(--linen); padding-top: var(--space-24); padding-bottom: var(--space-24); padding-left: max(24px, env(safe-area-inset-left, 0px)); padding-right: max(24px, env(safe-area-inset-right, 0px)); }
+.below .inner { max-width: 1120px; margin: 0 auto; display: grid; gap: var(--space-8); }
+.below.band-bg { background: var(--oat); }
+.takepart { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-6); align-items: start; }
+.survey { display: grid; gap: var(--space-4); padding: 32px; border-radius: var(--radius-lg); background: var(--survey-bg); color: var(--on-survey); }
+.survey .status { display: flex; align-items: center; gap: var(--space-3); font-size: 13px; letter-spacing: .14em; text-transform: uppercase; font-weight: 600; color: var(--survey-muted); }
+.survey .title, .survey .body { color: inherit; }
+.survey .body { opacity: .9; }
+.wait { display: grid; gap: var(--space-4); padding: 32px; border-radius: var(--radius-lg); background: var(--warm-white); border: 1px solid var(--sand); }
+form { display: grid; gap: var(--space-4); }
+.field { display: grid; gap: 6px; }
+.field label { font-size: 13px; font-weight: 600; letter-spacing: .04em; color: var(--stone-soft); }
+input, select { width: 100%; font: inherit; font-size: 16px; color: var(--stone); background: var(--linen); border: 1px solid var(--line-strong); border-radius: var(--radius-sm); padding: 11px 14px; transition: border-color .3s var(--ease); }
+input:hover, select:hover { border-color: var(--stone); }
+.two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); }
+.err { color: var(--danger); font-size: 14px; }
+.soon { font-size: 14px; color: var(--stone-soft); }
+.survey .soon { color: var(--survey-muted); }
+.btn[aria-disabled="true"] { opacity: .55; pointer-events: none; }
+.wait .asks { margin: 0; }
+.alt-form { justify-self: start; font-size: 14px; color: var(--stone-soft); }
+.survey .alt-form { color: var(--survey-muted); }
+[data-email] a { color: inherit; text-decoration: none; }
+.privacy-link { display: inline-block; margin-top: var(--space-3); font-size: 14px; }
+
+/* contact / footer */
+.contact { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: var(--space-12); align-items: start; }
+.contact .col { display: grid; gap: var(--space-4); }
+.foot-logo img { height: 44px; width: auto; display: block; }
+.foot-links { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-6); margin: 0; padding: 0; list-style: none; }
+.foot-links a { color: var(--stone-soft); text-decoration: none; font-size: 15px; transition: color .3s var(--ease); }
+.foot-links a:hover { color: var(--clay); }
+.email { display: inline-flex; align-items: center; gap: var(--space-3); flex-wrap: wrap; }
+.email code { font-family: inherit; font-size: 16px; color: var(--stone); user-select: all; }
+.legal { font-size: 13px; line-height: 1.5; color: var(--stone-soft); margin: 0; }
+details { border-top: 1px solid var(--sand); padding-top: var(--space-3); }
+summary { cursor: pointer; color: var(--stone-soft); font-size: 15px; list-style: none; display: flex; align-items: center; gap: var(--space-2); }
+summary::-webkit-details-marker { display: none; }
+summary::before { content: "+"; font-family: var(--font-serif); font-size: 20px; line-height: 1; color: var(--clay); }
+details[open] summary::before { content: "−"; }
+details p { font-size: 14px; line-height: 1.6; color: var(--stone-soft); margin: var(--space-3) 0 0; }
+.totop { justify-self: start; }
+
+/* the banner at the foot of the dial screen */
+.foot { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; display: flex; align-items: center; justify-content: space-between; gap: var(--space-6); padding-top: var(--space-3); padding-bottom: calc(var(--space-3) + env(safe-area-inset-bottom, 0px)); padding-left: max(24px, env(safe-area-inset-left, 0px)); padding-right: max(24px, env(safe-area-inset-right, 0px)); background: linear-gradient(rgba(245, 240, 232, 0), var(--linen) 60%); transition: opacity .35s var(--ease), transform .35s var(--ease); }
+:root[data-theme="dark"] .foot { background: linear-gradient(rgba(28, 22, 18, 0), var(--linen) 60%); }
+.foot.gone { opacity: 0; transform: translateY(16px); pointer-events: none; }
+.progress { display: flex; align-items: center; gap: var(--space-3); color: var(--stone-soft); }
+.progress .num { color: var(--clay); letter-spacing: .14em; }
+.progress .sep { width: 28px; height: 1px; background: var(--dial); }
+.hint { display: inline-flex; align-items: center; gap: var(--space-2); color: var(--stone-soft); font-size: 13px; }
+.hint svg { width: 12px; height: 12px; }
+.foot .actions { gap: var(--space-2); }
+
+/* mobile-only pieces */
+.hero-arch, .mini { display: none; }
+
+/* stacked layout: phones, and anyone who prefers reduced motion */
+.stack .zone { height: auto; }
+.stack .screen { position: static; height: auto; overflow: visible; }
+.stack .orbit, .stack .stage, .stack .foot { display: none; }
+.stack .glow, .stack .live::after, .stack .star { animation: none; }
+.stack .announce { position: static; height: auto; min-height: var(--announce-h); padding-top: calc(8px + env(safe-area-inset-top, 0px)); padding-bottom: 8px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); text-align: center; flex-wrap: wrap; gap: 4px 10px; font-size: 13px; line-height: 18px; }
+.stack .bar { position: sticky; top: 0; height: 64px; background: var(--linen); border-bottom: 1px solid var(--sand); }
+.stack .rp { top: 64px; }
+.stack .panel { position: relative; left: auto; z-index: 6; display: block; width: auto; max-width: 640px; margin: 0 auto; padding-top: var(--space-8); padding-bottom: var(--space-6); padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.stack .sec { opacity: 1 !important; visibility: visible !important; transform: none !important; pointer-events: auto; transition: none; padding: var(--space-12) 0; border-top: 1px solid var(--sand); }
+.stack .sec:first-child { border-top: 0; padding-top: 0; }
+.stack .hero-arch { display: block; position: relative; margin-top: var(--space-6); }
+.stack .arch-m { position: relative; width: min(100%, 420px); margin: 0 auto; aspect-ratio: 4 / 5; max-width: 100%; border-radius: 999px 999px var(--radius-lg) var(--radius-lg); background: var(--arch); overflow: hidden; border: 0; }
+.stack .arch-m::after { display: none; }
+.stack .arch-m .ph-label { align-content: end; padding-bottom: var(--space-12); }
+.stack .arch-m img, .stack .arch-m video { position: absolute; inset: 0; }
+.stack .moon-m { width: 56%; aspect-ratio: 1; position: absolute; left: 22%; top: 16%; z-index: 2; }
+.stack .arch-m.has-img .moon-m { width: 24%; left: 12%; top: 13%; }
+.stack .arch-m .spark { z-index: 2; }
+.stack .moon-m .glow-m { position: absolute; inset: 0; border-radius: var(--radius-full); box-shadow: 0 0 40px var(--glow), 0 0 120px var(--glow); opacity: .6; }
+.stack .arch-m .spark { fill: var(--moon-gold); }
+.stack .mini { display: block; position: fixed; right: max(16px, env(safe-area-inset-right, 0px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); width: 44px; height: 44px; z-index: 40; filter: drop-shadow(0 2px 6px rgba(61, 53, 45, .2)); }
+.stack .fx { opacity: 0; transform: translateY(18px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
+.stack .fx.in { opacity: 1; transform: none; }
+.stack .below { padding-top: var(--space-12); padding-bottom: var(--space-12); padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.stack .below .inner { max-width: 640px; }
+.stack .takepart, .stack .contact { grid-template-columns: 1fr; }
+@media (max-width: 899px) {
+  .bar img { height: 34px; }
+  .bar nav { gap: var(--space-3); }
+  .bar nav a.link { display: none; }
+  .bar nav .theme { display: none; }
+  .principles { grid-template-columns: 1fr; }
+  .cards { grid-template-columns: 1fr; }
+  .two { grid-template-columns: 1fr; }
+  .survey, .wait { padding: 22px; }
+  .callout { max-width: none; }
+}
+@media (max-width: 480px) {
+  .bar img { height: 30px; }
+  .announce { font-size: 13px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .glow, .live::after, .star, .band-in { animation: none !important; }
+  .fx, .fx.in, .words span, .tl-fill, .tl .step svg, .sec, .btn, .foot, .bar { transition: none !important; }
+}
+</style>
+
+<div class="announce" role="region" aria-label="Announcement">
+  <span class="live" aria-hidden="true"></span>
+  <span data-i="announce">Survey now open. Help shape First Moon: about 10 minutes, anonymous.</span>
+  <a data-href="survey" href="#takepart" data-i="announce_cta">Take the survey</a>
 </div>
-<script src="assets/site.js"></script>
+
+<header class="bar" id="bar">
+  <a class="logo" href="#home" data-go="0" aria-label="First Moon, home">
+    <img class="logo-day" src="assets/lockup-day.png" alt="First Moon — postnatal service" width="1019" height="338">
+    <img class="logo-night" src="assets/lockup-night.png" alt="" width="1019" height="338" aria-hidden="true">
+  </a>
+  <nav class="nav" aria-label="Site">
+    <a class="link" href="#approach" data-go="2" data-i="nav_approach">Our approach</a>
+    <a class="link" href="#services" data-go="3" data-i="nav_services">Services</a>
+    <a class="link" href="#where" data-go="4" data-i="nav_where">Where we are</a>
+    <a class="link" href="#takepart" data-scroll="takepart" data-i="nav_takepart">Take part</a>
+    <button class="pill lang" type="button" id="lang-btn" aria-label="Switch language">EN / 中文</button>
+    <button class="pill theme" type="button" id="theme-btn" aria-pressed="false"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10.5 2.5a6 6 0 1 0 3 9.6A5 5 0 0 1 10.5 2.5z" fill="currentColor"/></svg><span data-i="theme_night">Night</span></button>
+    <a class="btn small" href="#waitlist" data-scroll="waitlist" data-i="nav_waitlist">Join the waitlist</a>
+  </nav>
+</header>
+<div class="rp" id="rp" aria-hidden="true"></div>
+
+<div class="zone" id="zone">
+    <div class="screen">
+    <div class="stage" aria-hidden="true">
+      <div class="arch" id="arch"></div>
+      <svg class="dial" id="dial"><g id="dial-g"></g></svg>
+      <div class="moon" id="moon">
+        <div class="glow"></div>
+        <svg viewBox="-102 -102 204 204"><circle class="shade" r="100"></circle><path class="lit" d=""></path><circle class="rim" r="100"></circle></svg>
+      </div>
+      <svg class="spark big" viewBox="0 0 24 24" width="24" height="24"><path d="M12 0C12.5 6.9 17.1 11.5 24 12C17.1 12.5 12.5 17.1 12 24C11.5 17.1 6.9 12.5 0 12C6.9 11.5 11.5 6.9 12 0Z"/></svg>
+      <svg class="spark small" viewBox="0 0 24 24" width="12" height="12"><path d="M12 0C12.5 6.9 17.1 11.5 24 12C17.1 12.5 12.5 17.1 12 24C11.5 17.1 6.9 12.5 0 12C6.9 11.5 11.5 6.9 12 0Z"/></svg>
+      <div id="stars"></div>
+    </div>
+    <nav class="orbit" id="orbit" aria-label="Sections"></nav>
+
+    <main class="panel" id="panel">
+      <section class="sec on" id="home">
+        <p class="eyebrow label" data-i="hero_eyebrow">Postnatal care at home</p>
+        <h1 class="display" data-i="hero_title" data-html>Because every new mother deserves <em>rest.</em></h1>
+        <p class="lede" data-i="hero_lede">First Moon 初月 is a new postnatal care service for families in the UK, inspired by the East Asian tradition of resting after birth. Calm, practical help at home in the weeks after birth.</p>
+        <div class="actions">
+          <a class="btn" data-href="survey" href="#takepart" data-i="cta_survey">Take the survey</a>
+          <a class="btn ghost" href="#waitlist" data-scroll="waitlist" data-i="cta_waitlist">Join the waitlist</a>
+        </div>
+        <p class="note" data-i="hero_note">Listening to families until December 2026. Nothing is for sale yet.</p>
+        <a class="callout" data-href="survey" href="#takepart"><span class="live" aria-hidden="true"></span><span><b data-i="callout_a">Survey now open</b> · <span data-i="callout_b">Help shape First Moon · About 10 minutes, anonymous</span></span><span class="go" aria-hidden="true">→</span></a>
+        <div class="hero-arch" aria-hidden="true">
+          <div class="arch-m photo" data-slot="hero">
+            <figcaption class="ph-label" data-i="ph_hero">Photo: a mother holding her newborn by a window</figcaption>
+            <div class="moon-m"><div class="glow-m"></div><svg viewBox="-102 -102 204 204"><circle class="shade" r="100"></circle><path class="lit" d=""></path><circle class="rim" r="100"></circle></svg></div>
+            <svg class="spark" viewBox="0 0 24 24" width="22" height="22" style="left:74%;top:20%"><path d="M12 0C12.5 6.9 17.1 11.5 24 12C17.1 12.5 12.5 17.1 12 24C11.5 17.1 6.9 12.5 0 12C6.9 11.5 11.5 6.9 12 0Z"/></svg>
+            <svg class="spark" viewBox="0 0 24 24" width="11" height="11" style="left:82%;top:30%"><path d="M12 0C12.5 6.9 17.1 11.5 24 12C17.1 12.5 12.5 17.1 12 24C11.5 17.1 6.9 12.5 0 12C6.9 11.5 11.5 6.9 12 0Z"/></svg>
+          </div>
+        </div>
+      </section>
+
+      <section class="sec" id="welcome">
+        <p class="eyebrow label" data-i="welcome_eyebrow">Welcome to First Moon</p>
+        <p class="quote words" id="words" data-i="welcome_sentence">We believe the weeks after birth should be for rest and recovery, with the right help close at hand.</p>
+        <figure class="photo wide fx" data-slot="welcome"><figcaption class="ph-label" data-i="ph_welcome">Photo: a mother resting at home with her newborn, soft window light</figcaption></figure>
+        <div class="band fx" aria-hidden="true"><div class="band-in" id="band"></div></div>
+      </section>
+
+      <section class="sec" id="approach">
+        <p class="eyebrow label" data-i="approach_eyebrow">Our approach</p>
+        <h2 class="title" data-i="approach_title">Inspired by a tradition of rest</h2>
+        <p class="body fx" data-i="approach_p1">Across Taiwan, Hong Kong and much of East Asia, the weeks after a birth are set aside for zuò yuèzi, 坐月子: time to rest, eat well and let the body recover, with family close by.</p>
+        <p class="body fx" data-i="approach_p2">First Moon brings that idea to modern life in the UK. It is for every family who wants calm, steady help after a birth, whether or not the tradition is their own.</p>
+        <div class="principles fx">
+          <div><svg viewBox="-102 -102 204 204" aria-hidden="true"><circle class="shade" r="100"></circle><path class="lit" data-p="0.125"></path><circle class="rim" r="100"></circle></svg><h3 class="heading" data-i="pr1">Rest</h3><p data-i="pr1_p">Real sleep for the mother, and time for her body to recover.</p></div>
+          <div><svg viewBox="-102 -102 204 204" aria-hidden="true"><circle class="shade" r="100"></circle><path class="lit" data-p="0.25"></path><circle class="rim" r="100"></circle></svg><h3 class="heading" data-i="pr2">Nourishment</h3><p data-i="pr2_p">Warm, nourishing postnatal food, made with care.</p></div>
+          <div><svg viewBox="-102 -102 204 204" aria-hidden="true"><circle class="shade" r="100"></circle><path class="lit" data-p="0.5"></path><circle class="rim" r="100"></circle></svg><h3 class="heading" data-i="pr3">Support</h3><p data-i="pr3_p">An experienced pair of hands for the baby and the household.</p></div>
+        </div>
+      </section>
+
+      <section class="sec" id="services">
+        <p class="eyebrow label" data-i="services_eyebrow">Services we're exploring</p>
+        <h2 class="title" data-i="services_title">Support we're shaping with you</h2>
+        <p class="small fx" data-i="services_intro">These are ideas we are testing with families, not services you can book yet.</p>
+        <div class="cards compact fx">
+          <a class="card" href="services/carer.html"><span class="tag" data-i="tag_exploring">Exploring</span><h3 class="heading" data-i="sv1">Postnatal carer at home</h3><span class="more" data-i="more">Read more</span></a>
+          <a class="card" href="services/meals.html"><span class="tag" data-i="tag_exploring2">Exploring</span><h3 class="heading" data-i="sv2">Nourishing meal delivery</h3><span class="more" data-i="more2">Read more</span></a>
+          <a class="card" href="services/lactation.html"><span class="tag" data-i="tag_exploring5">Exploring</span><h3 class="heading" data-i="sv5">Lactation consultants</h3><span class="more" data-i="more5">Read more</span></a>
+          <a class="card" href="services/workshop.html"><span class="tag" data-i="tag_exploring3">Exploring</span><h3 class="heading" data-i="sv3">Newborn care workshop</h3><span class="more" data-i="more3">Read more</span></a>
+          <a class="card" href="services/wellness.html"><span class="tag" data-i="tag_exploring6">Exploring</span><h3 class="heading" data-i="sv6">Rest and wellness</h3><span class="more" data-i="more6">Read more</span></a>
+          <a class="card" href="services/stay.html"><span class="tag later" data-i="tag_later">Later</span><h3 class="heading" data-i="sv4">A place to stay</h3><span class="more" data-i="more4">Read more</span></a>
+        </div>
+        <div class="care fx"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M12 8v5M12 16v.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span data-i="care">First Moon offers rest, food and practical help. It is not a medical service. Your NHS maternity team and GP remain responsible for your health and your baby's health.</span></div>
+      </section>
+
+      <section class="sec" id="where">
+        <p class="eyebrow label" data-i="where_eyebrow">Where we are</p>
+        <h2 class="title" data-i="where_title">One phase at a time</h2>
+        <div class="tl fx" role="list"><div class="tl-fill" aria-hidden="true"></div>
+          <div class="step" role="listitem"><svg viewBox="-102 -102 204 204" aria-hidden="true"><circle class="shade" r="100"></circle><path class="lit" data-p="0.125"></path><circle class="rim" r="100"></circle></svg><span class="when" data-i="tl1_when">Now to December 2026</span><h3 class="heading" data-i="tl1">Listening</h3><p data-i="tl1_p">An anonymous survey and a waitlist, so what we build is shaped by families.</p></div>
+          <div class="step" role="listitem"><svg viewBox="-102 -102 204 204" aria-hidden="true"><circle class="shade" r="100"></circle><path class="lit" data-p="0.25"></path><circle class="rim" r="100"></circle></svg><span class="when" data-i="tl2_when">Early 2027</span><h3 class="heading" data-i="tl2">First services at home</h3><p data-i="tl2_p">A carer at home and nourishing meals, with the first families on the waitlist.</p></div>
+          <div class="step" role="listitem"><svg viewBox="-102 -102 204 204" aria-hidden="true"><circle class="shade" r="100"></circle><path class="lit" data-p="0.5"></path><circle class="rim" r="100"></circle></svg><span class="when" data-i="tl3_when">Later</span><h3 class="heading" data-i="tl3">A place to stay</h3><p data-i="tl3_p">A calm place to rest and be looked after, once the home services are running well.</p></div>
+        </div>
+      </section>
+
+      <section class="sec" id="name">
+        <p class="eyebrow label" data-i="name_eyebrow">The name</p>
+        <h2 class="title" data-i="name_title" data-html>初月, the <em>first moon</em></h2>
+        <p class="body fx" data-i="name_p1">In Chinese, 月 is both moon and month. The first moon is the first month: the time a family keeps for rest, warmth and recovery after a birth.</p>
+        <p class="body fx" data-i="name_p2">That is where we begin. Keep scrolling to take part, or to get in touch.</p>
+        <div class="actions fx"><a class="btn" data-href="survey" href="#takepart" data-i="cta_survey3">Take the survey</a><a class="btn ghost" href="#contact" data-scroll="contact"><span data-i="cta_contact">Contact us</span><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1v10M2 7l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.2"/></svg></a></div>
+      </section>
+    </main>
+  </div>
+</div>
+
+<section class="below filmband" id="film" aria-label="Photograph">
+  <div class="inner">
+    <figure class="photo film fx" data-slot="film"><figcaption class="ph-label" data-i="ph_film">Photo: a sleeping newborn, close and calm</figcaption></figure>
+    <div class="caption label"><span data-i="ph_film_cap">Rest · Nourishment · Support · Calm</span><span class="num" data-i="ph_film_cap2">The weeks after birth</span></div>
+  </div>
+</section>
+
+<section class="below" id="takepart">
+  <div class="inner">
+    <p class="eyebrow label"><svg class="ph" viewBox="-102 -102 204 204" aria-hidden="true"><circle class="shade" r="100"></circle><path class="lit" data-p="0.75"></path><circle class="rim" r="100"></circle></svg><span data-i="takepart_eyebrow">Take part</span></p>
+    <h2 class="title" data-i="takepart_title">Two ways to help shape First Moon</h2>
+    <div class="takepart">
+      <div class="survey fx">
+        <p class="status"><span class="live" aria-hidden="true"></span><span data-i="survey_status">Survey now open</span></p>
+        <h3 class="title" data-i="survey_title">Help shape First Moon</h3>
+        <p class="body" data-i="survey_p">Anonymous, about 10 minutes, in English or 中文. Your answers decide what we build first.</p>
+        <div class="actions"><a class="btn gold" data-href="survey" data-card href="#takepart" data-i="cta_survey2">Take the survey</a><span class="soon" data-soon="survey" hidden data-i="soon">Link coming soon</span></div>
+        <a class="alt-form" data-href="survey" data-alt href="#takepart" hidden data-i="alt_survey">Prefer Chinese? 中文版問卷</a>
+      </div>
+      <div class="wait fx" id="waitlist">
+        <h3 class="title" data-i="waitlist_title">Join the waitlist</h3>
+        <p class="small" data-i="waitlist_p">A separate form from the survey. We only use it to tell you when First Moon starts.</p>
+        <p class="small asks" data-i="waitlist_asks">It asks for your first name and email, and your due month if you would like to share it.</p>
+        <div class="actions"><a class="btn" data-href="waitlist" data-card href="#waitlist" data-i="cta_waitlist2">Join the waitlist</a><span class="soon" data-soon="waitlist" hidden data-i="soon2">Link coming soon</span></div>
+        <a class="alt-form" data-href="waitlist" data-alt href="#waitlist" hidden data-i="alt_waitlist">Prefer Chinese? 中文版表單</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="below band-bg" id="contact">
+  <div class="inner">
+    <p class="eyebrow label"><svg class="ph" viewBox="-102 -102 204 204" aria-hidden="true"><circle class="shade" r="100"></circle><path class="lit" data-p="0.875"></path><circle class="rim" r="100"></circle></svg><span data-i="contact_eyebrow">Contact</span></p>
+    <div class="contact">
+      <div class="col">
+        <div class="foot-logo"><img class="logo-day" src="assets/lockup-day.png" alt="First Moon — postnatal service" width="1019" height="338"><img class="logo-night" src="assets/lockup-night.png" alt="" aria-hidden="true" width="1019" height="338"></div>
+        <p class="body" data-i="contact_p">Questions, ideas, or a story from your own first weeks: we would love to hear from you.</p>
+        <p class="email body"><span data-i="contact_label">Write to us:</span> <code data-email>info@firstmooncare.com</code><button class="pill" type="button" id="copy-btn" data-i="copy">Copy</button></p>
+        <ul class="foot-links">
+          <li><a href="#approach" data-go="2" data-i="nav_approach2">Our approach</a></li>
+          <li><a href="#services" data-go="3" data-i="nav_services2">Services</a></li>
+          <li><a href="#where" data-go="4" data-i="nav_where2">Where we are</a></li>
+          <li><a href="#takepart" data-scroll="takepart" data-i="nav_takepart2">Take part</a></li>
+        </ul>
+      </div>
+      <div class="col">
+        <details><summary data-i="privacy_title">Privacy notice</summary><p data-i="privacy_p">The survey is anonymous: your answers are not stored with your name or contact details. The waitlist form collects your first name, email address and preferred language, and your due month if you choose to share it, only so we can tell you when First Moon starts. Both forms run on Google Forms. We do not use tracking or cookies. Email us at any time to have your details removed.</p><a class="privacy-link" href="privacy.html" data-i="privacy_link">Read the full privacy notice</a></details>
+        <p class="legal" data-i="legal">© 2026 First Moon · United Kingdom. First Moon is not a medical service.</p>
+        <a class="btn ghost small totop" href="#home" data-go="0" data-i="totop">Back to the moon</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<svg class="mini" viewBox="-102 -102 204 204" aria-hidden="true"><circle class="shade" r="100"></circle><path class="lit" d=""></path><circle class="rim" r="100"></circle></svg>
+
+<div class="foot" id="foot">
+  <div class="progress label"><span class="num" id="prog-num">01 / 06</span><span class="sep"></span><span id="prog-name">New moon</span></div>
+  <div class="hint"><span data-i="hint">Scroll to turn the moon</span><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1v10M2 7l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.2"/></svg></div>
+  <div class="actions"><a class="btn ghost small" href="#contact" data-scroll="contact" data-i="foot_contact">Contact us ↓</a><a class="btn small" data-href="survey" href="#takepart" data-i="foot_survey">Take the survey</a></div>
+</div>
+
+<script src="assets/config.js"></script>
+<script>
+(function () {
+  // Set in assets/config.js, shared with every page.
+  var CONFIG = window.FM_CONFIG || {};
+  var formUrl = function (kind, l) { var u = (CONFIG[kind] || {})[l] || ''; return /^https?:/.test(u) ? u : ''; };
+  if (!CONFIG.email) CONFIG.email = 'info@firstmooncare.com';
+  // Photographs, one per slot: an image path, or a looping clip { poster, webm, mp4 }. Empty = a labelled placeholder.
+  var IMAGES = {
+    hero: { poster: 'media/hero-poster.jpg', webm: 'media/hero.webm', mp4: 'media/hero.mp4' },          // phones, the arch (portrait)
+    welcome: { poster: 'media/welcome-poster.jpg', webm: 'media/welcome.webm', mp4: 'media/welcome.mp4' }, // under the welcome sentence (16:9)
+    film: { poster: 'media/film-poster.jpg', webm: 'media/film.webm', mp4: 'media/film.mp4' }               // the wide band before Take part (21:9)
+  };
+
+  var N = 6;                 // stops on the dial
+  var PHASES_N = 8;          // phases over the whole page: six on the dial, two below
+  var I18N = {
+    en: {
+      phases: ['New moon', 'Waxing crescent', 'First quarter', 'Waxing gibbous', 'Full moon', 'Waning gibbous', 'Third quarter', 'Waning crescent'],
+      titles: ['Home', 'Welcome', 'Our approach', 'Services', 'Where we are', 'The name'],
+      band: ['Rest', 'Nourishment', 'Support', 'Calm'],
+      lang_btn: 'EN / 中文', theme_night: 'Night', theme_day: 'Day',
+      announce: 'Survey now open. Help shape First Moon: about 10 minutes, anonymous.', announce_cta: 'Take the survey',
+      nav_approach: 'Our approach', nav_services: 'Services', nav_where: 'Where we are', nav_takepart: 'Take part', nav_waitlist: 'Join the waitlist',
+      nav_approach2: 'Our approach', nav_services2: 'Services', nav_where2: 'Where we are', nav_takepart2: 'Take part',
+      hero_eyebrow: 'Postnatal care at home', hero_title: 'Because every new mother deserves <em>rest.</em>',
+      hero_lede: 'First Moon 初月 is a new postnatal care service for families in the UK, inspired by the East Asian tradition of resting after birth. Calm, practical help at home in the weeks after birth.',
+      cta_survey: 'Take the survey', cta_waitlist: 'Join the waitlist', hero_note: 'Listening to families until December 2026. Nothing is for sale yet.',
+      callout_a: 'Survey now open', callout_b: 'Help shape First Moon · About 10 minutes, anonymous',
+      welcome_eyebrow: 'Welcome to First Moon', welcome_sentence: 'We believe the weeks after birth should be for rest and recovery, with the right help close at hand.',
+      approach_eyebrow: 'Our approach', approach_title: 'Inspired by a tradition of rest',
+      approach_p1: 'Across Taiwan, Hong Kong and much of East Asia, the weeks after a birth are set aside for zuò yuèzi, 坐月子: time to rest, eat well and let the body recover, with family close by.',
+      approach_p2: 'First Moon brings that idea to modern life in the UK. It is for every family who wants calm, steady help after a birth, whether or not the tradition is their own.',
+      pr1: 'Rest', pr1_p: 'Real sleep for the mother, and time for her body to recover.', pr2: 'Nourishment', pr2_p: 'Warm, nourishing postnatal food, made with care.', pr3: 'Support', pr3_p: 'An experienced pair of hands for the baby and the household.',
+      services_eyebrow: "Services we're exploring", services_title: "Support we're shaping with you", services_intro: 'Ideas we are testing with families, not services you can book yet. The lactation consultants are the one part already settled: certified, and contracted by First Moon.',
+      tag_exploring: 'Exploring', tag_exploring2: 'Exploring', tag_exploring3: 'Exploring', tag_later: 'Later',
+      more: 'Read more', more2: 'Read more', more3: 'Read more', more4: 'Read more', more5: 'Read more', more6: 'Read more', tag_exploring5: 'Exploring', tag_exploring6: 'Exploring',
+      sv5: 'Lactation consultants', sv6: 'Rest and wellness',
+      sv1: 'Postnatal carer at home', sv1_p: 'An experienced carer who helps with the baby and the household.', sv2: 'Nourishing meal delivery', sv2_p: 'Warm postnatal meals brought to your door.', sv3: 'Newborn care workshop', sv3_p: 'Hands-on sessions for new and expecting parents.', sv4: 'A place to stay', sv4_p: 'A calm place to rest and be looked after, further down the line.',
+      care: "First Moon offers rest, food and practical help. It is not a medical service. Your NHS maternity team and GP remain responsible for your health and your baby's health.",
+      where_eyebrow: 'Where we are', where_title: 'One phase at a time',
+      tl1_when: 'Now to December 2026', tl1: 'Listening', tl1_p: 'An anonymous survey and a waitlist, so what we build is shaped by families.',
+      tl2_when: 'Early 2027', tl2: 'First services at home', tl2_p: 'A carer at home and nourishing meals, with the first families on the waitlist.',
+      tl3_when: 'Later', tl3: 'A place to stay', tl3_p: 'A calm place to rest and be looked after, once the home services are running well.',
+      name_eyebrow: 'The name', name_title: '初月, the <em>first moon</em>', name_p1: 'In Chinese, 月 is both moon and month. The first moon is the first month: the time a family keeps for rest, warmth and recovery after a birth.', name_p2: 'That is where we begin. Keep scrolling to take part, or to get in touch.', cta_survey3: 'Take the survey', cta_contact: 'Contact us',
+      takepart_eyebrow: 'Take part', takepart_title: 'Two ways to help shape First Moon', survey_status: 'Survey now open', survey_title: 'Help shape First Moon', survey_p: 'Anonymous, about 10 minutes, in English or 中文. Your answers decide what we build first.', cta_survey2: 'Take the survey',
+      waitlist_title: 'Join the waitlist', waitlist_p: 'A separate form from the survey. We only use it to tell you when First Moon starts.',
+      waitlist_asks: 'It asks for your first name and email, and your due month if you would like to share it.', alt_survey: 'Prefer Chinese? 中文版問卷', alt_waitlist: 'Prefer Chinese? 中文版表單', cta_waitlist2: 'Join the waitlist', soon: 'Link coming soon', soon2: 'Link coming soon', privacy_link: 'Read the full privacy notice',
+      contact_eyebrow: 'Contact', contact_p: 'Questions, ideas, or a story from your own first weeks: we would love to hear from you.', contact_label: 'Write to us:', copy: 'Copy', copied: 'Copied', privacy_title: 'Privacy notice',
+      privacy_p: 'The survey is anonymous: your answers are not stored with your name or contact details. The waitlist form collects your first name, email address and preferred language, and your due month if you choose to share it, only so we can tell you when First Moon starts. Both forms run on Google Forms. We do not use tracking or cookies. Email us at any time to have your details removed.',
+      legal: '© 2026 First Moon · United Kingdom. First Moon is not a medical service.', totop: 'Back to the moon',
+      hint: 'Scroll to turn the moon', foot_contact: 'Contact us ↓', foot_survey: 'Take the survey',
+      ph_hero: 'Photo: a mother holding her newborn by a window', ph_welcome: 'Photo: a mother resting at home with her newborn, soft window light', ph_film: 'Photo: a sleeping newborn, close and calm', ph_film_cap: 'Rest · Nourishment · Support · Calm', ph_film_cap2: 'The weeks after birth'
+    },
+    zh: {
+      phases: ['新月', '眉月', '上弦月', '盈凸月', '滿月', '虧凸月', '下弦月', '殘月'],
+      titles: ['首頁', '歡迎', '我們的理念', '服務', '目前進度', '關於名字'],
+      band: ['休息', '滋養', '支持', '平靜'],
+      lang_btn: '中文 / EN', theme_night: '夜間', theme_day: '日間',
+      announce: '問卷已開放。幫助我們形塑初月：約 10 分鐘，匿名填寫。', announce_cta: '填寫問卷',
+      nav_approach: '我們的理念', nav_services: '服務', nav_where: '目前進度', nav_takepart: '參與', nav_waitlist: '加入候補名單',
+      nav_approach2: '我們的理念', nav_services2: '服務', nav_where2: '目前進度', nav_takepart2: '參與',
+      hero_eyebrow: '到府產後照護', hero_title: '每一位新手媽媽，都值得好好<em>休息</em>。',
+      hero_lede: '初月 First Moon 是一項全新的英國產後照護服務，靈感來自東亞「坐月子」的休養傳統。在產後的幾週裡，於家中提供安心、實際的協助。',
+      cta_survey: '填寫問卷', cta_waitlist: '加入候補名單', hero_note: '我們將聆聽家庭的聲音至 2026 年 12 月。目前尚未販售任何服務。',
+      callout_a: '問卷已開放', callout_b: '幫助我們形塑初月 · 約 10 分鐘，匿名填寫',
+      welcome_eyebrow: '歡迎來到初月', welcome_sentence: '我們相信，產後的幾週應該用來休息與恢復，而合適的幫助就在身邊。',
+      approach_eyebrow: '我們的理念', approach_title: '源自休養的傳統',
+      approach_p1: '在台灣、香港與許多東亞家庭中，產後的幾週是「坐月子」的時間：專心休息、好好吃飯、讓身體恢復，家人就在身旁。',
+      approach_p2: '初月把這份傳統帶進現代英國的家庭生活。不論您是否熟悉這項傳統，只要希望產後得到平靜而穩定的協助，初月都是為您而設。',
+      pr1: '休息', pr1_p: '讓媽媽真正睡一覺，給身體恢復的時間。', pr2: '滋養', pr2_p: '用心準備、溫暖滋養的月子餐。', pr3: '支持', pr3_p: '經驗豐富的照護者，協助照顧寶寶與家務。',
+      services_eyebrow: '探索中的服務', services_title: '與您一起形塑的支持', services_intro: '這些是我們正與家庭一起測試的想法，目前還不是可以預約的服務。唯一已經確定的是哺乳諮詢師：具備認證，由初月簽約。',
+      tag_exploring: '探索中', tag_exploring2: '探索中', tag_exploring3: '探索中', tag_later: '之後',
+      more: '了解更多', more2: '了解更多', more3: '了解更多', more4: '了解更多', more5: '了解更多', more6: '了解更多', tag_exploring5: '探索中', tag_exploring6: '探索中',
+      sv5: '哺乳諮詢師', sv6: '休養與安適',
+      sv1: '到府產後照護者', sv1_p: '經驗豐富的照護者，到府協助照顧寶寶與家務。', sv2: '滋養月子餐外送', sv2_p: '溫暖的月子餐，送到您家門口。', sv3: '新生兒照護工作坊', sv3_p: '為新手與準父母設計的實作課程。', sv4: '月子休養空間', sv4_p: '一個安靜休養、受到照顧的地方，未來再推出。',
+      care: '初月提供休息、餐食與實際的協助，不是醫療服務。您與寶寶的健康，仍由您的 NHS 產科團隊與家庭醫師（GP）負責。',
+      where_eyebrow: '目前進度', where_title: '一步一個月相',
+      tl1_when: '現在至 2026 年 12 月', tl1: '聆聽', tl1_p: '透過匿名問卷與候補名單，讓家庭的需求決定我們的方向。',
+      tl2_when: '2027 年初', tl2: '首批到府服務', tl2_p: '到府照護者與月子餐，優先提供給候補名單上的家庭。',
+      tl3_when: '之後', tl3: '月子休養空間', tl3_p: '待到府服務穩定後，再推出可入住休養的空間。',
+      name_eyebrow: '關於名字', name_title: '初月，<em>第一個月亮</em>', name_p1: '在中文裡，「月」既是月亮，也是月份。初月就是第一個月：一家人留給休息、溫暖與恢復的時間。', name_p2: '這是我們的起點。繼續往下，參與問卷，或與我們聯絡。', cta_survey3: '填寫問卷', cta_contact: '聯絡我們',
+      takepart_eyebrow: '參與', takepart_title: '兩種方式，一起形塑初月', survey_status: '問卷已開放', survey_title: '幫助我們形塑初月', survey_p: '匿名填寫，約 10 分鐘，可選擇英文或中文。您的答案將決定我們先做什麼。', cta_survey2: '填寫問卷',
+      waitlist_title: '加入候補名單', waitlist_p: '這份表單與問卷分開，只用於在初月開始服務時通知您。',
+      waitlist_asks: '表單會請您填寫名字與電子郵件；若您願意，也可以填寫預產月份。', alt_survey: '想用英文填寫？English version', alt_waitlist: '想用英文填寫？English version', cta_waitlist2: '加入候補名單', soon: '即將開放', soon2: '即將開放', privacy_link: '閱讀完整隱私權聲明',
+      contact_eyebrow: '聯絡', contact_p: '有任何問題、想法，或想分享您自己產後幾週的故事，都歡迎來信。', contact_label: '聯絡我們：', copy: '複製', copied: '已複製', privacy_title: '隱私權聲明',
+      privacy_p: '問卷為匿名填寫，您的答案不會與姓名或聯絡方式一併儲存。候補名單表單蒐集您的名字、電子郵件與偏好語言，以及您願意提供的預產月份，僅用於通知您初月開始服務的時間。兩份表單皆使用 Google 表單。我們不使用追蹤工具或 cookie。若您希望刪除資料，隨時來信告知即可。',
+      legal: '© 2026 First Moon 初月 · 英國。初月不是醫療服務。', totop: '回到月亮',
+      hint: '滾動以轉動月亮', foot_contact: '聯絡我們 ↓', foot_survey: '填寫問卷',
+      ph_hero: '照片：媽媽在窗邊抱著新生兒', ph_welcome: '照片：媽媽與新生兒在家中休息，柔和的窗光', ph_film: '照片：熟睡的新生兒，親近而平靜', ph_film_cap: '休息 · 滋養 · 支持 · 平靜', ph_film_cap2: '產後的幾週'
+    }
+  };
+
+  var root = document.documentElement;
+  var lang = 'en';
+  try { var l0 = localStorage.getItem('fm-lang'); if (l0 === 'zh' || l0 === 'en') lang = l0; } catch (e) {}
+  var secs = Array.prototype.slice.call(document.querySelectorAll('.sec'));
+  var phaseSecs = secs.concat([document.getElementById('takepart'), document.getElementById('contact')]);
+  var zone = document.getElementById('zone');
+  var moon = document.getElementById('moon');
+  var glow = moon.querySelector('.glow');
+  var liveLits = [moon.querySelector('.lit'), document.querySelector('.mini .lit')];
+  var dial = document.getElementById('dial'), dialG = document.getElementById('dial-g'), arch = document.getElementById('arch');
+  var sparkBig = document.querySelector('.stage .spark.big'), sparkSmall = document.querySelector('.stage .spark.small');
+  var orbit = document.getElementById('orbit'), stars = document.getElementById('stars');
+  var progNum = document.getElementById('prog-num'), progName = document.getElementById('prog-name'), rp = document.getElementById('rp');
+  var foot = document.getElementById('foot'), bar = document.getElementById('bar');
+  var mqStack = window.matchMedia('(max-width: 899px)');
+  var mqReduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var active = 0, cur = 0, fTarget = 0, fSmooth = 0, geo = {}, arc = null, raf = 0;
+
+  function stacked() { return mqStack.matches || mqReduce.matches; }
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  function t(k) { return I18N[lang][k]; }
+  function vh() { return window.innerHeight; }
+
+  // The lit part of a flat moon for phase p in [0,1): 0 new, .25 first quarter, .5 full, .75 third quarter.
+  function litPath(p, r) {
+    p = ((p % 1) + 1) % 1;
+    var c = Math.cos(2 * Math.PI * p), a;
+    if (p < 0.5) { a = r * c; return 'M0,' + (-r) + 'A' + r + ',' + r + ' 0 0 1 0,' + r + 'A' + Math.abs(a).toFixed(3) + ',' + r + ' 0 0 ' + (a > 0 ? 0 : 1) + ' 0,' + (-r) + 'Z'; }
+    a = -r * c; return 'M0,' + (-r) + 'A' + r + ',' + r + ' 0 0 0 0,' + r + 'A' + Math.abs(a).toFixed(3) + ',' + r + ' 0 0 ' + (a > 0 ? 0 : 1) + ' 0,' + (-r) + 'Z';
+  }
+  function glyph(p) { return '<svg viewBox="-102 -102 204 204" aria-hidden="true"><circle class="shade" r="100"></circle><path class="lit" d="' + litPath(p, 100) + '"></path><circle class="rim" r="100"></circle></svg>'; }
+  Array.prototype.forEach.call(document.querySelectorAll('.lit[data-p]'), function (el) { el.setAttribute('d', litPath(parseFloat(el.getAttribute('data-p')), 100)); });
+
+  // links and the address, from CONFIG. Each survey or waitlist link opens the form in the language the page is showing;
+  // the small links on the Take part cards open the other language's form. With no link set, they scroll to Take part.
+  function wireForms() {
+    var other = lang === 'zh' ? 'en' : 'zh';
+    Array.prototype.forEach.call(document.querySelectorAll('[data-href]'), function (a) {
+      var kind = a.getAttribute('data-href'), alt = a.hasAttribute('data-alt');
+      var url = formUrl(kind, alt ? other : lang), here = kind === 'survey' ? 'takepart' : 'waitlist';
+      if (url) {
+        a.href = url; a.target = '_blank'; a.rel = 'noopener';
+        a.removeAttribute('data-scroll'); a.removeAttribute('aria-disabled'); a.removeAttribute('tabindex'); a.hidden = false;
+      } else if (alt) a.hidden = true;
+      else if (a.hasAttribute('data-card')) { a.href = '#' + here; a.setAttribute('aria-disabled', 'true'); a.tabIndex = -1; }
+      else { a.href = '#' + here; a.removeAttribute('target'); a.setAttribute('data-scroll', here); }
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('[data-soon]'), function (el) { el.hidden = !!formUrl(el.getAttribute('data-soon'), lang); });
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('[data-email]'), function (el) {
+    var a = document.createElement('a'); a.href = 'mailto:' + CONFIG.email; a.textContent = CONFIG.email;
+    el.textContent = ''; el.appendChild(a);
+  });
+
+  // Clips play only while on screen (on the dial, only in the panel on show), and never for anyone who prefers reduced motion: they see the still.
+  function playClip(v) {
+    if (v._seen && !mqReduce.matches && (stacked() || !v.parentNode.closest('.sec[aria-hidden="true"]'))) { var p = v.play(); if (p && p.catch) p.catch(function () {}); } else v.pause();
+  }
+  var clipIO = 'IntersectionObserver' in window ? new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { e.target._seen = e.isIntersecting; playClip(e.target); });
+  }, { threshold: 0.2 }) : null;
+  Array.prototype.forEach.call(document.querySelectorAll('[data-slot]'), function (el) {
+    var src = IMAGES[el.getAttribute('data-slot')];
+    if (!src) return;
+    var media;
+    if (typeof src === 'string') {
+      media = document.createElement('img'); media.src = src; media.alt = ''; media.loading = 'lazy'; media.decoding = 'async';
+    } else {
+      media = document.createElement('video');
+      media.muted = true; media.loop = true; media.playsInline = true; media.preload = 'none';
+      media.setAttribute('muted', ''); media.setAttribute('playsinline', ''); media.setAttribute('aria-hidden', 'true');
+      media.poster = src.poster;
+      [['webm', 'video/webm'], ['mp4', 'video/mp4']].forEach(function (f) { if (src[f[0]]) { var so = document.createElement('source'); so.src = src[f[0]]; so.type = f[1]; media.appendChild(so); } });
+      if (clipIO) clipIO.observe(media);
+    }
+    el.insertBefore(media, el.firstChild); el.classList.add('has-img');
+  });
+
+  // the orbit: one title per stop
+  var orbs = [], txts = [];
+  for (var j = 0; j < N; j++) {
+    var o = document.createElement('div'); o.className = 'orb';
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'orb-txt'; b.setAttribute('data-go', j);
+    b.innerHTML = '<span class="num">' + pad(j + 1) + '</span><span class="name"></span>';
+    o.appendChild(b); orbit.appendChild(o); orbs.push(o); txts.push(b);
+  }
+
+  var band = document.getElementById('band');
+  function buildBand() {
+    var words = t('band'), s = '';
+    for (var rep = 0; rep < 2; rep++) {
+      s += '<span>';
+      words.forEach(function (w, k) { s += w + glyph([0, 0.25, 0.5, 0.75][k % 4] + 0.125); });
+      s += '</span>';
+    }
+    band.innerHTML = s;
+  }
+  var words = document.getElementById('words');
+  function buildWords() {
+    var text = t('welcome_sentence');
+    var parts = lang === 'zh' ? text.split('') : text.split(' ');
+    words.innerHTML = parts.map(function (w, k) { return '<span style="--d:' + (k * (lang === 'zh' ? 0.045 : 0.11)).toFixed(2) + 's">' + w + '</span>'; }).join(lang === 'zh' ? '' : ' ');
+  }
+
+  function applyLang() {
+    root.setAttribute('lang', lang === 'zh' ? 'zh-Hant' : 'en');
+    var d = I18N[lang];
+    Array.prototype.forEach.call(document.querySelectorAll('[data-i]'), function (el) {
+      var k = el.getAttribute('data-i'); if (!(k in d)) return;
+      if (el.hasAttribute('data-html')) el.innerHTML = d[k]; else el.textContent = d[k];
+    });
+    document.getElementById('lang-btn').textContent = d.lang_btn;
+    txts.forEach(function (b, k) { b.querySelector('.name').textContent = d.titles[k]; b.title = d.titles[k]; });
+    progName.textContent = d.phases[active];
+    buildBand(); buildWords();
+    if (active === 1) setTimeout(function () { words.classList.add('lit'); }, 50);
+    document.getElementById('theme-btn').querySelector('span').textContent = root.getAttribute('data-theme') === 'dark' ? d.theme_day : d.theme_night;
+    wireForms();
+    try { localStorage.setItem('fm-lang', lang); } catch (e) {}
+  }
+  document.getElementById('lang-btn').addEventListener('click', function () { lang = lang === 'en' ? 'zh' : 'en'; applyLang(); });
+
+  var themeBtn = document.getElementById('theme-btn');
+  function applyTheme(dark) {
+    if (dark) root.setAttribute('data-theme', 'dark'); else root.removeAttribute('data-theme');
+    themeBtn.setAttribute('aria-pressed', dark ? 'true' : 'false');
+    themeBtn.querySelector('span').textContent = dark ? t('theme_day') : t('theme_night');
+  }
+  try { if (localStorage.getItem('fm-theme') === 'dark') applyTheme(true); } catch (e) {}
+  themeBtn.addEventListener('click', function () {
+    var dark = root.getAttribute('data-theme') !== 'dark';
+    applyTheme(dark);
+    try { localStorage.setItem('fm-theme', dark ? 'dark' : 'light'); } catch (e) {}
+  });
+
+  // the orbit follows the page's scroll through the zone: f is a continuous stop index, 0..N-1
+  function placePanels(f) {
+    secs.forEach(function (s, i) {
+      var d = i - f, x = Math.max(0, Math.min(1, (Math.abs(d) - 0.22) / 0.28)), w = 1 - x * x * (3 - 2 * x);   // whole until a quarter of the way, gone by half
+      s.style.opacity = w.toFixed(3);
+      s.style.transform = 'translateY(' + (d * 36).toFixed(1) + 'px)';
+      s.style.visibility = w > 0 ? 'visible' : 'hidden';
+    });
+    if (f >= 0.55 && f <= 1.45) words.classList.add('lit');
+  }
+  function placeOrbit(f) {
+    placePanels(f);
+    var stepDeg = 360 / N;
+    orbs.forEach(function (o, i) {
+      var a = -(i - f) * stepDeg;
+      o.style.transform = 'rotate(' + a + 'deg)';
+      txts[i].style.transform = 'translate(-50%, -50%) rotate(' + (-a) + 'deg)';
+      var d = Math.abs(i - f), near = d < 0.6 ? d / 0.6 : 1, far = d <= 1 ? 1 : Math.max(0.15, 1 - (d - 1) * 0.35);
+      txts[i].style.opacity = (near * far).toFixed(3);
+      txts[i].tabIndex = d < 0.5 ? -1 : 0;
+    });
+    if (arc) { var L = 2 * Math.PI * geo.rd; arc.style.strokeDashoffset = (L * (1 - f / (N - 1))).toFixed(2); }
+    cur = f; drawMoon();
+  }
+
+  function drawDial() {
+    var Rd = geo.rd, pad2 = 30, size = 2 * (Rd + pad2);
+    dial.setAttribute('width', size); dial.setAttribute('height', size);
+    dial.setAttribute('viewBox', (-Rd - pad2) + ' ' + (-Rd - pad2) + ' ' + size + ' ' + size);
+    dial.style.left = (geo.cx - Rd - pad2) + 'px'; dial.style.top = (geo.cy - Rd - pad2) + 'px';
+    var L = 2 * Math.PI * Rd;
+    var s = '<circle class="ring" r="' + Rd + '"></circle><circle class="ring-dots" r="' + (geo.ro + 34) + '"></circle>';
+    s += '<circle class="arc" id="arc" r="' + Rd + '" transform="rotate(-90)" stroke-dasharray="' + L.toFixed(2) + '" stroke-dashoffset="' + L.toFixed(2) + '"></circle>';
+    for (var k = 0; k < N; k++) {
+      var th = k * 2 * Math.PI / N, c = Math.cos(th), sn = Math.sin(th);
+      s += '<line class="tick" x1="' + ((Rd - 5) * c).toFixed(2) + '" y1="' + ((Rd - 5) * sn).toFixed(2) + '" x2="' + ((Rd + 5) * c).toFixed(2) + '" y2="' + ((Rd + 5) * sn).toFixed(2) + '"></line>';
+    }
+    s += '<circle class="mark" cx="' + (-Rd) + '" cy="0" r="3.5"></circle>';
+    dialG.innerHTML = s;
+    arc = document.getElementById('arc');
+  }
+  function drawStars() {
+    var pts = [[-0.62, -0.95], [-0.5, -1.12], [-0.3, -1.04], [0.95, -0.56], [1.08, -0.4], [1.02, 0.42], [0.86, 0.66], [-0.42, 1.02], [-0.22, 1.12]];
+    var R = geo.ro + 34, s = '';
+    pts.forEach(function (p, k) { s += '<i class="star" style="left:' + (geo.cx + p[0] * R).toFixed(1) + 'px;top:' + (geo.cy + p[1] * R).toFixed(1) + 'px;animation-delay:' + (k * 0.7) + 's;animation-duration:' + (3.5 + (k % 3)) + 's"></i>'; });
+    stars.innerHTML = s;
+  }
+  function drawMoon() {
+    var p = cur / PHASES_N, d = litPath(p, 100);
+    liveLits.forEach(function (el) { if (el) el.setAttribute('d', d); });
+    var il = (1 - Math.cos(2 * Math.PI * p)) / 2;
+    glow.style.opacity = (0.35 + 0.65 * il).toFixed(3);
+  }
+
+  function layout() {
+    var vw = window.innerWidth, H = vh(), st = stacked();
+    root.classList.toggle('stack', st);
+    if (st) { secs.forEach(function (s) { s.style.opacity = ''; s.style.transform = ''; s.style.visibility = ''; }); onScroll(); return; }
+    var top = 112, bottom = 72;
+    var cx = Math.round(vw * (vw < 1200 ? 0.72 : 0.68));
+    var cy = Math.round(top + (H - top - bottom) / 2);
+    var r = Math.floor(Math.min(0.34 * H, 0.19 * vw, cy - top - 124, H - bottom - cy - 124));
+    var rd = r + 44, ro = rd + 60;
+    var pl = Math.max(80, Math.round(0.065 * vw));
+    var useArch = (cx - ro - 72 - pl) >= 320;
+    var pr = useArch ? cx - ro - 72 : cx - ro + 44;
+    var pw = Math.min(540, pr - pl);
+    if (pw < 300) { pw = 300; pl = Math.max(24, pr - pw); }
+    geo = { r: r, cx: cx, cy: cy, rd: rd, ro: ro, pl: pl, pw: pw };
+    root.style.setProperty('--cx', cx + 'px'); root.style.setProperty('--cy', cy + 'px');
+    root.style.setProperty('--ro', ro + 'px'); root.style.setProperty('--pl', pl + 'px'); root.style.setProperty('--pw', pw + 'px');
+    moon.style.width = moon.style.height = (2 * r) + 'px';
+    moon.style.left = (cx - r) + 'px'; moon.style.top = (cy - r) + 'px';
+    var A = ro + 40;
+    arch.hidden = !useArch;
+    arch.style.left = (cx - A) + 'px'; arch.style.width = (2 * A) + 'px'; arch.style.top = (cy - A) + 'px'; arch.style.bottom = '0';
+    var rs = r + 22;
+    sparkBig.style.left = (cx + 0.438 * rs) + 'px'; sparkBig.style.top = (cy - 0.899 * rs) + 'px';
+    sparkSmall.style.left = (cx + 0.682 * rs) + 'px'; sparkSmall.style.top = (cy - 0.731 * rs) + 'px';
+    drawDial(); drawStars();
+    fSmooth = fTarget; placeOrbit(fSmooth);
+    onScroll();
+  }
+
+  function showSec(k) {
+    secs.forEach(function (s, i) { s.classList.toggle('on', i === k); s.setAttribute('aria-hidden', i === k ? 'false' : 'true'); });
+    Array.prototype.forEach.call(document.querySelectorAll('video'), playClip);
+    progNum.textContent = pad(k + 1) + ' / ' + pad(N);
+    progName.textContent = t('phases')[k];
+  }
+
+  // scrolling: the zone's progress drives the dial; a smoothing loop settles the motion
+  function zoneTop() { return zone.getBoundingClientRect().top + window.scrollY; }
+  var archM = document.querySelector('.arch-m'), moonMLit = document.querySelector('.moon-m .lit');
+  function onScroll() {
+    if (stacked()) {
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      rp.style.width = (max > 0 ? Math.min(100, 100 * window.scrollY / max) : 0) + '%';
+      if (archM && moonMLit) {
+        var rc = archM.getBoundingClientRect(), H0 = window.innerHeight;
+        var a = Math.max(0, Math.min(1, (H0 - rc.top) / (H0 * 0.9)));   // new at the foot of the screen, full by the time it reaches the top
+        moonMLit.setAttribute('d', litPath(0.5 * a, 100));
+      }
+      return;
+    }
+    var H = vh(), STEP = 0.8 * H, zt = zoneTop();
+    fTarget = Math.max(0, Math.min(N - 1, (window.scrollY - zt) / STEP));
+    var k = Math.round(fTarget);
+    if (k !== active) { active = k; showSec(k); }
+    var past = window.scrollY > zt + (N - 1) * STEP + H * 0.35;
+    foot.classList.toggle('gone', past);
+    bar.classList.toggle('solid', past);
+    rp.style.width = Math.min(100, 100 * Math.max(0, window.scrollY - zt) / ((N - 1) * STEP)).toFixed(2) + '%';
+    if (!raf) raf = requestAnimationFrame(tick);
+  }
+  function tick() {
+    raf = 0;
+    var diff = fTarget - fSmooth;
+    if (Math.abs(diff) < 0.0015) { fSmooth = fTarget; placeOrbit(fSmooth); return; }
+    fSmooth += diff * 0.22;
+    placeOrbit(fSmooth);
+    raf = requestAnimationFrame(tick);
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  function scrollToStop(k) {
+    var behavior = mqReduce.matches ? 'auto' : 'smooth';
+    if (stacked()) { secs[k].scrollIntoView({ behavior: behavior, block: 'start' }); return; }
+    window.scrollTo({ top: zoneTop() + k * 0.8 * vh(), behavior: behavior });
+  }
+  function scrollToId(id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    var behavior = mqReduce.matches ? 'auto' : 'smooth';
+    var y = el.getBoundingClientRect().top + window.scrollY - (stacked() ? 72 : 112);
+    window.scrollTo({ top: y, behavior: behavior });
+  }
+
+  // the stacked layout: the section crossing the middle sets the phase; blocks fade up as they arrive
+  var ioPhase = new IntersectionObserver(function (entries) {
+    if (!stacked()) return;
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      var k = phaseSecs.indexOf(e.target);
+      if (k < 0) return;
+      cur = k; drawMoon();
+      if (k === 1) words.classList.add('lit');
+    });
+  }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
+  phaseSecs.forEach(function (s) { ioPhase.observe(s); });
+  var ioFx = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); ioFx.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  Array.prototype.forEach.call(document.querySelectorAll('.fx'), function (el) { ioFx.observe(el); });
+
+  // links, orbit titles
+  document.addEventListener('click', function (e) {
+    var el = e.target.closest('[data-go], [data-scroll]');
+    if (!el || el.target === '_blank') return;
+    e.preventDefault();
+    if (el.hasAttribute('data-go')) scrollToStop(parseInt(el.getAttribute('data-go'), 10));
+    else scrollToId(el.getAttribute('data-scroll'));
+  });
+
+  var copyBtn = document.getElementById('copy-btn');
+  copyBtn.addEventListener('click', function () {
+    var ok = function () { copyBtn.textContent = t('copied'); setTimeout(function () { copyBtn.textContent = t('copy'); }, 1600); };
+    var fallback = function () { var r = document.createRange(); r.selectNodeContents(document.querySelector('[data-email]')); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(CONFIG.email).then(ok, fallback); else fallback();
+  });
+
+  var resizeTimer = 0;
+  window.addEventListener('resize', function () { clearTimeout(resizeTimer); resizeTimer = setTimeout(layout, 120); });
+  mqStack.addEventListener('change', layout);
+  mqReduce.addEventListener('change', layout);
+
+  applyLang();
+  layout();
+  drawMoon();
+  secs.forEach(function (s, i) { s.setAttribute('aria-hidden', i === 0 ? 'false' : 'true'); });
+  var ids = secs.map(function (s) { return s.id; });
+  if (location.hash) {
+    var h = location.hash.slice(1), k = ids.indexOf(h);
+    setTimeout(function () { if (k > 0) scrollToStop(k); else if (h === 'takepart' || h === 'waitlist' || h === 'contact') scrollToId(h); }, 60);
+  }
+})();
+</script>
+
 </body>
 </html>
