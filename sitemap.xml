@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://firstmooncare.com/</loc></url>
+  <url><loc>https://firstmooncare.com/services/carer.html</loc></url>
+  <url><loc>https://firstmooncare.com/services/meals.html</loc></url>
+  <url><loc>https://firstmooncare.com/services/lactation.html</loc></url>
+  <url><loc>https://firstmooncare.com/services/workshop.html</loc></url>
+  <url><loc>https://firstmooncare.com/services/wellness.html</loc></url>
+  <url><loc>https://firstmooncare.com/services/stay.html</loc></url>
   <url><loc>https://firstmooncare.com/privacy.html</loc></url>
 </urlset>
