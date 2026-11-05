@@ -61,7 +61,29 @@
   var PAGE = window.FM_I18N || { en: {}, zh: {} };
   var lang = 'en';
   try { var l0 = localStorage.getItem('fm-lang'); if (l0 === 'zh' || l0 === 'en') lang = l0; } catch (e) {}
+  var lq = /[?&]lang=(zh|en)(?:&|$)/.exec(location.search); if (lq) lang = lq[1];   // the address wins: ?lang=zh is the Chinese page
   function t(k) { var d = PAGE[lang] || {}; if (k in d) return d[k]; return COMMON[lang][k]; }
+
+  // The address carries the language (?lang=zh), so search engines can find the Chinese pages and a shared link
+  // opens in the language it was shared in. Links between our own pages keep it; the canonical link follows it.
+  function langHref(h) {
+    var i = h.indexOf('#'), path = i < 0 ? h : h.slice(0, i), hash = i < 0 ? '' : h.slice(i);
+    return lang === 'zh' ? path + (path.indexOf('?') < 0 ? '?' : '&') + 'lang=zh' + hash : h;
+  }
+  function syncLangLinks() {
+    Array.prototype.forEach.call(document.querySelectorAll('a[href]:not([data-href])'), function (a) {
+      var h = a.getAttribute('data-base');
+      if (h === null) { h = a.getAttribute('href'); if (!h || /^(#|[a-z][a-z0-9+.-]*:|\/\/)/i.test(h)) return; a.setAttribute('data-base', h); }
+      a.setAttribute('href', langHref(h));
+    });
+    var c = document.querySelector('link[rel="canonical"]'), alt = document.querySelector('link[hreflang="' + (lang === 'zh' ? 'zh' : 'en') + '"]');
+    if (c && alt) c.href = alt.href;
+    try {
+      var u = new URL(location.href);
+      if (lang === 'zh') u.searchParams.set('lang', 'zh'); else u.searchParams.delete('lang');
+      if (u.href !== location.href) history.replaceState(history.state, '', u.href);
+    } catch (e) {}
+  }
 
   // the flat moon
   function litPath(p, r) {
@@ -80,7 +102,7 @@
     Array.prototype.forEach.call(document.querySelectorAll('[data-href]'), function (a) {
       var kind = a.getAttribute('data-href'), url = formUrl(kind);
       if (url) { a.href = url; a.target = '_blank'; a.rel = 'noopener'; }
-      else { a.href = home + (kind === 'survey' ? '#takepart' : '#waitlist'); a.removeAttribute('target'); }
+      else { a.href = langHref(home + (kind === 'survey' ? '#takepart' : '#waitlist')); a.removeAttribute('target'); }
     });
   }
   Array.prototype.forEach.call(document.querySelectorAll('[data-email]'), function (el) {
@@ -90,7 +112,7 @@
   });
 
   function applyLang() {
-    root.setAttribute('lang', lang === 'zh' ? 'zh-Hant' : 'en');
+    root.setAttribute('lang', lang === 'zh' ? 'zh-Hant' : 'en-GB');
     Array.prototype.forEach.call(document.querySelectorAll('[data-i]'), function (el) {
       var k = el.getAttribute('data-i'), v = t(k);
       if (v === undefined) return;
@@ -98,8 +120,12 @@
     });
     var lb = document.getElementById('lang-btn'); if (lb) lb.textContent = t('lang_btn');
     var tb = document.getElementById('theme-btn'); if (tb) tb.querySelector('span').textContent = root.getAttribute('data-theme') === 'dark' ? t('theme_day') : t('theme_night');
-    document.title = (PAGE.title && PAGE.title[lang]) ? PAGE.title[lang] + ' — First Moon' : 'First Moon 初月';
+    // the tab title and search snippet, in the page's language (FM_I18N.head on each page)
+    var head = (PAGE.head || {})[lang];
+    document.title = head ? head.title : (PAGE.title && PAGE.title[lang]) ? PAGE.title[lang] + ' | First Moon 初月' : 'First Moon 初月';
+    var md = document.querySelector('meta[name="description"]'); if (md && head) md.setAttribute('content', head.description);
     wireForms();
+    syncLangLinks();
     try { localStorage.setItem('fm-lang', lang); } catch (e) {}
   }
   var lb = document.getElementById('lang-btn');
