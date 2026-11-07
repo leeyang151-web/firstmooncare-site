@@ -1,11 +1,116 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://firstmooncare.com/</loc></url>
-  <url><loc>https://firstmooncare.com/services/carer.html</loc></url>
-  <url><loc>https://firstmooncare.com/services/meals.html</loc></url>
-  <url><loc>https://firstmooncare.com/services/lactation.html</loc></url>
-  <url><loc>https://firstmooncare.com/services/workshop.html</loc></url>
-  <url><loc>https://firstmooncare.com/services/wellness.html</loc></url>
-  <url><loc>https://firstmooncare.com/services/stay.html</loc></url>
-  <url><loc>https://firstmooncare.com/privacy.html</loc></url>
+<!-- Every page in English and in Chinese (?lang=zh). Add new pages here, with both addresses. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://firstmooncare.com/</loc>
+    <lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://firstmooncare.com/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://firstmooncare.com/?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://firstmooncare.com/"/>
+  </url>
+  <url>
+    <loc>https://firstmooncare.com/?lang=zh</loc>
+    <lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://firstmooncare.com/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://firstmooncare.com/?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://firstmooncare.com/"/>
+  </url>
+  <url>
+    <loc>https://firstmooncare.com/services/carer.html</loc>
+    <lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://firstmooncare.com/services/carer.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://firstmooncare.com/services/carer.html?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://firstmooncare.com/services/carer.html"/>
+  </url>
+  <url>
+    <loc>https://firstmooncare.com/services/carer.html?lang=zh</loc>
+    <lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://firstmooncare.com/services/carer.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://firstmooncare.com/services/carer.html?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://firstmooncare.com/services/carer.html"/>
+  </url>
+  <url>
+    <loc>https://firstmooncare.com/services/meals.html</loc>
+    <lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://firstmooncare.com/services/meals.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://firstmooncare.com/services/meals.html?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://firstmooncare.com/services/meals.html"/>
+  </url>
+  <url>
+    <loc>https://firstmooncare.com/services/meals.html?lang=zh</loc>
+    <lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://firstmooncare.com/services/meals.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://firstmooncare.com/services/meals.html?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://firstmooncare.com/services/meals.html"/>
+  </url>
+  <url>
+    <loc>https://firstmooncare.com/services/lactation.html</loc>
+    <lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://firstmooncare.com/services/lactation.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://firstmooncare.com/services/lactation.html?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://firstmooncare.com/services/lactation.html"/>
+  </url>
+  <url>
+    <loc>https://firstmooncare.com/services/lactation.html?lang=zh</loc>
+    <lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://firstmooncare.com/services/lactation.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://firstmooncare.com/services/lactation.html?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://firstmooncare.com/services/lactation.html"/>
+  </url>
+  <url>
+    <loc>https://firstmooncare.com/services/workshop.html</loc>
+    <lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://firstmooncare.com/services/workshop.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://firstmooncare.com/services/workshop.html?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://firstmooncare.com/services/workshop.html"/>
+  </url>
+  <url>
+    <loc>https://firstmooncare.com/services/workshop.html?lang=zh</loc>
+    <lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://firstmooncare.com/services/workshop.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://firstmooncare.com/services/workshop.html?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://firstmooncare.com/services/workshop.html"/>
+  </url>
+  <url>
+    <loc>https://firstmooncare.com/services/wellness.html</loc>
+    <lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://firstmooncare.com/services/wellness.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://firstmooncare.com/services/wellness.html?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://firstmooncare.com/services/wellness.html"/>
+  </url>
+  <url>
+    <loc>https://firstmooncare.com/services/wellness.html?lang=zh</loc>
+    <lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://firstmooncare.com/services/wellness.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://firstmooncare.com/services/wellness.html?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://firstmooncare.com/services/wellness.html"/>
+  </url>
+  <url>
+    <loc>https://firstmooncare.com/services/stay.html</loc>
+    <lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://firstmooncare.com/services/stay.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://firstmooncare.com/services/stay.html?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://firstmooncare.com/services/stay.html"/>
+  </url>
+  <url>
+    <loc>https://firstmooncare.com/services/stay.html?lang=zh</loc>
+    <lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://firstmooncare.com/services/stay.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://firstmooncare.com/services/stay.html?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://firstmooncare.com/services/stay.html"/>
+  </url>
+  <url>
+    <loc>https://firstmooncare.com/privacy.html</loc>
+    <lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://firstmooncare.com/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://firstmooncare.com/privacy.html?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://firstmooncare.com/privacy.html"/>
+  </url>
+  <url>
+    <loc>https://firstmooncare.com/privacy.html?lang=zh</loc>
+    <lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://firstmooncare.com/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://firstmooncare.com/privacy.html?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://firstmooncare.com/privacy.html"/>
+  </url>
 </urlset>
