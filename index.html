@@ -135,6 +135,13 @@ a { color: var(--clay-deep); text-underline-offset: 3px; }
 .shade { fill: var(--moon-shadow); }
 .lit { fill: var(--moon-gold); }
 .rim { fill: none; stroke: var(--moon-gold); stroke-width: 1; opacity: .5; vector-effect: non-scaling-stroke; }
+/* the mother and child inside the moon: cut out of the lit part, a faint outline in the shadow (like earthshine), so the phases reveal her as the moon fills */
+.mother .fig { fill: var(--moon-shadow); }
+.mother .line { fill: none; stroke: var(--moon-gold); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.mother.ghost { opacity: .2; }
+.mother.ghost .fig { fill: var(--moon-gold); }
+.mother.ghost .line { stroke: var(--moon-shadow); }
+:root[data-theme="dark"] .mother.ghost { opacity: .16; }
 .dial { position: absolute; overflow: visible; }
 .dial .ring { fill: none; stroke: var(--dial); stroke-width: 1; vector-effect: non-scaling-stroke; }
 .dial .ring-dots { fill: none; stroke: var(--dial-soft); stroke-width: 1.5; stroke-dasharray: 1 7; stroke-linecap: round; vector-effect: non-scaling-stroke; }
@@ -637,7 +644,27 @@ details p { font-size: 14px; line-height: 1.6; color: var(--stone-soft); margin:
     if (p < 0.5) { a = r * c; return 'M0,' + (-r) + 'A' + r + ',' + r + ' 0 0 1 0,' + r + 'A' + Math.abs(a).toFixed(3) + ',' + r + ' 0 0 ' + (a > 0 ? 0 : 1) + ' 0,' + (-r) + 'Z'; }
     a = -r * c; return 'M0,' + (-r) + 'A' + r + ',' + r + ' 0 0 0 0,' + r + 'A' + Math.abs(a).toFixed(3) + ',' + r + ' 0 0 ' + (a > 0 ? 0 : 1) + ' 0,' + (-r) + 'Z';
   }
+  // The mother and child: a paper-cut figure inside the moon (viewBox -102 -102 204 204). She holds her baby, swaddled, and looks down at it.
+  // The lit part of the moon shows her cut out of the gold; in the shadow she is only a faint outline, so each phase reveals more of her.
+  var MOTHER = '<g transform="translate(2,8) scale(.94)"><g class="fig">'
+    + '<g transform="translate(-8,-66) rotate(24 -4 52)">'
+    + '<path d="M-3,0C3,-.4 7.6,1 10.6,3.4C13.6,5.8 15.2,8 15.8,11C16.4,14 17.2,16.6 17,19C16.9,20.2 16.4,20.8 16.6,22C17.2,24.4 20.4,26.8 21.6,28.6C22.2,29.6 21.6,30.6 20,30.8C19.4,30.8 18.8,31 18.8,31.6C18.8,32.4 19.2,33 18.9,33.8C18.7,34.4 17.8,34.8 17.8,35.1C17.8,35.4 18.6,35.8 18.4,36.6C18.2,37.4 16.9,37.8 16.9,38.6C16.9,39.6 17.8,40.8 17.4,42.2C17,43.6 15.8,44.4 14.4,44.6C11.6,45 9,45.2 7,46.2L2,62L-16,60C-14.6,52 -13,44 -12,38C-17,33 -21,28 -21.6,22C-22.2,15 -20,8 -15.6,4C-12,1.2 -7.6,0 -3,0Z"/>'   // her head, bowed
+    + '<path d="M-15,26C-22,22 -29,26 -29,33C-29,40 -22,43 -16,40Z"/></g>'   // her bun
+    + '<path d="M-14,-30C-18,-20 -26,-13 -34,-9C-46,-3 -54,10 -56,28C-58,46 -54,62 -54,80C-54,96 -58,108 -60,120L22,120C22,96 24,82 30,66C44,62 56,56 63,46L2,2L.5,-16Z"/>'   // neck, back and arms
+    + '<path d="M6,.5C9.6,.5 12.4,1.6 14.2,3.6C15,3.4 16,3.8 15.8,4.8C15.6,5.6 16.6,6 17.6,6.4C18.4,6.8 18.4,7.8 17.8,8.4C18.6,9.2 19.2,10.6 19.5,12L19.5,20C17.4,25 12.4,27.5 6,27.5C-1.5,27.5 -7.5,21.5 -7.5,14C-7.5,6.5 -1.5,.5 6,.5Z"/>'   // the baby's head, face turned up to her
+    + '<path d="M21,2.5C30,3.5 44,9 56,17C64,23 69,30 67,38C65,46 57,48 49,48C34,48 18,41 6,27Z"/></g>'   // the swaddle
+    + '<path class="line" transform="translate(-8,-66) rotate(24 -4 52)" d="M12.4,5C9.6,7.6 8.4,11.6 7.6,15.4C6.8,19.4 4.4,23.6 0,26.4C-4.4,29 -9.6,29.6 -14,28.8"/>'   // her hairline
+    + '<path class="line" d="M-5,5C-11,12 -10,22 -4,26.5M22,2.8C23.2,9 21.8,17 15.8,24.6M-28,4C-36,22 -36,44 -26,54C-10,64 24,61 53,50M-2,30C12,42 34,47 57,46.5"/></g>';   // the baby's head, the blanket's edge, her arm
+  // Puts the figure into a moon's svg: a faint copy under the lit part, and a cut-out copy clipped to it. Returns the clip's path, which follows the lit path.
+  function addMother(svg, key) {
+    var lit = svg.querySelector('.lit');
+    lit.insertAdjacentHTML('beforebegin', '<defs><clipPath id="fm-disc-' + key + '"><circle r="99.5"></circle></clipPath><clipPath id="fm-lit-' + key + '"><path d=""></path></clipPath></defs>'
+      + '<g class="mother ghost" clip-path="url(#fm-disc-' + key + ')">' + MOTHER + '</g>');
+    lit.insertAdjacentHTML('afterend', '<g class="mother cut" clip-path="url(#fm-lit-' + key + ')">' + MOTHER + '</g>');
+    return svg.querySelector('#fm-lit-' + key + ' path');
+  }
   function glyph(p) { return '<svg viewBox="-102 -102 204 204" aria-hidden="true"><circle class="shade" r="100"></circle><path class="lit" d="' + litPath(p, 100) + '"></path><circle class="rim" r="100"></circle></svg>'; }
+  liveLits.push(addMother(moon.querySelector('svg'), 'dial'));
   Array.prototype.forEach.call(document.querySelectorAll('.lit[data-p]'), function (el) { el.setAttribute('d', litPath(parseFloat(el.getAttribute('data-p')), 100)); });
 
   // links and the address, from CONFIG. Each survey or waitlist link opens the form in the language the page is showing;
@@ -860,6 +887,7 @@ details p { font-size: 14px; line-height: 1.6; color: var(--stone-soft); margin:
   // scrolling: the zone's progress drives the dial; a smoothing loop settles the motion
   function zoneTop() { return zone.getBoundingClientRect().top + window.scrollY; }
   var archM = document.querySelector('.arch-m'), moonMLit = document.querySelector('.moon-m .lit');
+  var moonMClip = moonMLit ? addMother(document.querySelector('.moon-m svg'), 'arch') : null;
   function onScroll() {
     if (stacked()) {
       var max = document.documentElement.scrollHeight - window.innerHeight;
@@ -867,7 +895,9 @@ details p { font-size: 14px; line-height: 1.6; color: var(--stone-soft); margin:
       if (archM && moonMLit) {
         var rc = archM.getBoundingClientRect(), H0 = window.innerHeight;
         var a = Math.max(0, Math.min(1, (H0 - rc.top) / (H0 * 0.9)));   // new at the foot of the screen, full by the time it reaches the top
-        moonMLit.setAttribute('d', litPath(0.5 * a, 100));
+        if (mqReduce.matches) a = 1;   // reduced motion: a still, full moon with the mother and child whole
+        var dm = litPath(0.5 * a, 100);
+        moonMLit.setAttribute('d', dm); moonMClip.setAttribute('d', dm);
       }
       return;
     }
